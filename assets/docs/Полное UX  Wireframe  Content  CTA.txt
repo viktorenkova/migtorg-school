@@ -1,0 +1,598 @@
+Полное UX / Wireframe / Content / CTA ТЗ для AI-агента
+Проект: Migtorg PRO
+Landing Page — онлайн-школа заработка на автомобильных аукционах
+
+Основано на внутреннем ТЗ проекта и позиционировании Migtorg как инфраструктурного игрока рынка автомобильных аукционов с опытом работы с 2012 года.
+
+1. ОБЩАЯ КОНЦЕПЦИЯ
+Что это за продукт
+
+Migtorg PRO — это:
+
+бесплатная онлайн-школа;
+образовательная экосистема;
+вход в рынок автомобильных аукционов;
+система подготовки участников торгов;
+инструмент лидогенерации для платформы Migtorg.
+
+Это НЕ:
+
+инфоцыганский курс;
+“успешный успех”;
+мотивационное обучение.
+
+Это:
+
+профессиональная среда с реальной экспертизой рынка.
+2. ОСНОВНАЯ ЦЕЛЬ ЛЕНДИНГА
+Главная задача:
+
+Конвертировать посетителя в:
+
+регистрацию в школе;
+подписку;
+участника экосистемы Migtorg;
+будущего участника торгов.
+3. ОСНОВНАЯ UX-ЛОГИКА
+
+Пользователь должен пройти путь:
+
+Этап 1
+“Я слышал, что на перепродаже авто зарабатывают”
+
+↓
+
+Этап 2
+“Я не понимаю, как устроены аукционы”
+
+↓
+
+Этап 3
+“Эти ребята реально понимают рынок”
+
+↓
+
+Этап 4
+“Это не инфобизнес — тут реальные сделки и цифры”
+
+↓
+
+Этап 5
+“Я тоже хочу разобраться”
+
+↓
+
+Этап 6
+регистрация в школе
+
+↓
+
+Этап 7
+регистрация на платформе Migtorg
+4. ОБЩИЙ ВИЗУАЛЬНЫЙ СТИЛЬ
+STYLE:
+Automotive Intelligence / Auction Finance
+ВИЗУАЛЬНЫЕ АССОЦИАЦИИ
+Bloomberg terminal
+Trading dashboard
+Premium fintech
+Automotive analytics
+Dark modern UI
+Closed professional community
+ЧТО НЕЛЬЗЯ ДЕЛАТЬ
+НЕ:
+luxury lifestyle;
+Lamborghini/Ferrari;
+деньги/золото;
+“стань богатым”;
+инфобизнес вайб;
+блогерская эстетика;
+гаражный YouTube.
+ЧТО ДОЛЖНО БЫТЬ
+ДА:
+реальные машины;
+реальные аукционы;
+ставки;
+VIN;
+калькуляции прибыли;
+аналитика;
+кейсы;
+дашборды;
+интерфейсы;
+темная премиальная эстетика.
+5. ЦВЕТОВАЯ СИСТЕМА
+Primary Colors
+Graphite Black
+
+#0F1115
+
+Deep Navy
+
+#111827
+
+Gunmetal
+
+#1F2937
+
+Accent Colors
+Signal Coral
+
+#FF5A4F
+
+(основной CTA)
+
+Profit Green
+
+#22C55E
+
+(используется только:
+
+прибыль;
+ROI;
+успешные сделки)
+Supporting
+Steel Gray
+
+#6B7280
+
+Soft White
+
+#F3F4F6
+
+6. ТИПОГРАФИКА
+Headlines
+Manrope
+или
+Sora
+Body/UI
+Inter
+7. ОБЩАЯ СТРУКТУРА ЛЕНДИНГА
+FULL PAGE STRUCTURE
+BLOCK 1 — HERO SECTION
+ЦЕЛЬ:
+
+Сразу объяснить:
+
+что это;
+зачем;
+почему доверять;
+какой результат.
+Layout
+Left:
+
+Контент
+
+Right:
+
+3D/laptop visualization с интерфейсом Migtorg
+
+HERO CONTENT
+Badge
+
+“Бесплатная школа”
+
+H1
+Научитесь зарабатывать
+на автомобильных аукционах
+
+Слово “аукционах” выделить Profit Green.
+
+Subheadline
+
+Поймите механику рынка, научитесь оценивать лоты, избегать ошибок и зарабатывать на перепродаже автомобилей с аукционов.
+
+Trust bullets
+Экспертиза с 2012 года
+Реальные кейсы и цифры
+Доступ к внутренней механике рынка
+CTA GROUP
+Primary CTA
+
+“Получить доступ”
+
+Secondary CTA
+
+“Смотреть кейсы”
+
+HERO VISUAL
+Главный объект:
+
+Ноутбук с интерфейсом Migtorg.
+
+Использовать:
+
+dark UI;
+floating cards;
+кейсы;
+прибыль;
+ставки;
+лоты.
+FLOATING CARDS
+Примеры:
+Card 1
+
+Средняя прибыль сделки:
+198 000 ₽
+
+Card 2
+
+Успешных учеников:
+2147+
+
+Card 3
+
+Последняя сделка:
+BMW X5
+Прибыль:
+330 000 ₽
+
+UX EFFECTS
+subtle glow;
+glassmorphism;
+hover animations;
+smooth scroll;
+dark gradients.
+BLOCK 2 — SOCIAL PROOF BAR
+ЦЕЛЬ:
+
+Сразу показать масштаб рынка.
+
+Content
+12+ лет на рынке
+120 000+ лотов
+600 000+ авто в аукционах
+35+ регионов
+100% реальные кейсы
+STYLE
+
+Dark horizontal metrics bar.
+
+BLOCK 3 — “ПОЧЕМУ НА ЭТОМ ЗАРАБАТЫВАЮТ?”
+ЦЕЛЬ:
+
+Показать экономику рынка.
+
+Section Title
+Почему на этом зарабатывают?
+Cards (4 columns)
+Card 1
+
+Рынок растет
+
+Card 2
+
+Авто продаются ниже рынка
+
+до -70%
+
+Card 3
+
+Высокая ликвидность
+
+Card 4
+
+Реальная прибыль
+
+150–300 тыс ₽ со сделки
+
+UX
+
+Cards with:
+
+subtle borders;
+iconography;
+hover lift effect.
+BLOCK 4 — “КАК РАБОТАЕТ РЫНОК”
+ЦЕЛЬ:
+
+Снять страх и объяснить механику.
+
+Timeline UX
+Step 1
+
+Находим лот
+
+↓
+
+Step 2
+
+Проверяем историю
+
+↓
+
+Step 3
+
+Оцениваем ремонт
+
+↓
+
+Step 4
+
+Участвуем в торгах
+
+↓
+
+Step 5
+
+Восстанавливаем
+
+↓
+
+Step 6
+
+Перепродаем
+
+IMPORTANT
+
+Использовать:
+
+реальные интерфейсы;
+реальные аукционные элементы;
+ставки;
+VIN;
+damage reports.
+BLOCK 5 — REAL CASE STUDY
+ЦЕЛЬ:
+
+Главный продающий блок.
+
+Layout
+Left:
+
+Фото авто
+
+Center:
+
+Финансовая таблица
+
+Right:
+
+Результат сделки
+
+Example
+
+BMW X5 2020
+
+Покупка:
+650 000 ₽
+
+Ремонт:
+140 000 ₽
+
+Доп. расходы:
+30 000 ₽
+
+Продажа:
+1 050 000 ₽
+
+PROFIT
+Чистая прибыль:
+230 000 ₽
+
+(Profit Green)
+
+UX
+animated numbers;
+glow effect on profit;
+timeline of deal;
+before/after photos.
+BLOCK 6 — “ЧТО ВНУТРИ ШКОЛЫ”
+ЦЕЛЬ:
+
+Показать содержимое обучения.
+
+GRID MODULES
+Module 1
+
+Поиск ликвидных лотов
+
+Module 2
+
+Оценка и расчет прибыли
+
+Module 3
+
+Стратегия ставок
+
+Module 4
+
+Ремонт и восстановление
+
+Module 5
+
+Юридическая безопасность
+
+Module 6
+
+Как стартовать с минимальным бюджетом
+
+Module 7
+
+Ошибки новичков
+
+Module 8
+
+Масштабирование бизнеса
+
+UX
+
+Cards with:
+
+neon line icons;
+hover transitions;
+glass surfaces.
+BLOCK 7 — LIVE LOT ANALYSIS
+ЦЕЛЬ:
+
+Показать “внутрянку”.
+
+Title
+Разборы лотов в реальном времени
+Content
+
+Видео/preview:
+Эксперт открывает аукцион и показывает:
+
+почему берем;
+почему не берем;
+сколько можно заработать;
+где риски.
+UX
+
+Embedded video previews.
+
+Dark media cards.
+
+BLOCK 8 — “ОШИБКИ НОВИЧКОВ”
+ЦЕЛЬ:
+
+Работа со страхами.
+
+Content Examples
+Почему новички уходят в минус
+Какие авто нельзя брать
+Как не попасть на дорогой ремонт
+Ошибки оценки ликвидности
+STYLE
+
+Contrast section.
+
+Slight red warning accents.
+
+BLOCK 9 — COMMUNITY
+ЦЕЛЬ:
+
+Создать ощущение закрытого клуба.
+
+Messaging
+
+Закрытое сообщество участников рынка:
+
+сделки;
+обсуждения;
+помощь;
+разборы;
+партнерства.
+Visuals
+
+Telegram / chat inspired UI.
+
+BLOCK 10 — FINAL CTA
+ЦЕЛЬ:
+
+Максимальная конверсия.
+
+Headline
+Получите доступ к механике рынка,
+на котором работают профессионалы
+Subheadline
+
+Бесплатная школа Migtorg PRO поможет понять, как устроены автомобильные аукционы и как зарабатывать на них системно.
+
+CTA
+Primary
+
+Получить доступ бесплатно
+
+FORM
+
+Fields:
+
+имя
+телефон/email
+TRUST
+Никакого спама
+Бесплатный доступ
+Реальные кейсы
+8. UX PRINCIPLES
+UX MUST FEEL:
+Professional
+Calm
+Premium
+Analytical
+Real
+UI SHOULD USE
+smooth transitions;
+dark gradients;
+glassmorphism;
+premium shadows;
+floating data cards;
+animated counters;
+subtle glow.
+9. MOBILE UX
+MOBILE FIRST PRIORITIES
+Самое важное:
+CTA above the fold;
+кейсы;
+прибыль;
+простая форма;
+видео;
+быстрый скролл.
+Mobile Hero
+
+На мобильном:
+
+laptop visualization first;
+headline second;
+CTA immediately visible.
+10. CTA STRATEGY
+CTA TYPES
+SOFT CTA
+Смотреть кейсы
+Посмотреть разбор
+Скачать гайд
+PRIMARY CTA
+Получить доступ
+Начать обучение
+CTA FREQUENCY
+
+CTA должен встречаться:
+
+в hero;
+после кейсов;
+после программы;
+в footer.
+11. EMOTIONAL ARC
+Пользователь должен пройти:
+
+Интерес
+→ Доверие
+→ Понимание
+→ Вовлечение
+→ Желание разобраться
+→ Регистрация
+
+12. ВАЖНЕЙШАЯ ИДЕЯ ДЛЯ AI-АГЕНТА
+Этот сайт НЕ продает курс.
+
+Он:
+
+продает доступ к рынку;
+снижает страх;
+показывает реальные сделки;
+демонстрирует экспертность;
+создает ощущение профессиональной среды.
+13. FINAL CREATIVE DIRECTION
+Visual Keywords
+automotive intelligence
+auction finance
+dark premium
+real market
+analytical dashboard
+trading interface
+modern fintech
+professional ecosystem
+14. ТЕХНИЧЕСКИЕ РЕКОМЕНДАЦИИ ДЛЯ FRONTEND
+Желательно:
+Next.js
+Tailwind
+Framer Motion
+GSAP (аккуратно)
+responsive dark UI
+lazy loading
+smooth parallax
+15. ИТОГОВОЕ ОЩУЩЕНИЕ ОТ САЙТА
+
+Пользователь должен подумать:
+
+“Это выглядит как настоящая профессиональная инфраструктура рынка, а не очередной курс из интернета.”
