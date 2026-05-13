@@ -4,19 +4,14 @@ import {
   AlertTriangle,
   ArrowDown,
   ArrowRight,
-  BadgeCheck,
   BarChart3,
   Calculator,
   Car,
   CheckCircle2,
   ChevronDown,
-  CircleDollarSign,
   ClipboardList,
-  Gauge,
   Gavel,
   LockKeyhole,
-  MessageCircle,
-  Percent,
   Play,
   Search,
   ShieldCheck,
@@ -33,7 +28,6 @@ import {
   chatMessages,
   communityPills,
   dealSteps,
-  economicsCards,
   footerNavigation,
   footerUserLinks,
   heroBenefits,
@@ -42,10 +36,9 @@ import {
   mistakes,
   modules
 } from "./data";
-import { Card, GlowButton, IconBox, Logo, Reveal, SectionEyebrow } from "./components/ui";
+import { GlowButton, IconBox, Logo, Reveal, SectionEyebrow } from "./components/ui";
 
 const benefitIcons = [ShieldCheck, BarChart3, Users];
-const economicsIcons = [TrendingUp, Percent, Gauge, BarChart3];
 const stepIcons = [Search, ShieldCheck, Wrench, Gavel, ClipboardList, TrendingUp];
 const moduleIcons = [Car, Calculator, Gavel, Wrench, ShieldCheck, Wallet, AlertTriangle, TrendingUp];
 
@@ -163,41 +156,69 @@ function MiniSparkline() {
 }
 
 export function MarketEconomics() {
+  const dealChecklist = [
+    { text: "Проверить, может ли лот быть передан", Icon: ShieldCheck },
+    { text: "Отличить перспективный автомобиль от бесполезного", Icon: Target, tag: "BID" },
+    { text: "Заранее посчитать ремонт, логистику и комиссию", Icon: Calculator },
+    { text: "Определить предельную ставку", Icon: Gavel, tag: "RISK" },
+    { text: "Осмотреть автомобиль до оплаты", Icon: Search, tag: "VIN" },
+    { text: "Понять, когда отказ от лота обоснован", Icon: LockKeyhole },
+    { text: "Иметь план перепродажи еще до участия в торгах", Icon: TrendingUp, tag: "ROI" }
+  ];
+
   return (
-    <section id="economy" className="page-section">
-      <div className="section-container">
+    <section id="economy" className="page-section actuality-section">
+      <div className="section-container actuality-container">
         <Reveal>
-          <div className="max-w-[760px]">
-            <SectionEyebrow>Экономика рынка</SectionEyebrow>
-            <h2 className="section-title">Почему на этом зарабатывают?</h2>
-            <p className="section-subtitle">
-              Доход появляется из дисциплины: цена входа, оценка ремонта, контроль ставки и понимание
-              ликвидности.
-            </p>
+          <div className="actuality-copy">
+            <SectionEyebrow>Почему это актуально</SectionEyebrow>
+            <h2 className="section-title actuality-title">
+              Большинство новичков теряют деньги
+              <br />
+              не из-за рынка, а из-за отсутствия системы
+            </h2>
+            <div className="actuality-text">
+              <p>
+                Автомобильные аукционы открывают доступ к интересным лотам. Но без понимания механики торгов, оценки
+                повреждений, расчета ставки и юридической проверки можно быстро уйти в минус.
+              </p>
+              <p>
+                Новички часто думают, что достаточно просто “купить дешевле рынка”. На практике прибыль появляется только
+                там, где есть расчет, дисциплина и понятный план сделки.
+              </p>
+            </div>
+            <article className="actuality-conclusion">
+              <ShieldCheck aria-hidden="true" />
+              <span />
+              <strong>Migtorg PRO помогает пройти этот путь не вслепую, а по понятной системе.</strong>
+            </article>
           </div>
         </Reveal>
 
-        <div className="mt-14 grid gap-7 md:grid-cols-2 xl:grid-cols-4">
-          {economicsCards.map((card, index) => {
-            const Icon = economicsIcons[index];
-            const tone = card.tone === "green" ? "green" : "red";
+        <Reveal delay={0.08}>
+          <article className="actuality-check-card">
+            <div className="actuality-card-header">
+              <span className="actuality-target-icon" aria-hidden="true">
+                <Target />
+              </span>
+              <h3>Что отличает сделку от ошибки</h3>
+            </div>
 
-            return (
-              <Reveal key={card.number} delay={index * 0.05}>
-                <Card as="article" className="economy-card">
-                  <div className="mb-16 flex flex-row-reverse items-start justify-between">
-                    <IconBox Icon={Icon} tone={tone} />
-                    <span className="text-3xl font-black text-white/38">{card.number}</span>
-                  </div>
-                  <h3>{card.title}</h3>
-                  {card.value ? <strong className={tone === "green" ? "text-green" : "text-red"}>{card.value}</strong> : null}
-                  <span className="card-divider" />
-                  <p>{card.text}</p>
-                </Card>
-              </Reveal>
-            );
-          })}
-        </div>
+            <ul className="actuality-checklist">
+              {dealChecklist.map(({ text, Icon, tag }) => (
+                <li key={text}>
+                  <span className="actuality-checkmark" aria-hidden="true">
+                    <CheckCircle2 />
+                  </span>
+                  <Icon className="actuality-row-icon" aria-hidden="true" />
+                  <span className="actuality-item-text">{text}</span>
+                  {tag ? <span className={`actuality-tag actuality-tag-${tag.toLowerCase()}`}>{tag}</span> : null}
+                  <ChevronDown className="actuality-chevron" aria-hidden="true" />
+                </li>
+              ))}
+            </ul>
+          </article>
+        </Reveal>
       </div>
     </section>
   );
