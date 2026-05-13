@@ -88,13 +88,6 @@ export const dealSteps = [
   }
 ];
 
-export const caseRows = [
-  ["Покупка", "650 000 ₽"],
-  ["Ремонт", "140 000 ₽"],
-  ["Доп. расходы", "30 000 ₽"],
-  ["Продажа", "1 050 000 ₽"]
-];
-
 export const modules = [
   {
     title: "Поиск ликвидных лотов",
@@ -170,7 +163,7 @@ export const chatMessages = [
 
 export const accessBadges = ["Бесплатный доступ", "Без карты", "Реальные разборы"];
 
-export const footerNavigation = ["Экономика", "Механика", "Кейсы", "Программа", "Доступ к школе"];
+export const footerNavigation = ["Экономика", "Механика", "Гайд", "Программа", "Доступ к школе"];
 
 export const footerUserLinks = [
   "Войти в аккаунт",

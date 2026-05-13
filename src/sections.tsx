@@ -13,6 +13,7 @@ import {
   ChevronDown,
   ChartNoAxesCombined,
   ClipboardList,
+  FileText,
   Gavel,
   LockKeyhole,
   Play,
@@ -29,7 +30,6 @@ import {
 import { images } from "./constants";
 import {
   accessBadges,
-  caseRows,
   chatMessages,
   communityPills,
   footerNavigation,
@@ -44,6 +44,15 @@ import { GlowButton, IconBox, Logo, Reveal, SectionEyebrow } from "./components/
 
 const benefitIcons = [ShieldCheck, BarChart3, Users];
 const moduleIcons = [Car, Calculator, Gavel, Wrench, ShieldCheck, Wallet, AlertTriangle, TrendingUp];
+const guideItems = [
+  "Почему нельзя ставить на лот без расчета максимальной цены",
+  "Почему выигранный лот не всегда передают",
+  "Чем опасны автомобили с “простыми” повреждениями",
+  "Почему нельзя игнорировать логистику и стоянку",
+  "Как новички переплачивают в торгах",
+  "Почему осмотр до оплаты обязателен",
+  "Что происходит при необоснованном отказе от лота"
+];
 
 export function Hero() {
   return (
@@ -374,51 +383,168 @@ export function DealMechanics() {
 }
 
 export function CaseStudy() {
-  return (
-    <section id="case" className="page-section">
-      <div className="section-container">
-        <Reveal>
-          <div className="max-w-[860px]">
-            <SectionEyebrow>Реальный кейс</SectionEyebrow>
-            <h2 className="section-title">Сделка видна в цифрах</h2>
-            <p className="section-subtitle">
-              Вместо обещаний — понятная калькуляция: покупка, ремонт, расходы, продажа и чистая прибыль.
-            </p>
-          </div>
-        </Reveal>
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-        <Reveal delay={0.08}>
-          <article className="case-panel">
-            <div className="case-image">
-              <img src={images.caseBmw} alt="BMW X5 2020 на площадке автомобильного аукциона" />
-              <span className="case-badge">РЕАЛЬНЫЙ КЕЙС</span>
-              <span className="case-name">BMW X5 2020</span>
-            </div>
-            <div className="case-table">
-              <p>Лот 25837405</p>
-              <strong>28 дней</strong>
-              <span>от покупки до продажи</span>
-              <dl>
-                {caseRows.map(([name, value]) => (
-                  <div key={name}>
-                    <dt>{name}</dt>
-                    <dd>{value}</dd>
-                  </div>
+  useEffect(() => {
+    if (!isModalOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsModalOpen(false);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isModalOpen]);
+
+  const openGuideModal = () => {
+    setIsSuccess(false);
+    setIsModalOpen(true);
+  };
+
+  return (
+    <>
+      <section id="case" className="page-section guide-section">
+        <div className="section-container guide-container">
+          <Reveal className="guide-copy">
+            <SectionEyebrow>БЕСПЛАТНЫЙ ГАЙД</SectionEyebrow>
+            <h2 className="section-title guide-title">
+              Скачайте бесплатный гайд
+              <br />
+              “7 ошибок новичков
+              <br />
+              на автоаукционах”
+            </h2>
+            <p className="section-subtitle guide-subtitle">
+              Короткий практический материал для тех, кто хочет избежать самых дорогих ошибок ещё до первой ставки.
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.08} className="guide-card-wrap">
+            <article className="guide-card">
+              <div className="guide-card-top">
+                <span>
+                  <FileText aria-hidden="true" />
+                  PDF
+                </span>
+                <span>Бесплатно</span>
+                <span>7 ошибок</span>
+              </div>
+              <h3>Что внутри гайда</h3>
+              <ul className="guide-list">
+                {guideItems.map((item) => (
+                  <li key={item}>
+                    <span className="guide-dot" aria-hidden="true" />
+                    {item}
+                  </li>
                 ))}
-              </dl>
-            </div>
-            <div className="profit-card">
-              <p>Чистая прибыль</p>
-              <strong>230 000 ₽</strong>
-              <span>Сделка разобрана по шагам: ставка, восстановление, документы и продажа.</span>
-              <GlowButton href="#access" className="mt-auto w-full">
-                Разобраться в механике
-              </GlowButton>
-            </div>
-          </article>
-        </Reveal>
-      </div>
-    </section>
+              </ul>
+            </article>
+          </Reveal>
+
+          <Reveal delay={0.12} className="guide-action">
+            <GlowButton type="button" className="guide-cta-button" onClick={openGuideModal}>
+              Скачать бесплатный гайд <ArrowRight aria-hidden="true" />
+            </GlowButton>
+          </Reveal>
+        </div>
+      </section>
+
+      <AnimatePresence>
+        {isModalOpen ? (
+          <motion.div
+            className="guide-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onMouseDown={() => setIsModalOpen(false)}
+          >
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="guide-modal-title"
+              className="guide-modal"
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 18, scale: 0.98 }}
+              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+              onMouseDown={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                className="guide-modal-close"
+                aria-label="Закрыть форму"
+                onClick={() => setIsModalOpen(false)}
+              >
+                <X aria-hidden="true" />
+              </button>
+
+              {isSuccess ? (
+                <div className="guide-success">
+                  <span className="guide-success-icon" aria-hidden="true">
+                    <CheckCircle2 />
+                  </span>
+                  <h2 id="guide-modal-title">Гайд отправлен на вашу почту.</h2>
+                  <p>Также мы можем прислать вам доступ к бесплатной школе Migtorg PRO.</p>
+                  <a href="#access" className="button button-outline guide-success-link" onClick={() => setIsModalOpen(false)}>
+                    Получить доступ к школе <ArrowRight aria-hidden="true" />
+                  </a>
+                </div>
+              ) : (
+                <>
+                  <div className="guide-modal-header">
+                    <SectionEyebrow>БЕСПЛАТНЫЙ ГАЙД</SectionEyebrow>
+                    <h2 id="guide-modal-title">Скачать бесплатный гайд</h2>
+                    <p>
+                      Оставьте контакты — и мы отправим гайд “7 ошибок новичков на автоаукционах” на вашу почту.
+                    </p>
+                  </div>
+
+                  <form
+                    className="guide-form"
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      setIsSuccess(true);
+                    }}
+                  >
+                    <label>
+                      <span>Имя</span>
+                      <input type="text" name="name" placeholder="Ваше имя" autoComplete="name" required />
+                    </label>
+                    <label>
+                      <span>Телефон</span>
+                      <input type="tel" name="phone" placeholder="+7" autoComplete="tel" required />
+                    </label>
+                    <label>
+                      <span>Email</span>
+                      <input type="email" name="email" placeholder="example@mail.ru" autoComplete="email" required />
+                    </label>
+
+                    <GlowButton type="submit" className="guide-submit-button">
+                      Получить гайд
+                    </GlowButton>
+
+                    <p>Нажимая на кнопку, вы соглашаетесь с политикой обработки персональных данных.</p>
+                  </form>
+                </>
+              )}
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </>
   );
 }
 
@@ -850,10 +976,34 @@ function FooterColumn({ title, items }: { title: string; items: string[] }) {
       <ul>
         {items.map((item) => (
           <li key={item}>
-            <a href={item.includes("Доступ") || item.includes("Получить") ? "#access" : "#top"}>{item}</a>
+            <a href={getFooterHref(item)}>{item}</a>
           </li>
         ))}
       </ul>
     </div>
   );
+}
+
+function getFooterHref(item: string) {
+  if (item.includes("Экономика")) {
+    return "#economy";
+  }
+
+  if (item.includes("Механика")) {
+    return "#mechanics";
+  }
+
+  if (item.includes("Гайд")) {
+    return "#case";
+  }
+
+  if (item.includes("Программа")) {
+    return "#program";
+  }
+
+  if (item.includes("Доступ") || item.includes("Получить")) {
+    return "#access";
+  }
+
+  return "#top";
 }

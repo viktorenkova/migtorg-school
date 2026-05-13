@@ -1,5 +1,5 @@
 export const navItems = [
-  { label: "Кейсы", href: "#case" },
+  { label: "Гайд", href: "#case" },
   { label: "Механика", href: "#mechanics" },
   { label: "Программа", href: "#program" },
   { label: "Разборы", href: "#reviews" },
