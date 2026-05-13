@@ -5,21 +5,26 @@ import {
   ArrowDown,
   ArrowRight,
   BarChart3,
+  BriefcaseBusiness,
   Calculator,
   Car,
+  CarFront,
   CheckCircle2,
   ChevronDown,
+  ChartNoAxesCombined,
   ClipboardList,
   Gavel,
   LockKeyhole,
   Play,
+  RefreshCw,
   Search,
   ShieldCheck,
   Target,
   TrendingUp,
   Users,
   Wallet,
-  Wrench
+  Wrench,
+  X
 } from "lucide-react";
 import { images } from "./constants";
 import {
@@ -27,7 +32,6 @@ import {
   caseRows,
   chatMessages,
   communityPills,
-  dealSteps,
   footerNavigation,
   footerUserLinks,
   heroBenefits,
@@ -39,7 +43,6 @@ import {
 import { GlowButton, IconBox, Logo, Reveal, SectionEyebrow } from "./components/ui";
 
 const benefitIcons = [ShieldCheck, BarChart3, Users];
-const stepIcons = [Search, ShieldCheck, Wrench, Gavel, ClipboardList, TrendingUp];
 const moduleIcons = [Car, Calculator, Gavel, Wrench, ShieldCheck, Wallet, AlertTriangle, TrendingUp];
 
 export function Hero() {
@@ -225,40 +228,145 @@ export function MarketEconomics() {
 }
 
 export function DealMechanics() {
+  const audienceCards = [
+    {
+      number: "01",
+      title: "Для новичков",
+      text: "Поймете, как работает аукцион, где искать первые лоты и почему выигрыш не всегда означает передачу автомобиля.",
+      icon: (
+        <>
+          <CarFront className="pro-audience-main-icon" />
+          <Search className="pro-audience-accent-icon" />
+        </>
+      )
+    },
+    {
+      number: "02",
+      title: "Для перекупов",
+      text: "Научитесь использовать аукцион как дополнительный источник автомобилей и формировать собственную воронку сделок.",
+      icon: (
+        <>
+          <RefreshCw className="pro-audience-main-icon pro-audience-main-icon-green" />
+          <Car className="pro-audience-accent-icon pro-audience-accent-icon-white" />
+        </>
+      )
+    },
+    {
+      number: "03",
+      title: "Для автоподборщиков и СТО",
+      text: "Сможете находить новые возможности для клиентов, ремонта, восстановления и перепродажи.",
+      icon: (
+        <>
+          <ClipboardList className="pro-audience-main-icon" />
+          <Wrench className="pro-audience-accent-icon pro-audience-accent-icon-red" />
+        </>
+      )
+    },
+    {
+      number: "04",
+      title: "Для предпринимателей",
+      text: "Разберете модель работы с ГОТС и ТС как отдельное направление бизнеса.",
+      icon: (
+        <>
+          <BriefcaseBusiness className="pro-audience-main-icon" />
+          <ChartNoAxesCombined className="pro-audience-accent-icon pro-audience-accent-icon-red" />
+        </>
+      )
+    }
+  ];
+
   return (
-    <section id="mechanics" className="page-section mechanics-section">
-      <div className="section-container grid gap-16 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-        <Reveal>
-          <div className="relative max-w-[710px]">
-            <SectionEyebrow>Механика сделки</SectionEyebrow>
-            <h2 className="section-title">Как работает рынок</h2>
-            <p className="section-subtitle">
-              Не теория, а пошаговая механика сделки: от выбора лота до фиксации прибыли.
-            </p>
-            <GlowButton href="#case" className="mt-10 min-h-[70px] px-9 text-lg">
-              Посмотреть кейс <ArrowRight className="ml-3 h-5 w-5" />
-            </GlowButton>
-          </div>
-        </Reveal>
+    <section id="mechanics" className="page-section migtorg-pro-section">
+      <div className="section-container migtorg-pro-container">
+        <div className="migtorg-pro-top">
+          <Reveal>
+            <div className="migtorg-pro-copy">
+              <SectionEyebrow>Что такое Migtorg PRO</SectionEyebrow>
+              <h2 className="section-title migtorg-pro-title">
+                Migtorg PRO — это не курс про “успешный успех”.
+                <br />
+                Это <span>практическая школа</span> работы с автоаукционами
+              </h2>
+              <div className="migtorg-pro-text">
+                <p>Мы не обещаем гарантированную прибыль и не говорим, что каждый лот принесет деньги.</p>
+                <p>
+                  Мы показываем, как устроен рынок, как принимаются решения по лотам, как оценивать автомобили,
+                  рассчитывать ставку и снижать риски при покупке.
+                </p>
+              </div>
+            </div>
+          </Reveal>
 
-        <div className="timeline">
-          {dealSteps.map((step, index) => {
-            const Icon = stepIcons[index];
-            const tone = step.tone === "green" ? "green" : "red";
+          <Reveal delay={0.08}>
+            <article className="pro-definition-card">
+              <div className="pro-definition-header">
+                <span className="pro-shield-icon" aria-hidden="true">
+                  <ShieldCheck />
+                </span>
+                <h3>
+                  Без обещаний.
+                  <br />
+                  Только <span>механика рынка.</span>
+                </h3>
+              </div>
 
-            return (
-              <Reveal key={step.number} delay={index * 0.04}>
-                <article className={`timeline-card ${tone === "green" ? "timeline-card-green" : ""}`}>
-                  <span className="timeline-number">{step.number}</span>
-                  <IconBox Icon={Icon} tone={tone} />
-                  <div>
-                    <h3>{step.title}</h3>
-                    <p>{step.text}</p>
-                  </div>
-                </article>
-              </Reveal>
-            );
-          })}
+              <div className="pro-definition-divider" />
+
+              <div className="pro-definition-lists">
+                <div className="pro-definition-list pro-definition-list-red">
+                  <strong>Не обещаем:</strong>
+                  <ul>
+                    <li>
+                      <X aria-hidden="true" />
+                      гарантированную прибыль
+                    </li>
+                    <li>
+                      <X aria-hidden="true" />
+                      каждый лот “в плюс”
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="pro-definition-list pro-definition-list-green">
+                  <strong>Показываем:</strong>
+                  <ul>
+                    <li>
+                      <CheckCircle2 aria-hidden="true" />
+                      механику торгов
+                    </li>
+                    <li>
+                      <CheckCircle2 aria-hidden="true" />
+                      расчет ставки
+                    </li>
+                    <li>
+                      <CheckCircle2 aria-hidden="true" />
+                      оценку рисков
+                    </li>
+                    <li>
+                      <CheckCircle2 aria-hidden="true" />
+                      работу с лотами
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+        </div>
+
+        <div className="migtorg-pro-audience-grid">
+          {audienceCards.map((card, index) => (
+            <Reveal key={card.number} delay={index * 0.05}>
+              <article className="pro-audience-card">
+                <span className="pro-audience-number">{card.number}</span>
+                <span className="pro-audience-icon" aria-hidden="true">
+                  {card.icon}
+                </span>
+                <h3>{card.title}</h3>
+                <span className="pro-audience-mark" aria-hidden="true" />
+                <p>{card.text}</p>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
