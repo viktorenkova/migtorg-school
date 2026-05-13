@@ -8,5 +8,6 @@ export const navItems = [
 ] as const;
 
 export const images = {
+  heroLaptop: "/assets/images/hero-laptop-transparent.png",
   caseBmw: "/assets/images/case-bmw-x5.png"
 } as const;

@@ -102,7 +102,7 @@ export function Logo({ small = false }: { small?: boolean }) {
   return (
     <a href="#top" aria-label="MIG TORG PRO" className={`logo ${small ? "logo-small" : ""}`}>
       <span className="logo-mig">MIG</span>
-      <span className="logo-torg">TORG<span className="logo-dot">•</span></span>
+      <span className="logo-torg">TORG<span className="logo-dot" /></span>
       <span className="logo-pro">PRO</span>
     </a>
   );

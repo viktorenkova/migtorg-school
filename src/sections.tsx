@@ -41,10 +41,9 @@ import {
   mistakes,
   modules
 } from "./data";
-import { Card, GlowButton, IconBox, Logo, MetricCard, Reveal, SectionEyebrow } from "./components/ui";
+import { Card, GlowButton, IconBox, Logo, Reveal, SectionEyebrow } from "./components/ui";
 
 const benefitIcons = [ShieldCheck, BarChart3, Users];
-const metricIcons = [BarChart3, Users, Wallet];
 const economicsIcons = [TrendingUp, Percent, Gauge, BarChart3];
 const stepIcons = [Search, ShieldCheck, Wrench, Gavel, ClipboardList, TrendingUp];
 const moduleIcons = [Car, Calculator, Gavel, Wrench, ShieldCheck, Wallet, AlertTriangle, TrendingUp];
@@ -69,14 +68,14 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.14}>
-            <p className="mt-7 max-w-[650px] text-xl leading-[1.58] text-white/72 md:text-[22px]">
+            <p className="hero-lead">
               Поймите механику рынка, научитесь оценивать лоты, избегать ошибок и зарабатывать на
               перепродаже автомобилей с аукционов.
             </p>
           </Reveal>
 
           <Reveal delay={0.2}>
-            <div className="mt-11 grid gap-5 sm:grid-cols-3">
+            <div className="hero-benefits">
               {heroBenefits.map((benefit, index) => {
                 const Icon = benefitIcons[index];
                 return (
@@ -90,7 +89,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.28}>
-            <div className="mt-14 flex flex-col gap-5 sm:flex-row">
+            <div className="hero-actions">
               <GlowButton href="#access" className="min-h-[68px] px-8 text-[17px]">
                 Получить доступ бесплатно <ArrowRight className="ml-3 h-5 w-5" />
               </GlowButton>
@@ -101,7 +100,7 @@ export function Hero() {
           </Reveal>
 
           <Reveal delay={0.34}>
-            <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3 text-[15px] text-white/70">
+            <div className="hero-trust">
               {heroTrust.map((item) => (
                 <span key={item} className="inline-flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 text-red" />
@@ -112,30 +111,53 @@ export function Hero() {
           </Reveal>
         </div>
 
-        <Reveal delay={0.12} className="hero-metrics">
-          <MetricCard
-            Icon={metricIcons[0]}
-            label="Средняя прибыль на сделку"
-            value="+312 780 ₽"
-            className="hero-metric hero-metric-top"
-          />
-          <MetricCard
-            Icon={metricIcons[1]}
-            label="Успешных учеников"
-            value="2 847"
-            caption="по всей России"
-            tone="red"
-            className="hero-metric hero-metric-users"
-          />
-          <MetricCard
-            Icon={metricIcons[2]}
-            label="ROI за 30 дней"
-            value="+28,4%"
-            className="hero-metric hero-metric-roi"
-          />
+        <Reveal delay={0.12} className="hero-visual">
+          <div className="hero-laptop-frame" aria-hidden="true">
+            <img
+              className="hero-laptop"
+              src={images.heroLaptop}
+              alt=""
+            />
+          </div>
+          <article className="hero-floating-card hero-floating-profit">
+            <BarChart3 className="hero-floating-icon hero-floating-icon-green" />
+            <div className="hero-floating-copy">
+              <p>Средняя прибыль<br />на сделку</p>
+              <strong>+312 780 ₽</strong>
+            </div>
+            <MiniSparkline />
+          </article>
+          <article className="hero-floating-card hero-floating-users">
+            <Users className="hero-floating-icon hero-floating-icon-red" />
+            <div className="hero-floating-copy">
+              <p>Успешных учеников</p>
+              <strong>2 847</strong>
+              <span>по всей России</span>
+            </div>
+          </article>
+          <article className="hero-floating-card hero-floating-roi">
+            <Wallet className="hero-floating-icon hero-floating-icon-red" />
+            <div className="hero-floating-copy">
+              <p>ROI за 30 дней</p>
+              <strong>+28,4%</strong>
+            </div>
+            <MiniSparkline />
+          </article>
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function MiniSparkline() {
+  return (
+    <span className="hero-chart" aria-hidden="true">
+      <svg className="hero-sparkline" viewBox="0 0 120 54" focusable="false">
+        <path className="hero-chart-fill" d="M4 44 L16 37 L28 39 L40 30 L52 33 L64 24 L76 26 L88 18 L100 20 L116 10 L116 54 L4 54 Z" />
+        <path className="hero-chart-line" d="M4 44 L16 37 L28 39 L40 30 L52 33 L64 24 L76 26 L88 18 L100 20 L116 10" />
+        <circle cx="116" cy="10" r="3.5" />
+      </svg>
+    </span>
   );
 }
 
