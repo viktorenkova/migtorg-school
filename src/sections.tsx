@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertTriangle,
+  ArrowDown,
   ArrowRight,
   BadgeCheck,
   BarChart3,
@@ -93,8 +94,8 @@ export function Hero() {
               <GlowButton href="#access" className="min-h-[68px] px-8 text-[17px]">
                 Получить доступ бесплатно <ArrowRight className="ml-3 h-5 w-5" />
               </GlowButton>
-              <GlowButton href="#case" variant="secondary" className="min-h-[68px] px-8 text-[17px]">
-                <Play className="mr-3 h-5 w-5 fill-red text-red" /> Смотреть кейсы
+              <GlowButton href="#case" variant="secondary" className="hero-guide-button min-h-[68px] px-8 text-[17px]">
+                Скачать гайд «7 ошибок новичков» <ArrowDown className="hero-guide-arrow" />
               </GlowButton>
             </div>
           </Reveal>

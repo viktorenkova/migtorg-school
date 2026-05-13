@@ -267,6 +267,19 @@ button:disabled {
   min-width: 330px;
 }
 
+.hero-actions .hero-guide-button {
+  min-width: 398px;
+}
+
+.hero-guide-arrow {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  margin-left: 12px;
+  color: var(--migtorg-green);
+  stroke-width: 2.6;
+}
+
 .hero-trust {
   display: flex;
   flex-wrap: wrap;
