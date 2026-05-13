@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertTriangle,
@@ -618,53 +618,178 @@ export function Community() {
 }
 
 export function FinalCTA() {
-  return (
-    <section id="access" className="page-section final-cta-section">
-      <div className="section-container grid gap-16 lg:grid-cols-[0.96fr_0.78fr] lg:items-center">
-        <Reveal>
-          <div className="relative z-10 max-w-[760px]">
-            <SectionEyebrow>Доступ к школе</SectionEyebrow>
-            <h2 className="section-title">
-              Получите доступ
-              <br />
-              к механике рынка,
-              <br />
-              на котором работают
-              <br />
-              профессионалы
-            </h2>
-            <p className="section-subtitle">
-              Бесплатная школа Migtorg PRO поможет понять, как устроены автомобильные аукционы и как
-              зарабатывать на них системно.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-4">
-              {accessBadges.map((badge) => (
-                <span key={badge} className="pill pill-green">
-                  {badge}
-                </span>
-              ))}
-            </div>
-          </div>
-        </Reveal>
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [experience, setExperience] = useState("Новичок");
+  const [auctionExperience, setAuctionExperience] = useState("Нет");
+  const experienceOptions = ["Новичок", "Перекуп", "Автоподборщик", "СТО/ремонт", "Другое"];
 
-        <Reveal delay={0.08}>
-          <form className="access-form" onSubmit={(event) => event.preventDefault()}>
-            <label>
-              <span>Имя</span>
-              <input type="text" name="name" placeholder="Ваше имя" autoComplete="name" required />
-            </label>
-            <label>
-              <span>Телефон или email</span>
-              <input type="text" name="contact" placeholder="+7 или email" autoComplete="email" required />
-            </label>
-            <GlowButton type="submit" className="min-h-[92px] w-full text-[clamp(18px,2.2vw,28px)]">
-              Получить доступ бесплатно
-            </GlowButton>
-            <p>Данные нужны только для отправки доступа.</p>
-          </form>
-        </Reveal>
-      </div>
-    </section>
+  useEffect(() => {
+    if (!isModalOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsModalOpen(false);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isModalOpen]);
+
+  return (
+    <>
+      <section id="access" className="page-section final-cta-section">
+        <div className="section-container final-cta-container">
+          <Reveal>
+            <article className="final-cta-panel">
+              <div className="final-cta-copy">
+                <SectionEyebrow>ДОСТУП К ШКОЛЕ</SectionEyebrow>
+                <h2>
+                  Хотите разобраться,
+                  <br />
+                  как зарабатывать на автоаукционах
+                  <br />
+                  без хаотичных ставок?
+                </h2>
+                <p>
+                  Получите доступ к бесплатному обучению Migtorg PRO: разборы лотов, механика торгов и
+                  система принятия решений.
+                </p>
+                <div className="final-cta-chips" aria-label="Преимущества доступа">
+                  {accessBadges.map((badge) => (
+                    <span key={badge}>
+                      <CheckCircle2 aria-hidden="true" />
+                      {badge}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="final-cta-action">
+                <GlowButton type="button" className="access-cta-button" onClick={() => setIsModalOpen(true)}>
+                  Получить доступ к школе <ArrowRight aria-hidden="true" />
+                </GlowButton>
+              </div>
+            </article>
+          </Reveal>
+        </div>
+      </section>
+
+      <AnimatePresence>
+        {isModalOpen ? (
+          <motion.div
+            className="access-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onMouseDown={() => setIsModalOpen(false)}
+          >
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="access-modal-title"
+              className="access-modal"
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 18, scale: 0.98 }}
+              transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+              onMouseDown={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                className="access-modal-close"
+                aria-label="Закрыть форму"
+                onClick={() => setIsModalOpen(false)}
+              >
+                <X aria-hidden="true" />
+              </button>
+
+              <div className="access-modal-header">
+                <SectionEyebrow>ДОСТУП К ШКОЛЕ</SectionEyebrow>
+                <h2 id="access-modal-title">Заявка на доступ</h2>
+                <p>
+                  Заполните короткую анкету — и мы откроем доступ к бесплатному обучению Migtorg PRO.
+                </p>
+              </div>
+
+              <form className="access-form" onSubmit={(event) => event.preventDefault()}>
+                <div className="access-form-grid">
+                  <label>
+                    <span>Имя</span>
+                    <input type="text" name="name" placeholder="Ваше имя" autoComplete="name" required />
+                  </label>
+                  <label>
+                    <span>Телефон</span>
+                    <input type="tel" name="phone" placeholder="+7" autoComplete="tel" required />
+                  </label>
+                  <label>
+                    <span>Email</span>
+                    <input type="email" name="email" placeholder="example@mail.ru" autoComplete="email" required />
+                  </label>
+                  <label>
+                    <span>Город</span>
+                    <input type="text" name="city" placeholder="Ваш город" autoComplete="address-level2" required />
+                  </label>
+                </div>
+
+                <fieldset className="access-choice-group">
+                  <legend>Опыт в авто:</legend>
+                  <div className="access-segmented">
+                    {experienceOptions.map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        className={experience === option ? "is-selected" : ""}
+                        aria-pressed={experience === option}
+                        onClick={() => setExperience(option)}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
+
+                <fieldset className="access-choice-group">
+                  <legend>Есть ли опыт участия в автоаукционах?</legend>
+                  <div className="access-toggle">
+                    {["Да", "Нет"].map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        className={`${auctionExperience === option ? "is-selected" : ""} ${option === "Да" ? "is-positive" : ""}`}
+                        aria-pressed={auctionExperience === option}
+                        onClick={() => setAuctionExperience(option)}
+                      >
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
+
+                <GlowButton type="submit" className="access-submit-button">
+                  Получить доступ к школе
+                </GlowButton>
+
+                <p>
+                  Нажимая на кнопку, вы соглашаетесь с политикой обработки персональных данных и получением
+                  информационных материалов от Migtorg.
+                </p>
+              </form>
+            </motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </>
   );
 }
 

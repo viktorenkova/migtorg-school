@@ -168,7 +168,7 @@ export const chatMessages = [
   }
 ];
 
-export const accessBadges = ["Никакого спама", "Бесплатный доступ", "Реальные кейсы"];
+export const accessBadges = ["Бесплатный доступ", "Без карты", "Реальные разборы"];
 
 export const footerNavigation = ["Экономика", "Механика", "Кейсы", "Программа", "Доступ к школе"];
 

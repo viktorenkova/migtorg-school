@@ -20,12 +20,12 @@ export default function App() {
         <Hero />
         <MarketEconomics />
         <DealMechanics />
+        <FinalCTA />
         <CaseStudy />
         <ProgramModules />
         <LiveLotReview />
         <Mistakes />
         <Community />
-        <FinalCTA />
       </main>
       <Footer />
     </>
