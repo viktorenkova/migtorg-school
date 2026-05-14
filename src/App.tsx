@@ -9,7 +9,8 @@ import {
   LearningFlow,
   LiveLotReview,
   MarketEconomics,
-  ProgramModules
+  ProgramModules,
+  RealCases
 } from "./sections";
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
         <LiveLotReview />
         <LearningFlow />
         <Community />
+        <RealCases />
       </main>
       <Footer />
     </>

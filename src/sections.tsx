@@ -4,8 +4,10 @@ import {
   ArrowDown,
   ArrowRight,
   BarChart3,
+  BadgeCheck,
   BriefcaseBusiness,
   Calculator,
+  Calendar,
   Car,
   CarFront,
   CheckCircle2,
@@ -13,8 +15,11 @@ import {
   ChartNoAxesCombined,
   ClipboardList,
   FileText,
+  Fuel,
+  Gauge,
   Gavel,
   LockKeyhole,
+  MapPin,
   RefreshCw,
   Search,
   ShieldCheck,
@@ -973,6 +978,174 @@ export function Community() {
             </p>
           </article>
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+const realCaseTags = [
+  { label: "Москва", Icon: MapPin },
+  { label: "Выпуск 2022", Icon: Calendar },
+  { label: "Бензиновый", Icon: Fuel },
+  { label: "Пробег 122 481 км", Icon: Gauge }
+] as const;
+
+const realCasePrices = [
+  { label: "Стартовая цена", value: "1 100 000 ₽" },
+  { label: "Шаг ставки", value: "1 000 ₽" },
+  { label: "Выкупить без торга", value: "1 200 000 ₽" }
+] as const;
+
+const realCaseAnalysis = [
+  {
+    title: "Что смотрим",
+    text: "Повреждения, ликвидность модели, стоимость ремонта, регион, документы, логистика.",
+    Icon: Search
+  },
+  {
+    title: "Что считаем",
+    text: "Максимальная ставка, резерв риска, прогнозная цена продажи.",
+    Icon: Calculator
+  },
+  {
+    title: "Решение",
+    text: "Участвовать / не участвовать / ждать повторных торгов.",
+    Icon: Target
+  }
+] as const;
+
+const realCaseChecklist = [
+  "Почему лот интересен",
+  "Какие риски видим по фото",
+  "Какие расходы нужно заложить",
+  "Где стоп-ставка",
+  "При каком результате сделка имеет смысл"
+] as const;
+
+export function RealCases() {
+  const openAccessModal = () => {
+    window.dispatchEvent(new Event("migtorg:open-access-modal"));
+  };
+
+  return (
+    <section id="real-cases" className="page-section real-cases-section">
+      <div className="section-container real-cases-container">
+        <Reveal>
+          <div className="real-cases-header">
+            <SectionEyebrow>РЕАЛЬНЫЕ КЕЙСЫ</SectionEyebrow>
+            <h2 className="section-title real-cases-title">Реальные кейсы</h2>
+            <p className="section-subtitle real-cases-subtitle">
+              Ниже — примерный формат разбора, который используется в обучении. Реальные кейсы школы будут показывать полный путь: от выбора лота до результата.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="real-cases-layout">
+          <Reveal delay={0.08}>
+            <article className="lot-demo-card" aria-label="Демонстрационная карточка лота">
+              <div className="lot-demo-media">
+                <img src={images.caseBmw} alt="Кроссовер для демонстрационного разбора лота" loading="lazy" decoding="async" />
+                <div className="lot-demo-badges" aria-label="Статусы лота">
+                  <span className="lot-demo-badge lot-demo-badge-red">
+                    <BadgeCheck aria-hidden="true" />
+                    Новый лот
+                  </span>
+                  <span className="lot-demo-badge lot-demo-badge-green">
+                    <CheckCircle2 aria-hidden="true" />
+                    Готов к передаче
+                  </span>
+                </div>
+              </div>
+
+              <div className="lot-demo-body">
+                <div className="lot-demo-meta">
+                  <span>
+                    <FileText aria-hidden="true" />
+                    Лот № 788354
+                  </span>
+                  <span>
+                    <Gavel aria-hidden="true" />
+                    Открытый торг
+                  </span>
+                  <span className="lot-demo-active">
+                    <i aria-hidden="true" />
+                    Активен
+                  </span>
+                </div>
+
+                <h3>Geely Coolray</h3>
+
+                <div className="lot-demo-tags" aria-label="Параметры лота">
+                  {realCaseTags.map(({ label, Icon }) => (
+                    <span key={label}>
+                      <Icon aria-hidden="true" />
+                      {label}
+                    </span>
+                  ))}
+                </div>
+
+                <dl className="lot-demo-prices">
+                  {realCasePrices.map((item) => (
+                    <div key={item.label}>
+                      <dt>{item.label}</dt>
+                      <dd>{item.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <a className="lot-demo-link" href="#real-cases" aria-label="Подробнее о демонстрационном разборе лота">
+                  Подробнее <ArrowRight aria-hidden="true" />
+                </a>
+              </div>
+            </article>
+          </Reveal>
+
+          <Reveal delay={0.14}>
+            <article className="case-analysis-card">
+              <div className="case-analysis-top">
+                <span className="case-analysis-icon" aria-hidden="true">
+                  <FileText />
+                </span>
+                <div>
+                  <span className="case-analysis-badge">Пример разбора</span>
+                  <h3>Автомобиль: кроссовер 2021 года</h3>
+                  <p>
+                    <span>Сценарий:</span> восстановление и перепродажа
+                  </p>
+                </div>
+              </div>
+
+              <div className="case-analysis-list">
+                {realCaseAnalysis.map(({ title, text, Icon }) => (
+                  <div key={title} className="case-analysis-row">
+                    <span className="case-analysis-row-icon" aria-hidden="true">
+                      <Icon />
+                    </span>
+                    <div>
+                      <h4>{title}</h4>
+                      <p>{text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <ul className="case-analysis-checklist">
+                {realCaseChecklist.map((item) => (
+                  <li key={item}>
+                    <CheckCircle2 aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <GlowButton type="button" className="real-cases-cta" onClick={openAccessModal}>
+                Хочу научиться так разбирать лоты
+              </GlowButton>
+
+              <p className="real-cases-note">Покажем, как принимать решения по лотам без хаотичных ставок.</p>
+            </article>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
