@@ -1370,8 +1370,7 @@ button:disabled {
   line-height: 1.55;
 }
 
-.pro-definition-card,
-.pro-audience-card {
+.pro-definition-card {
   position: relative;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -1385,8 +1384,7 @@ button:disabled {
   -webkit-backdrop-filter: blur(22px) saturate(124%);
 }
 
-.pro-definition-card::before,
-.pro-audience-card::before {
+.pro-definition-card::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1397,8 +1395,7 @@ button:disabled {
   opacity: 0.5;
 }
 
-.pro-definition-card > *,
-.pro-audience-card > * {
+.pro-definition-card > * {
   position: relative;
   z-index: 1;
 }
@@ -1505,129 +1502,6 @@ button:disabled {
   stroke-width: 2.2;
 }
 
-.migtorg-pro-audience-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 28px;
-  margin-top: clamp(44px, 4vw, 56px);
-}
-
-.pro-audience-card {
-  display: flex;
-  min-height: 410px;
-  flex-direction: column;
-  border-radius: 22px;
-  padding: 30px 26px 24px;
-  transition:
-    transform 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.pro-audience-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(255, 81, 72, 0.42);
-  box-shadow:
-    0 34px 92px rgba(0, 0, 0, 0.42),
-    0 0 32px rgba(255, 81, 72, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-.pro-audience-number {
-  color: rgba(248, 250, 252, 0.32);
-  font-size: 31px;
-  font-weight: 850;
-  line-height: 1;
-}
-
-.pro-audience-icon {
-  position: relative;
-  display: block;
-  width: 168px;
-  height: 136px;
-  align-self: center;
-  margin: 10px 0 24px;
-}
-
-.pro-audience-icon svg {
-  position: absolute;
-  stroke-width: 1.65;
-  fill: none;
-}
-
-.pro-audience-main-icon {
-  left: 18px;
-  top: 18px;
-  width: 114px;
-  height: 98px;
-  color: rgba(255, 255, 255, 0.92);
-  filter:
-    drop-shadow(0 0 8px rgba(255, 255, 255, 0.54))
-    drop-shadow(0 0 18px rgba(255, 255, 255, 0.2));
-}
-
-.pro-audience-main-icon-green {
-  left: 14px;
-  top: 4px;
-  width: 132px;
-  height: 132px;
-  color: #7cff92;
-  filter:
-    drop-shadow(0 0 9px rgba(85, 230, 107, 0.62))
-    drop-shadow(0 0 22px rgba(85, 230, 107, 0.25));
-}
-
-.pro-audience-accent-icon {
-  right: 10px;
-  bottom: 6px;
-  width: 72px;
-  height: 72px;
-  color: #ff776f;
-  filter:
-    drop-shadow(0 0 8px rgba(255, 81, 72, 0.66))
-    drop-shadow(0 0 20px rgba(255, 81, 72, 0.28));
-}
-
-.pro-audience-accent-icon-white {
-  right: 24px;
-  bottom: 12px;
-  width: 54px;
-  height: 54px;
-  color: rgba(255, 255, 255, 0.88);
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.46));
-}
-
-.pro-audience-accent-icon-red {
-  right: 20px;
-  bottom: 8px;
-  width: 66px;
-  height: 80px;
-}
-
-.pro-audience-card h3 {
-  min-height: 62px;
-  margin: auto 0 0;
-  color: #fff;
-  font-size: clamp(22px, 1.45vw, 27px);
-  font-weight: 850;
-  line-height: 1.14;
-}
-
-.pro-audience-mark {
-  width: 40px;
-  height: 2px;
-  margin: 20px 0 26px;
-  background: var(--migtorg-red);
-  box-shadow: 0 0 14px rgba(255, 81, 72, 0.42);
-}
-
-.pro-audience-card p {
-  margin: 0;
-  color: rgba(248, 250, 252, 0.68);
-  font-size: clamp(16px, 1.05vw, 19px);
-  line-height: 1.5;
-}
-
 .economy-card h3,
 .timeline-card h3,
 .footer h3 {
@@ -1725,18 +1599,18 @@ button:disabled {
 
 .guide-container {
   display: grid;
-  width: min(100% - 96px, 1200px);
+  width: min(100% - 96px, 1440px);
   grid-template-areas:
     "copy card"
     "action card";
-  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 0.82fr);
-  gap: 34px clamp(48px, 6vw, 72px);
+  grid-template-columns: minmax(0, 0.98fr) minmax(420px, 0.78fr);
+  gap: 34px clamp(48px, 5vw, 76px);
   align-items: center;
 }
 
 .guide-copy {
   grid-area: copy;
-  max-width: 650px;
+  max-width: 720px;
 }
 
 .guide-copy .section-eyebrow {
@@ -1757,7 +1631,7 @@ button:disabled {
 }
 
 .guide-subtitle {
-  max-width: 610px;
+  max-width: 640px;
   color: rgba(248, 250, 252, 0.74);
 }
 
@@ -1768,6 +1642,9 @@ button:disabled {
 
 .guide-card-wrap {
   grid-area: card;
+  width: 100%;
+  max-width: 620px;
+  justify-self: end;
 }
 
 .guide-card {
@@ -4676,15 +4553,15 @@ button:disabled {
 }
 
 .final-cta-container {
-  width: min(100% - 96px, 1200px);
+  width: min(100% - 96px, 1440px);
 }
 
 .final-cta-panel {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(310px, 0.38fr);
+  grid-template-columns: minmax(0, 0.9fr) minmax(340px, 0.34fr);
   align-items: center;
-  gap: clamp(34px, 5vw, 68px);
+  gap: clamp(40px, 5vw, 72px);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 28px;
@@ -4729,7 +4606,7 @@ button:disabled {
 }
 
 .final-cta-copy {
-  max-width: 780px;
+  max-width: 860px;
 }
 
 .final-cta-copy .section-eyebrow {
@@ -4750,7 +4627,7 @@ button:disabled {
 }
 
 .final-cta-copy p {
-  max-width: 680px;
+  max-width: 720px;
   margin: 24px 0 0;
   color: rgba(248, 250, 252, 0.74);
   font-size: clamp(17px, 1.35vw, 21px);
@@ -4820,7 +4697,7 @@ button:disabled {
 
 .access-cta-button {
   min-height: 74px;
-  min-width: 310px;
+  min-width: 330px;
   padding-inline: 34px;
   font-size: 18px;
 }
@@ -5591,15 +5468,6 @@ button:disabled {
     max-width: 740px;
   }
 
-  .migtorg-pro-audience-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-  }
-
-  .pro-audience-card {
-    min-height: 370px;
-  }
-
   .learning-flow-container {
     width: min(100% - 56px, 1440px);
   }
@@ -5696,7 +5564,7 @@ button:disabled {
   }
 
   .final-cta-container {
-    width: min(100% - 56px, 1200px);
+    width: min(100% - 56px, 1440px);
   }
 
   .final-cta-panel {
@@ -5708,9 +5576,13 @@ button:disabled {
   }
 
   .guide-container {
-    width: min(100% - 56px, 1200px);
+    width: min(100% - 56px, 1440px);
     grid-template-columns: minmax(0, 1fr) minmax(330px, 0.9fr);
     gap: 32px;
+  }
+
+  .guide-card-wrap {
+    max-width: 620px;
   }
 }
 
@@ -5726,7 +5598,7 @@ button:disabled {
 
 @media (max-width: 900px) {
   .guide-container {
-    width: min(100% - 56px, 1200px);
+    width: min(100% - 56px, 1440px);
     grid-template-areas:
       "copy"
       "card"
@@ -5741,6 +5613,11 @@ button:disabled {
 
   .guide-card {
     max-width: 680px;
+  }
+
+  .guide-card-wrap {
+    max-width: 680px;
+    justify-self: stretch;
   }
 }
 
@@ -6644,75 +6521,6 @@ button:disabled {
     font-size: 16px;
   }
 
-  .migtorg-pro-audience-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-top: 34px;
-  }
-
-  .pro-audience-card {
-    min-height: 0;
-    border-radius: 20px;
-    padding: 22px 20px;
-  }
-
-  .pro-audience-number {
-    font-size: 27px;
-  }
-
-  .pro-audience-icon {
-    width: 146px;
-    height: 112px;
-    margin: 8px 0 20px;
-  }
-
-  .pro-audience-main-icon {
-    left: 18px;
-    top: 14px;
-    width: 94px;
-    height: 82px;
-  }
-
-  .pro-audience-main-icon-green {
-    left: 12px;
-    top: 0;
-    width: 116px;
-    height: 116px;
-  }
-
-  .pro-audience-accent-icon {
-    right: 10px;
-    bottom: 4px;
-    width: 58px;
-    height: 58px;
-  }
-
-  .pro-audience-accent-icon-white {
-    right: 22px;
-    bottom: 8px;
-    width: 46px;
-    height: 46px;
-  }
-
-  .pro-audience-accent-icon-red {
-    right: 16px;
-    width: 54px;
-    height: 64px;
-  }
-
-  .pro-audience-card h3 {
-    min-height: 0;
-    font-size: 22px;
-  }
-
-  .pro-audience-mark {
-    margin: 16px 0 18px;
-  }
-
-  .pro-audience-card p {
-    font-size: 16px;
-  }
-
   .learning-flow-section {
     padding: 72px 0 76px;
   }
@@ -7305,7 +7113,7 @@ button:disabled {
   }
 
   .guide-container {
-    width: min(100% - 28px, 1200px);
+    width: min(100% - 28px, 1440px);
     grid-template-areas:
       "copy"
       "card"
@@ -7434,7 +7242,7 @@ button:disabled {
   }
 
   .final-cta-container {
-    width: min(100% - 28px, 1200px);
+    width: min(100% - 28px, 1440px);
   }
 
   .final-cta-panel {

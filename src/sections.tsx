@@ -5,10 +5,8 @@ import {
   ArrowRight,
   BarChart3,
   BadgeCheck,
-  BriefcaseBusiness,
   Calculator,
   Calendar,
-  Car,
   CarFront,
   CheckCircle2,
   ChevronDown,
@@ -25,7 +23,6 @@ import {
   Minus,
   Phone,
   Plus,
-  RefreshCw,
   Search,
   ShieldCheck,
   Target,
@@ -216,18 +213,14 @@ export function MarketEconomics() {
           <div className="actuality-copy">
             <SectionEyebrow>Почему это актуально</SectionEyebrow>
             <h2 className="section-title actuality-title">
-              Большинство новичков теряют деньги
+              На аукционах выигрывает система,
               <br />
-              не из-за рынка, а из-за отсутствия системы
+              а не удача
             </h2>
             <div className="actuality-text">
               <p>
-                Автомобильные аукционы открывают доступ к интересным лотам. Но без понимания механики торгов, оценки
-                повреждений, расчета ставки и юридической проверки можно быстро уйти в минус.
-              </p>
-              <p>
-                Новички часто думают, что достаточно просто “купить дешевле рынка”. На практике прибыль появляется только
-                там, где есть расчет, дисциплина и понятный план сделки.
+                Лот может выглядеть выгодным, но без расчета ставки, проверки рисков и плана перепродажи сделка быстро
+                уходит в минус. Прибыль появляется там, где решение принято по цифрам.
               </p>
             </div>
             <article className="actuality-conclusion">
@@ -268,53 +261,6 @@ export function MarketEconomics() {
 }
 
 export function DealMechanics() {
-  const audienceCards = [
-    {
-      number: "01",
-      title: "Для новичков",
-      text: "Поймете, как работает аукцион, где искать первые лоты и почему выигрыш не всегда означает передачу автомобиля.",
-      icon: (
-        <>
-          <CarFront className="pro-audience-main-icon" />
-          <Search className="pro-audience-accent-icon" />
-        </>
-      )
-    },
-    {
-      number: "02",
-      title: "Для перекупов",
-      text: "Научитесь использовать аукцион как дополнительный источник автомобилей и формировать собственную воронку сделок.",
-      icon: (
-        <>
-          <RefreshCw className="pro-audience-main-icon pro-audience-main-icon-green" />
-          <Car className="pro-audience-accent-icon pro-audience-accent-icon-white" />
-        </>
-      )
-    },
-    {
-      number: "03",
-      title: "Для автоподборщиков и СТО",
-      text: "Сможете находить новые возможности для клиентов, ремонта, восстановления и перепродажи.",
-      icon: (
-        <>
-          <ClipboardList className="pro-audience-main-icon" />
-          <Wrench className="pro-audience-accent-icon pro-audience-accent-icon-red" />
-        </>
-      )
-    },
-    {
-      number: "04",
-      title: "Для предпринимателей",
-      text: "Разберете модель работы с ГОТС и ТС как отдельное направление бизнеса.",
-      icon: (
-        <>
-          <BriefcaseBusiness className="pro-audience-main-icon" />
-          <ChartNoAxesCombined className="pro-audience-accent-icon pro-audience-accent-icon-red" />
-        </>
-      )
-    }
-  ];
-
   return (
     <section id="mechanics" className="page-section migtorg-pro-section">
       <div className="section-container migtorg-pro-container">
@@ -323,12 +269,9 @@ export function DealMechanics() {
             <div className="migtorg-pro-copy">
               <SectionEyebrow>Что такое Migtorg PRO</SectionEyebrow>
               <h2 className="section-title migtorg-pro-title">
-                Migtorg PRO — это не курс про “успешный успех”.
-                <br />
-                Это <span>практическая школа</span> работы с автоаукционами
+                MIGTORG PRO — это <span>практическая школа</span> работы с автоаукционами
               </h2>
               <div className="migtorg-pro-text">
-                <p>Мы не обещаем гарантированную прибыль и не говорим, что каждый лот принесет деньги.</p>
                 <p>
                   Мы показываем, как устроен рынок, как принимаются решения по лотам, как оценивать автомобили,
                   рассчитывать ставку и снижать риски при покупке.
@@ -391,22 +334,6 @@ export function DealMechanics() {
               </div>
             </article>
           </Reveal>
-        </div>
-
-        <div className="migtorg-pro-audience-grid">
-          {audienceCards.map((card, index) => (
-            <Reveal key={card.number} delay={index * 0.05}>
-              <article className="pro-audience-card">
-                <span className="pro-audience-number">{card.number}</span>
-                <span className="pro-audience-icon" aria-hidden="true">
-                  {card.icon}
-                </span>
-                <h3>{card.title}</h3>
-                <span className="pro-audience-mark" aria-hidden="true" />
-                <p>{card.text}</p>
-              </article>
-            </Reveal>
-          ))}
         </div>
       </div>
     </section>
@@ -717,7 +644,7 @@ function LearningCarVisual() {
 const curriculumIcons = [ShieldCheck, Search, Wrench, Calculator, Gavel, FileText, ClipboardList] as const;
 
 export function LiveLotReview() {
-  const [openModules, setOpenModules] = useState<string[]>(["01"]);
+  const [openModules, setOpenModules] = useState<string[]>([]);
 
   const toggleModule = (moduleNumber: string) => {
     setOpenModules((current) => {
@@ -1190,7 +1117,7 @@ export function RealCases() {
 }
 
 export function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(2);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const openAccessModal = () => {
     window.dispatchEvent(new Event("migtorg:open-access-modal"));

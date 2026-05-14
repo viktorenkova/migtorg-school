@@ -9,7 +9,7 @@ export const navItems = [
 
 export const images = {
   heroLaptop: "/assets/images/hero-laptop-transparent.png",
-  caseBmw: "/assets/images/case-bmw-x5.png",
+  caseBmw: "/assets/images/real-case-lot-watermark.jpg",
   learningCar: "/assets/images/learning-car-render.png?v=20260514",
   learningVideoIcon: "/assets/images/learning-icon-video.png",
   learningMaterialsIcon: "/assets/images/learning-icon-materials.png",
