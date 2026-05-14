@@ -8,16 +8,16 @@ export const navItems = [
 ] as const;
 
 export const images = {
-  heroLaptop: "/assets/images/hero-laptop-transparent.png",
-  caseBmw: "/assets/images/real-case-lot-watermark.jpg",
-  learningCar: "/assets/images/learning-car-render.png?v=20260514",
-  learningVideoIcon: "/assets/images/learning-icon-video.png",
-  learningMaterialsIcon: "/assets/images/learning-icon-materials.png",
-  learningLotReviewIcon: "/assets/images/learning-icon-lot-review.png",
-  learningFirstStepsIcon: "/assets/images/learning-icon-first-steps.png",
-  audienceBeginner: "/assets/images/audience-beginner.png",
-  audienceDealer: "/assets/images/audience-dealer.png",
-  audienceInspector: "/assets/images/audience-inspector.png",
-  audienceService: "/assets/images/audience-service.png",
-  audienceBusiness: "/assets/images/audience-business.png"
+  heroLaptop: "/assets/hero-laptop-transparent.png",
+  caseBmw: "/assets/real-case-lot-watermark.jpg",
+  learningCar: "/assets/learning-car-render.png",
+  learningVideoIcon: "/assets/icons/learning-icon-video.png",
+  learningMaterialsIcon: "/assets/icons/learning-icon-materials.png",
+  learningLotReviewIcon: "/assets/icons/learning-icon-lot-review.png",
+  learningFirstStepsIcon: "/assets/icons/learning-icon-first-steps.png",
+  audienceBeginner: "/assets/audience-beginner.png",
+  audienceDealer: "/assets/audience-dealer.png",
+  audienceInspector: "/assets/audience-inspector.png",
+  audienceService: "/assets/audience-service.png",
+  audienceBusiness: "/assets/audience-business.png"
 } as const;
