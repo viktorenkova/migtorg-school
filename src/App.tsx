@@ -10,6 +10,7 @@ import {
   LiveLotReview,
   MarketEconomics,
   ProgramModules,
+  FAQ,
   RealCases
 } from "./sections";
 
@@ -28,6 +29,7 @@ export default function App() {
         <LearningFlow />
         <Community />
         <RealCases />
+        <FAQ />
       </main>
       <Footer />
     </>

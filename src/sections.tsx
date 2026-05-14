@@ -20,6 +20,8 @@ import {
   Gavel,
   LockKeyhole,
   MapPin,
+  Minus,
+  Plus,
   RefreshCw,
   Search,
   ShieldCheck,
@@ -1022,6 +1024,41 @@ const realCaseChecklist = [
   "При каком результате сделка имеет смысл"
 ] as const;
 
+const faqItems = [
+  {
+    question: "Школа действительно бесплатная?",
+    answer: "Да, базовое обучение Migtorg PRO доступно бесплатно. Цель школы — помочь новым участникам разобраться в рынке и начать осознанно работать с площадкой."
+  },
+  {
+    question: "Нужно ли уже быть перекупом?",
+    answer: "Нет. Школа рассчитана на новичков, но будет полезна и тем, кто уже работает с автомобилями."
+  },
+  {
+    question: "Можно ли гарантированно заработать после обучения?",
+    answer: "Нет. Мы не обещаем гарантированную прибыль. Мы обучаем механике рынка, расчёту ставок, оценке рисков и работе с лотами."
+  },
+  {
+    question: "Нужен ли большой стартовый капитал?",
+    answer: "Размер капитала зависит от выбранной стратегии, типа автомобилей и региона. В школе мы показываем, как считать бюджет и не заходить в сделки без понимания расходов."
+  },
+  {
+    question: "Что будет после регистрации?",
+    answer: "Вы получите доступ к материалам школы, гайдам и практическим заданиям. Также сможете зарегистрироваться на площадке Migtorg и начать изучать реальные лоты."
+  },
+  {
+    question: "Нужно ли самому ремонтировать автомобили?",
+    answer: "Нет. Можно работать через СТО, партнёров, осмотрщиков и логистов. Но важно заранее понимать стоимость ремонта и сроки."
+  },
+  {
+    question: "Что если я выиграю лот, но автомобиль не передадут?",
+    answer: "Такое возможно. В школе объясняется, почему это происходит и как формировать воронку ставок, чтобы не зависеть от одного лота."
+  },
+  {
+    question: "Что если после осмотра автомобиль окажется хуже, чем в карточке?",
+    answer: "Если есть существенные несоответствия, их нужно зафиксировать и оформить мотивированный отказ. В школе есть шаблоны и чек-листы для таких ситуаций."
+  }
+] as const;
+
 export function RealCases() {
   const openAccessModal = () => {
     window.dispatchEvent(new Event("migtorg:open-access-modal"));
@@ -1146,6 +1183,92 @@ export function RealCases() {
             </article>
           </Reveal>
         </div>
+      </div>
+    </section>
+  );
+}
+
+export function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(2);
+
+  const openAccessModal = () => {
+    window.dispatchEvent(new Event("migtorg:open-access-modal"));
+  };
+
+  return (
+    <section id="faq" className="page-section faq-section">
+      <div className="section-container faq-container">
+        <Reveal className="faq-copy">
+          <SectionEyebrow>FAQ</SectionEyebrow>
+          <h2 className="section-title faq-title">Частые вопросы</h2>
+          <p className="section-subtitle faq-subtitle">
+            Собрали ответы на главные вопросы перед стартом обучения и работой с автоаукционами.
+          </p>
+
+          <article className="faq-trust-card">
+            <span className="faq-trust-icon" aria-hidden="true">
+              <ShieldCheck />
+            </span>
+            <div>
+              <h3>Без обещаний дохода</h3>
+              <p>Мы не гарантируем прибыль — мы показываем механику рынка, расчёт ставок и способы снижать риски.</p>
+            </div>
+          </article>
+        </Reveal>
+
+        <Reveal delay={0.08} className="faq-accordion-wrap">
+          <div className="faq-accordion">
+            {faqItems.map((item, index) => {
+              const isOpen = openIndex === index;
+              const number = String(index + 1).padStart(2, "0");
+              const answerId = `faq-answer-${number}`;
+
+              return (
+                <article key={item.question} className={`faq-item ${isOpen ? "is-open" : ""}`}>
+                  <button
+                    type="button"
+                    className="faq-trigger"
+                    aria-expanded={isOpen}
+                    aria-controls={answerId}
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                  >
+                    <span className="faq-number">{number}</span>
+                    <span className="faq-question">{item.question}</span>
+                    <span className="faq-toggle" aria-hidden="true">
+                      {isOpen ? <Minus /> : <Plus />}
+                    </span>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen ? (
+                      <motion.div
+                        id={answerId}
+                        className="faq-panel"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <p>{item.answer}</p>
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </article>
+              );
+            })}
+          </div>
+
+          <article className="faq-cta">
+            <div className="faq-cta-mark" aria-hidden="true">?</div>
+            <div>
+              <h3>Остались вопросы?</h3>
+              <p>Начните с бесплатного обучения.</p>
+            </div>
+            <GlowButton type="button" className="faq-cta-button" onClick={openAccessModal}>
+              Получить доступ к школе <ArrowRight aria-hidden="true" />
+            </GlowButton>
+          </article>
+        </Reveal>
       </div>
     </section>
   );
