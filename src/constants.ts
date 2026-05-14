@@ -1,10 +1,10 @@
 export const navItems = [
   { label: "Гайд", href: "#case" },
   { label: "Механика", href: "#mechanics" },
-  { label: "Программа", href: "#program" },
-  { label: "Модули", href: "#reviews" },
+  { label: "Навыки", href: "#program" },
+  { label: "Программа", href: "#reviews" },
   { label: "Для кого", href: "#community" },
-  { label: "Доступ", href: "#access" }
+  { label: "Кейсы", href: "#real-cases" }
 ] as const;
 
 export const images = {
