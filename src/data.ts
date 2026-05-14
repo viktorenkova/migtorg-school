@@ -316,29 +316,6 @@ export const curriculumModules = [
   }
 ] as const;
 
-export const communityPills = ["Сделки", "Обсуждения", "Помощь", "Разборы", "Партнерства"];
-
-export const chatMessages = [
-  {
-    author: "Эксперт PRO",
-    text: "По этому лоту предел ставки 1,74 млн. Дальше маржа исчезает.",
-    time: "10:24",
-    tone: "red"
-  },
-  {
-    author: "Участник",
-    text: "Проверил VIN и отчет. По ремонту держимся в бюджете.",
-    time: "10:28",
-    tone: "green"
-  },
-  {
-    author: "Команда Migtorg",
-    text: "Добавили свежий разбор BMW X5 и чек-лист по документам.",
-    time: "10:32",
-    tone: "red"
-  }
-];
-
 export const accessBadges = ["Бесплатный доступ", "Без карты", "Реальные разборы"];
 
 export const footerNavigation = ["Экономика", "Механика", "Гайд", "Программа", "Доступ к школе"];

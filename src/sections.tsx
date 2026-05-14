@@ -28,8 +28,6 @@ import {
 import { images } from "./constants";
 import {
   accessBadges,
-  chatMessages,
-  communityPills,
   footerNavigation,
   footerUserLinks,
   heroBenefits,
@@ -898,47 +896,82 @@ export function LearningFlow() {
   );
 }
 
+const schoolAudienceCards = [
+  {
+    number: "01",
+    title: "Новичкам",
+    text: "Если вы хотите разобраться, как устроены автоаукционы, но не знаете, с чего начать.",
+    icon: images.audienceBeginner,
+    tone: "coral"
+  },
+  {
+    number: "02",
+    title: "Перекупам",
+    text: "Если вы уже работаете с автомобилями и хотите добавить новый канал поиска лотов.",
+    icon: images.audienceDealer,
+    tone: "coral"
+  },
+  {
+    number: "03",
+    title: "Автоподборщикам",
+    text: "Если вы хотите расширить экспертизу и понимать рынок страховых и аукционных автомобилей.",
+    icon: images.audienceInspector,
+    tone: "coral"
+  },
+  {
+    number: "04",
+    title: "Владельцам СТО",
+    text: "Если вы можете восстанавливать автомобили и хотите находить объекты с потенциальной маржой.",
+    icon: images.audienceService,
+    tone: "coral"
+  },
+  {
+    number: "05",
+    title: "Предпринимателям",
+    text: "Если вы рассматриваете перепродажу автомобилей как дополнительное направление бизнеса.",
+    icon: images.audienceBusiness,
+    tone: "green"
+  }
+] as const;
+
 export function Community() {
   return (
     <section id="community" className="page-section community-section">
-      <div className="section-container grid gap-16 lg:grid-cols-[0.86fr_1.14fr] lg:items-center">
+      <div className="section-container community-container">
         <Reveal>
-          <div className="max-w-[670px]">
-            <SectionEyebrow>Сообщество</SectionEyebrow>
-            <h2 className="section-title">
-              Закрытая среда
-              <br />
-              участников рынка
-            </h2>
+          <div className="community-header">
+            <SectionEyebrow>ДЛЯ КОГО ШКОЛА</SectionEyebrow>
+            <h2 className="section-title community-title">Кому подойдёт Migtorg PRO</h2>
             <p className="section-subtitle">
-              После обучения участник попадает в профессиональный контекст: сделки, обсуждения, помощь,
-              разборы лотов и партнерства.
+              Школа помогает разным участникам рынка понять механику автоаукционов и использовать её под свои задачи.
             </p>
-            <div className="mt-9 flex flex-wrap gap-4">
-              {communityPills.map((pill) => (
-                <span key={pill} className="pill">
-                  {pill}
-                </span>
-              ))}
-            </div>
           </div>
         </Reveal>
 
-        <Reveal delay={0.08}>
-          <div className="chat-panel">
-            {chatMessages.map((message) => (
-              <article key={message.author} className={`chat-card ${message.tone === "green" ? "chat-card-green" : ""}`}>
-                <span className="avatar">{message.tone === "green" ? <Users className="h-8 w-8" /> : message.author === "Команда Migtorg" ? "M" : "PRO"}</span>
-                <div>
-                  <div className="flex items-start justify-between gap-3">
-                    <strong>{message.author}</strong>
-                    <time>{message.time}</time>
-                  </div>
-                  <p>{message.text}</p>
+        <div className="community-audience-grid">
+          {schoolAudienceCards.map((card, index) => (
+            <Reveal key={card.number} delay={index * 0.06}>
+              <article className={`community-audience-card ${card.tone === "green" ? "community-audience-card-green" : ""}`}>
+                <div className="community-audience-top">
+                  <span className="community-audience-number">{card.number}</span>
+                  <span className="community-audience-icon" aria-hidden="true">
+                    <img src={card.icon} alt="" loading="lazy" decoding="async" />
+                  </span>
                 </div>
+                <h3>{card.title}</h3>
+                <p>{card.text}</p>
               </article>
-            ))}
-          </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={0.24}>
+          <article className="community-audience-note">
+            <ShieldCheck aria-hidden="true" />
+            <p>
+              Школа даёт инструменты, которые <span>работают в реальных условиях рынка.</span>
+            </p>
+          </article>
         </Reveal>
       </div>
     </section>

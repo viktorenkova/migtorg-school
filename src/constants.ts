@@ -3,7 +3,7 @@ export const navItems = [
   { label: "Механика", href: "#mechanics" },
   { label: "Программа", href: "#program" },
   { label: "Модули", href: "#reviews" },
-  { label: "Сообщество", href: "#community" },
+  { label: "Для кого", href: "#community" },
   { label: "Доступ", href: "#access" }
 ] as const;
 
@@ -14,5 +14,10 @@ export const images = {
   learningVideoIcon: "/assets/images/learning-icon-video.png",
   learningMaterialsIcon: "/assets/images/learning-icon-materials.png",
   learningLotReviewIcon: "/assets/images/learning-icon-lot-review.png",
-  learningFirstStepsIcon: "/assets/images/learning-icon-first-steps.png"
+  learningFirstStepsIcon: "/assets/images/learning-icon-first-steps.png",
+  audienceBeginner: "/assets/images/audience-beginner.png",
+  audienceDealer: "/assets/images/audience-dealer.png",
+  audienceInspector: "/assets/images/audience-inspector.png",
+  audienceService: "/assets/images/audience-service.png",
+  audienceBusiness: "/assets/images/audience-business.png"
 } as const;
