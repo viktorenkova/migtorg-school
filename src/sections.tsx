@@ -38,12 +38,10 @@ import {
   heroTrust,
   lotReviewPills,
   mistakes,
-  modules
 } from "./data";
 import { GlowButton, IconBox, Logo, Reveal, SectionEyebrow } from "./components/ui";
 
 const benefitIcons = [ShieldCheck, BarChart3, Users];
-const moduleIcons = [Car, Calculator, Gavel, Wrench, ShieldCheck, Wallet, AlertTriangle, TrendingUp];
 const guideItems = [
   "Почему нельзя ставить на лот без расчета максимальной цены",
   "Почему выигранный лот не всегда передают",
@@ -548,62 +546,138 @@ export function CaseStudy() {
   );
 }
 
-export function ProgramModules() {
-  const [active, setActive] = useState(1);
+const learningFlowSteps = [
+  { label: "Лот", Icon: CarFront, tone: "red" },
+  { label: "Оценка", Icon: Search, tone: "red" },
+  { label: "Ставка", Icon: Gavel, tone: "red" },
+  { label: "Передача", Icon: FileText, tone: "coral" },
+  { label: "Осмотр", Icon: ShieldCheck, tone: "white" },
+  { label: "Прибыль", Icon: ChartNoAxesCombined, tone: "green" }
+] as const;
 
+const learningSkillGroups = [
+  {
+    number: "01",
+    title: "Поиск и оценка лота",
+    icon: (
+      <>
+        <CarFront className="learning-group-main-icon" />
+        <Search className="learning-group-accent-icon" />
+      </>
+    ),
+    skills: [
+      "Понимать, как автомобили попадают на аукцион",
+      "Отличать перспективные лоты от рискованных",
+      "Читать карточку лота и видеть важные детали",
+      "Оценивать повреждения по фото"
+    ]
+  },
+  {
+    number: "02",
+    title: "Торги и передача",
+    icon: <Gavel className="learning-group-single-icon" />,
+    skills: [
+      "Считать максимальную ставку",
+      "Пользоваться закрытыми и открытыми торгами",
+      "Понимать, когда лот могут передать",
+      "Грамотно действовать после передачи"
+    ]
+  },
+  {
+    number: "03",
+    title: "Проверка и расчет",
+    icon: (
+      <>
+        <Calculator className="learning-group-main-icon learning-group-main-icon-calculator" />
+        <ShieldCheck className="learning-group-accent-icon learning-group-accent-icon-shield" />
+      </>
+    ),
+    skills: [
+      "Организовать осмотр автомобиля",
+      "Проверить юридические риски",
+      "Рассчитать ремонт, логистику и прибыль",
+      "Избежать типовых ошибок новичков"
+    ]
+  }
+] as const;
+
+export function ProgramModules() {
   return (
-    <section id="program" className="page-section program-section">
-      <div className="section-container grid gap-16 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-        <Reveal>
-          <div className="max-w-[620px]">
-            <SectionEyebrow>Что внутри школы</SectionEyebrow>
-            <h2 className="section-title">
-              8 модулей для
+    <section id="program" className="page-section learning-section">
+      <div className="section-container learning-container">
+        <Reveal className="learning-copy">
+          <div>
+            <SectionEyebrow>Чему вы научитесь</SectionEyebrow>
+            <h2 className="learning-title">
+              После обучения
               <br />
-              системного входа
-              <br />в рынок
+              вы будете понимать
+              <span>весь путь сделки</span>
             </h2>
-            <p className="section-subtitle">
-              Пошаговая программа, которая помогает разобраться в рынке, считать риски и принимать решения
-              как профессионал.
+            <p className="learning-subtitle">
+              От появления автомобиля на аукционе до проверки, ставки, передачи, осмотра, ремонта и расчета прибыли.
             </p>
+
+            <article className="learning-flow-card" aria-label="Путь сделки">
+              <h3>Путь сделки</h3>
+              <div className="learning-flow-track" aria-hidden="true">
+                {learningFlowSteps.map((step, index) => {
+                  const Icon = step.Icon;
+
+                  return (
+                    <div key={step.label} className={`learning-flow-step learning-flow-step-${step.tone}`}>
+                      <span className="learning-flow-node">
+                        <span />
+                      </span>
+                      <Icon className="learning-flow-icon" />
+                      <strong>{step.label}</strong>
+                      {index === learningFlowSteps.length - 1 ? <i /> : null}
+                    </div>
+                  );
+                })}
+              </div>
+            </article>
+
+            <LearningCarVisual />
           </div>
         </Reveal>
 
-        <Reveal delay={0.08}>
-          <div className="accordion-list">
-            {modules.map((item, index) => {
-              const Icon = moduleIcons[index];
-              const isActive = active === index;
-
-              return (
-                <motion.article key={item.title} layout className={`accordion-item ${isActive ? "is-active" : ""}`}>
-                  <button type="button" onClick={() => setActive(index)} aria-expanded={isActive}>
-                    <IconBox Icon={Icon} />
-                    <span>{index + 1}.</span>
-                    <strong>{item.title}</strong>
-                    <ChevronDown className="ml-auto h-6 w-6" />
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {isActive ? (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.28 }}
-                        className="overflow-hidden"
-                      >
-                        <p>{item.text}</p>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
-                </motion.article>
-              );
-            })}
-          </div>
+        <Reveal delay={0.08} className="learning-checklist-wrap">
+          <article className="learning-checklist-card">
+            <h3>После прохождения школы вы сможете:</h3>
+            <div className="learning-skill-groups">
+              {learningSkillGroups.map((group) => (
+                <section key={group.number} className="learning-skill-group">
+                  <div className="learning-group-visual" aria-hidden="true">
+                    <span className="learning-group-number">{group.number}</span>
+                    <span className="learning-group-icon">{group.icon}</span>
+                  </div>
+                  <div className="learning-group-content">
+                    <h4>{group.title}</h4>
+                    <ul>
+                      {group.skills.map((skill) => (
+                        <li key={skill}>
+                          <CheckCircle2 aria-hidden="true" />
+                          <span>{skill}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </section>
+              ))}
+            </div>
+          </article>
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function LearningCarVisual() {
+  return (
+    <div className="learning-car-visual" aria-hidden="true">
+      <img src={images.learningCar} alt="" loading="lazy" decoding="async" />
+    </div>
   );
 }
 
