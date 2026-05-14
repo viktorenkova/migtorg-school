@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  AlertTriangle,
   ArrowDown,
   ArrowRight,
   BarChart3,
@@ -16,7 +15,6 @@ import {
   FileText,
   Gavel,
   LockKeyhole,
-  Play,
   RefreshCw,
   Search,
   ShieldCheck,
@@ -36,12 +34,41 @@ import {
   footerUserLinks,
   heroBenefits,
   heroTrust,
-  lotReviewPills,
-  mistakes,
+  curriculumModules,
 } from "./data";
 import { GlowButton, IconBox, Logo, Reveal, SectionEyebrow } from "./components/ui";
 
 const benefitIcons = [ShieldCheck, BarChart3, Users];
+const learningSteps = [
+  {
+    number: "01",
+    title: "Смотрите уроки",
+    text: "Короткие практические видео без лишней теории. Каждый урок отвечает на конкретный вопрос новичка.",
+    tone: "coral",
+    icon: images.learningVideoIcon
+  },
+  {
+    number: "02",
+    title: "Используете материалы",
+    text: "Чек-листы, таблицы, калькуляторы, шаблоны писем и примеры расчётов.",
+    tone: "coral",
+    icon: images.learningMaterialsIcon
+  },
+  {
+    number: "03",
+    title: "Разбираете реальные лоты",
+    text: "Учитесь смотреть на автомобиль глазами покупателя, который считает прибыль и риски.",
+    tone: "coral",
+    icon: images.learningLotReviewIcon
+  },
+  {
+    number: "04",
+    title: "Делаете первые шаги на Migtorg",
+    text: "После обучения вы сможете осознанно выбирать лоты, считать ставку и участвовать в торгах.",
+    tone: "green",
+    icon: images.learningFirstStepsIcon
+  }
+] as const;
 const guideItems = [
   "Почему нельзя ставить на лот без расчета максимальной цены",
   "Почему выигранный лот не всегда передают",
@@ -681,90 +708,191 @@ function LearningCarVisual() {
   );
 }
 
+const curriculumIcons = [ShieldCheck, Search, Wrench, Calculator, Gavel, FileText, ClipboardList] as const;
+
 export function LiveLotReview() {
+  const [openModules, setOpenModules] = useState<string[]>(["01"]);
+
+  const toggleModule = (moduleNumber: string) => {
+    setOpenModules((current) => {
+      if (current.includes(moduleNumber)) {
+        return current.filter((item) => item !== moduleNumber);
+      }
+
+      const shouldKeepSingleOpen =
+        typeof window !== "undefined" && window.matchMedia("(max-width: 760px)").matches;
+
+      return shouldKeepSingleOpen ? [moduleNumber] : [...current, moduleNumber];
+    });
+  };
+
+  const openAccessModal = () => {
+    window.dispatchEvent(new Event("migtorg:open-access-modal"));
+  };
+
   return (
-    <section id="reviews" className="page-section review-section">
-      <div className="section-container grid gap-16 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+    <section id="reviews" className="page-section curriculum-section">
+      <div className="section-container curriculum-container">
         <Reveal>
-          <article className="video-card">
-            <div className="video-top">
-              <span className="status-dot" />
-              <strong>Разбор лота в прямом эфире</strong>
-              <time>02:47</time>
-            </div>
-            <div className="video-body">
-              <img src={images.caseBmw} alt="BMW X5 2020 для разбора лота в прямом эфире" />
-              <div className="lot-info">
-                <h3>BMW X5 2020</h3>
-                <span><ShieldCheck className="h-6 w-6 text-green" /> VIN проверен</span>
-                <span><Wrench className="h-6 w-6 text-red" /> Ремонт: 210 000 ₽</span>
-                <span><Target className="h-6 w-6 text-red" /> Предел ставки: <b>1 740 000 ₽</b></span>
-              </div>
-            </div>
-            <div className="current-bid">
-              <span>Текущая ставка</span>
-              <strong>1 580 000 ₽</strong>
-            </div>
-          </article>
+          <div className="curriculum-header">
+            <SectionEyebrow>ПРОГРАММА ОБУЧЕНИЯ</SectionEyebrow>
+            <h2 className="section-title curriculum-title">Программа обучения Migtorg PRO</h2>
+            <p className="section-subtitle curriculum-subtitle">
+              7 модулей — от понимания рынка до первой стратегии работы с аукционом.
+            </p>
+          </div>
         </Reveal>
 
-        <Reveal delay={0.08}>
-          <div>
-            <SectionEyebrow>Разборы лотов</SectionEyebrow>
-            <h2 className="section-title">
-              Внутрянка рынка
-              <br />в реальном времени
-            </h2>
-            <p className="section-subtitle">
-              Эксперт открывает аукцион и показывает: почему берем, почему пропускаем, сколько можно
-              заработать и где риск.
-            </p>
-            <div className="mt-9 grid gap-4 sm:grid-cols-2">
-              {lotReviewPills.map((pill) => (
-                <span key={pill} className="pill">
-                  {pill}
-                </span>
-              ))}
-            </div>
-            <GlowButton href="#case" variant="outline" className="mt-9 min-h-[74px] px-10 text-xl">
-              <Play className="mr-4 h-5 w-5" /> Посмотреть разбор
-            </GlowButton>
+        <Reveal delay={0.06}>
+          <div className="curriculum-route" aria-label="Маршрут программы">
+            {curriculumModules.map((module, index) => (
+              <span key={module.number} className={index === curriculumModules.length - 1 ? "is-final" : ""}>
+                <b>{module.number}</b> {module.routeLabel}
+              </span>
+            ))}
           </div>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <div className="curriculum-accordion">
+            {curriculumModules.map((module, index) => {
+              const Icon = curriculumIcons[index];
+              const isOpen = openModules.includes(module.number);
+              const contentId = `curriculum-module-${module.number}`;
+
+              return (
+                <article key={module.number} className={`curriculum-item ${isOpen ? "is-open" : ""}`}>
+                  <button
+                    type="button"
+                    className="curriculum-trigger"
+                    aria-expanded={isOpen}
+                    aria-controls={contentId}
+                    onClick={() => toggleModule(module.number)}
+                  >
+                    <span className="curriculum-number">{module.number}</span>
+                    <span className="curriculum-icon" aria-hidden="true">
+                      <Icon />
+                    </span>
+                    <span className="curriculum-trigger-title">{module.title}</span>
+                    <span className="curriculum-badges" aria-label="Материалы модуля">
+                      {module.badges.map((badge) => (
+                        <span key={badge}>{badge}</span>
+                      ))}
+                    </span>
+                    <ChevronDown className="curriculum-chevron" aria-hidden="true" />
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen ? (
+                      <motion.div
+                        id={contentId}
+                        className="curriculum-panel"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <div className="curriculum-panel-inner">
+                          <div className="curriculum-panel-heading">
+                            <span>{module.number}</span>
+                            <h3>{module.title}</h3>
+                          </div>
+
+                          <div className="curriculum-block">
+                            <h4>Описание</h4>
+                            <p>{module.description}</p>
+                          </div>
+
+                          <div className="curriculum-block">
+                            <h4>Что внутри модуля</h4>
+                            <ul className="curriculum-checklist">
+                              {module.inside.map((item) => (
+                                <li key={item}>
+                                  <CheckCircle2 aria-hidden="true" />
+                                  <span>{item}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          <div className="curriculum-block">
+                            <h4>Материалы</h4>
+                            <div className="curriculum-materials">
+                              {module.materials.map((material) => (
+                                <span key={material}>{material}</span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <article className="curriculum-result">
+                            <ShieldCheck aria-hidden="true" />
+                            <div>
+                              <h4>Результат</h4>
+                              <p>{module.result}</p>
+                            </div>
+                          </article>
+                        </div>
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </article>
+              );
+            })}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.12}>
+          <article className="curriculum-cta">
+            <p>Хотите пройти программу и получить доступ к материалам?</p>
+            <GlowButton type="button" className="curriculum-cta-button" onClick={openAccessModal}>
+              Получить доступ к школе <ArrowRight aria-hidden="true" />
+            </GlowButton>
+          </article>
         </Reveal>
       </div>
     </section>
   );
 }
 
-export function Mistakes() {
+export function LearningFlow() {
   return (
-    <section className="page-section mistakes-section">
-      <div className="section-container grid gap-16 lg:grid-cols-[0.78fr_1.22fr] lg:items-center">
+    <section className="page-section learning-flow-section">
+      <div className="section-container learning-flow-container">
         <Reveal>
-          <div className="max-w-[610px]">
-            <SectionEyebrow>Ошибки новичков</SectionEyebrow>
-            <h2 className="section-title">
-              Что съедает
-              <br />
-              прибыль
-            </h2>
-            <p className="section-subtitle">
-              Большинство потерь происходит не из-за рынка, а из-за ошибок в проверке истории, расчёте
-              ремонта, выборе аукциона и стратегии ставок.
+          <div className="learning-flow-header">
+            <SectionEyebrow>КАК ПРОХОДИТ ОБУЧЕНИЕ</SectionEyebrow>
+            <h2 className="section-title learning-flow-title">Как устроено обучение</h2>
+            <p className="section-subtitle learning-flow-subtitle">
+              Пошаговый формат: от коротких уроков и рабочих материалов до разбора реальных лотов и первых действий на площадке.
             </p>
           </div>
         </Reveal>
 
-        <div className="grid gap-4">
-          {mistakes.map((mistake, index) => (
-            <Reveal key={mistake} delay={index * 0.04}>
-              <article className="alert-card">
-                <IconBox Icon={AlertTriangle} />
-                <strong>{mistake}</strong>
+        <div className="learning-flow-grid" aria-label="Порядок прохождения обучения">
+          {learningSteps.map((step, index) => (
+            <Reveal key={step.number} delay={index * 0.06}>
+              <article className={`learning-step-card learning-step-card-${step.tone}`}>
+                <div className="learning-step-top">
+                  <span className="learning-step-number">{step.number}</span>
+                  <span className="learning-step-icon" aria-hidden="true">
+                    <img src={step.icon} alt="" loading="lazy" />
+                  </span>
+                </div>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
               </article>
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={0.18}>
+          <article className="learning-flow-note">
+            <ShieldCheck aria-hidden="true" />
+            <p>
+              Формат обучения построен вокруг практики: <span>каждый материал помогает принять более точное решение по лоту.</span>
+            </p>
+          </article>
+        </Reveal>
       </div>
     </section>
   );
@@ -844,6 +972,16 @@ export function FinalCTA() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isModalOpen]);
+
+  useEffect(() => {
+    const handleOpenAccessModal = () => setIsModalOpen(true);
+
+    window.addEventListener("migtorg:open-access-modal", handleOpenAccessModal);
+
+    return () => {
+      window.removeEventListener("migtorg:open-access-modal", handleOpenAccessModal);
+    };
+  }, []);
 
   return (
     <>

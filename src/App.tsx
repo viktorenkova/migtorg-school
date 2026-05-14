@@ -6,9 +6,9 @@ import {
   FinalCTA,
   Footer,
   Hero,
+  LearningFlow,
   LiveLotReview,
   MarketEconomics,
-  Mistakes,
   ProgramModules
 } from "./sections";
 
@@ -24,7 +24,7 @@ export default function App() {
         <CaseStudy />
         <ProgramModules />
         <LiveLotReview />
-        <Mistakes />
+        <LearningFlow />
         <Community />
       </main>
       <Footer />
