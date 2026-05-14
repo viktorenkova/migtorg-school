@@ -19,8 +19,11 @@ import {
   Gauge,
   Gavel,
   LockKeyhole,
+  Mail,
   MapPin,
+  MessageCircle,
   Minus,
+  Phone,
   Plus,
   RefreshCw,
   Search,
@@ -35,8 +38,6 @@ import {
 import { images } from "./constants";
 import {
   accessBadges,
-  footerNavigation,
-  footerUserLinks,
   heroBenefits,
   heroTrust,
   curriculumModules,
@@ -1460,45 +1461,106 @@ export function FinalCTA() {
   );
 }
 
+const footerNavItems = [
+  { label: "Экономика", href: "#economy" },
+  { label: "Механика", href: "#mechanics" },
+  { label: "Гайд", href: "#case" },
+  { label: "Программа", href: "#program" },
+  { label: "Доступ к школе", href: "#access" }
+] as const;
+
+const footerUserItems = [
+  { label: "Войти в аккаунт", href: "#top" },
+  { label: "Получить доступ", href: "#access" },
+  { label: "Поддержка", href: "#top" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Политика конфиденциальности", href: "#top" }
+] as const;
+
+const footerContactItems = [
+  {
+    label: "Телефон",
+    value: "+7 (495) 649 91 99",
+    href: "tel:+74956499199",
+    Icon: Phone,
+    tone: "coral"
+  },
+  {
+    label: "WhatsApp",
+    value: "+7 (926) 511 43 99",
+    href: "https://wa.me/79265114399",
+    Icon: MessageCircle,
+    tone: "green"
+  },
+  {
+    label: "E-mail",
+    value: "school@migtorg.com",
+    href: "mailto:school@migtorg.com",
+    Icon: Mail,
+    tone: "coral"
+  },
+  {
+    label: "Адрес",
+    value: "109 052, г. Москва, ул. Смирновская, д. 25, стр. 16, подъезд 2, 4 этаж",
+    href: undefined,
+    Icon: MapPin,
+    tone: "coral"
+  }
+] as const;
+
 export function Footer() {
   return (
     <footer className="footer">
       <div className="section-container">
-        <div className="flex flex-col gap-8 border-b border-white/10 pb-10 lg:flex-row lg:items-center lg:justify-between">
+        <div className="footer-top">
           <Logo small />
-          <p className="max-w-[560px] text-xl leading-snug text-white/50 lg:text-center">
-            Автомобильные аукционы под контролем. Аналитика, финансы и результат.
-          </p>
+          <p>Автомобильные аукционы под контролем. Аналитика, финансы и результат.</p>
           <a href="#top" className="back-top">
-            ↑ Наверх
+            <span aria-hidden="true">↑</span>
+            Наверх
           </a>
         </div>
 
-        <div className="grid gap-9 py-10 md:grid-cols-2 lg:grid-cols-[1.25fr_0.75fr_0.9fr_1.25fr]">
-          <div>
+        <div className="footer-grid">
+          <article className="footer-card footer-about">
+            <span className="footer-card-icon" aria-hidden="true">
+              <ShieldCheck />
+            </span>
             <h3>О проекте</h3>
             <p>
               Migtorg PRO — школа автомобильных аукционов для новичков и профессионалов. Обучение,
               аналитика, кейсы и инструменты для системной работы на рынке.
             </p>
-          </div>
-          <FooterColumn title="Навигация" items={footerNavigation} />
-          <FooterColumn title="Пользователю" items={footerUserLinks} />
-          <div>
+          </article>
+
+          <FooterNavColumn title="Навигация" items={footerNavItems} className="footer-nav-column" />
+          <FooterNavColumn title="Пользователю" items={footerUserItems} className="footer-user-column" />
+
+          <article className="footer-card footer-contacts">
             <h3>Контакты</h3>
-            <p>
-              Телефон: +7 (495) 649 91 99
-              <br />
-              WhatsApp: +7 (926) 511 43 99
-              <br />
-              E-mail: school@migtorg.com
-              <br />
-              Адрес: 109 052, г. Москва, ул. Смирновская, д. 25, стр. 16, подъезд 2, 4 этаж
-            </p>
-          </div>
+            <ul className="footer-contact-list">
+              {footerContactItems.map(({ label, value, href, Icon, tone }) => (
+                <li key={label}>
+                  <span className={`footer-contact-icon footer-contact-icon-${tone}`} aria-hidden="true">
+                    <Icon />
+                  </span>
+                  <span>
+                    <span className="footer-contact-label">{label}</span>
+                    {href ? (
+                      <a href={href} target={href.startsWith("https") ? "_blank" : undefined} rel={href.startsWith("https") ? "noreferrer" : undefined}>
+                        {value}
+                      </a>
+                    ) : (
+                      <span className="footer-contact-value">{value}</span>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </article>
         </div>
 
-        <div className="flex flex-wrap gap-x-7 gap-y-3 border-t border-white/10 pt-7 text-sm font-semibold text-white/38">
+        <div className="footer-legal">
           <span>© 2025 ООО «ЛИОН МЕДИА»</span>
           <span>ИНН 7725363413</span>
           <span>ОГРН 1177746287212</span>
@@ -1510,41 +1572,25 @@ export function Footer() {
   );
 }
 
-function FooterColumn({ title, items }: { title: string; items: string[] }) {
+function FooterNavColumn({
+  title,
+  items,
+  className = ""
+}: {
+  title: string;
+  items: readonly { label: string; href: string }[];
+  className?: string;
+}) {
   return (
-    <div>
+    <nav className={`footer-column ${className}`} aria-label={title}>
       <h3>{title}</h3>
       <ul>
         {items.map((item) => (
-          <li key={item}>
-            <a href={getFooterHref(item)}>{item}</a>
+          <li key={item.label}>
+            <a href={item.href}>{item.label}</a>
           </li>
         ))}
       </ul>
-    </div>
+    </nav>
   );
-}
-
-function getFooterHref(item: string) {
-  if (item.includes("Экономика")) {
-    return "#economy";
-  }
-
-  if (item.includes("Механика")) {
-    return "#mechanics";
-  }
-
-  if (item.includes("Гайд")) {
-    return "#case";
-  }
-
-  if (item.includes("Программа")) {
-    return "#program";
-  }
-
-  if (item.includes("Доступ") || item.includes("Получить")) {
-    return "#access";
-  }
-
-  return "#top";
 }
