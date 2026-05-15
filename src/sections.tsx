@@ -727,7 +727,6 @@ export function LiveLotReview() {
                       >
                         <div className="curriculum-panel-inner">
                           <div className="curriculum-panel-heading">
-                            <span>{module.number}</span>
                             <h3>{module.title}</h3>
                           </div>
 

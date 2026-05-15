@@ -2774,18 +2774,7 @@ button:disabled {
 }
 
 .curriculum-panel-heading {
-  display: grid;
-  grid-template-columns: 62px minmax(0, 1fr);
-  align-items: start;
-  gap: 18px;
   margin-bottom: 24px;
-}
-
-.curriculum-panel-heading span {
-  color: var(--migtorg-red);
-  font-size: 34px;
-  font-weight: 950;
-  line-height: 1;
 }
 
 .curriculum-panel-heading h3 {
@@ -2820,9 +2809,8 @@ button:disabled {
 }
 
 .curriculum-checklist {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 22px;
+  column-count: 2;
+  column-gap: 22px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -2833,9 +2821,15 @@ button:disabled {
   grid-template-columns: 24px minmax(0, 1fr);
   align-items: start;
   gap: 11px;
+  break-inside: avoid;
+  margin-bottom: 12px;
   color: rgba(248, 250, 252, 0.76);
   font-size: clamp(15px, 1.03vw, 17px);
   line-height: 1.42;
+}
+
+.curriculum-checklist li:last-child {
+  margin-bottom: 0;
 }
 
 .curriculum-checklist svg {
@@ -6372,13 +6366,7 @@ button:disabled {
   }
 
   .curriculum-panel-heading {
-    grid-template-columns: 1fr;
-    gap: 10px;
     margin-bottom: 20px;
-  }
-
-  .curriculum-panel-heading span {
-    font-size: 28px;
   }
 
   .curriculum-panel-heading h3 {
@@ -6401,13 +6389,14 @@ button:disabled {
   }
 
   .curriculum-checklist {
-    grid-template-columns: 1fr;
-    gap: 11px;
+    column-count: 1;
+    column-gap: 0;
   }
 
   .curriculum-checklist li {
     grid-template-columns: 22px minmax(0, 1fr);
     gap: 10px;
+    margin-bottom: 11px;
     font-size: 15px;
   }
 
