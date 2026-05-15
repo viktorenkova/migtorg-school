@@ -5191,15 +5191,22 @@ button:disabled {
 }
 
 .footer-column a,
+.footer-column button,
 .footer-legal a {
   display: inline-flex;
   align-items: center;
   gap: 14px;
+  border: 0;
+  padding: 0;
+  background: transparent;
   color: rgba(248, 250, 252, 0.68);
+  font: inherit;
+  text-align: left;
   transition: color 180ms ease, transform 180ms ease;
 }
 
 .footer-column a::before,
+.footer-column button::before,
 .footer-legal a::after {
   content: "";
   width: 9px;
@@ -5211,12 +5218,14 @@ button:disabled {
 }
 
 .footer-column a:hover,
+.footer-column button:hover,
 .footer-legal a:hover,
 .footer-contact-list a:hover {
   color: #fff;
 }
 
-.footer-column a:hover {
+.footer-column a:hover,
+.footer-column button:hover {
   transform: translateX(2px);
 }
 

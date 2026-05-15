@@ -6,6 +6,11 @@ import { GlowButton, Logo } from "./ui";
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const openAccessModal = () => {
+    setIsOpen(false);
+    window.dispatchEvent(new Event("migtorg:open-access-modal"));
+  };
+
   return (
     <header className="site-header">
       <div className="header-shell">
@@ -20,7 +25,7 @@ export function Header() {
         </nav>
 
         <div className="header-actions">
-          <GlowButton href="#access" className="header-cta min-h-12 px-6 text-sm">
+          <GlowButton type="button" className="header-cta min-h-12 px-6 text-sm" onClick={openAccessModal}>
             <span className="hidden sm:inline">Получить доступ</span>
             <span className="sm:hidden">Доступ</span>
           </GlowButton>
@@ -46,7 +51,7 @@ export function Header() {
               {item.label}
             </a>
           ))}
-          <GlowButton href="#access" className="mt-2 w-full">
+          <GlowButton type="button" className="mt-2 w-full" onClick={openAccessModal}>
             Получить доступ
           </GlowButton>
         </div>

@@ -82,6 +82,10 @@ const guideItems = [
   "Что происходит при необоснованном отказе от лота"
 ];
 
+const openAccessModal = () => {
+  window.dispatchEvent(new Event("migtorg:open-access-modal"));
+};
+
 export function Hero() {
   return (
     <section id="top" className="hero-section">
@@ -124,7 +128,7 @@ export function Hero() {
 
           <Reveal delay={0.28}>
             <div className="hero-actions">
-              <GlowButton href="#access" className="min-h-[68px] px-8 text-[17px]">
+              <GlowButton type="button" className="min-h-[68px] px-8 text-[17px]" onClick={openAccessModal}>
                 Получить доступ бесплатно <ArrowRight className="ml-3 h-5 w-5" />
               </GlowButton>
               <GlowButton href="#case" variant="secondary" className="hero-guide-button min-h-[68px] px-8 text-[17px]">
@@ -456,9 +460,16 @@ export function CaseStudy() {
                   </span>
                   <h2 id="guide-modal-title">Гайд отправлен на вашу почту.</h2>
                   <p>Также мы можем прислать вам доступ к бесплатной школе MIGTORG PRO.</p>
-                  <a href="#access" className="button button-outline guide-success-link" onClick={() => setIsModalOpen(false)}>
+                  <button
+                    type="button"
+                    className="button button-outline guide-success-link"
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      openAccessModal();
+                    }}
+                  >
                     Получить доступ к школе <ArrowRight aria-hidden="true" />
-                  </a>
+                  </button>
                 </div>
               ) : (
                 <>
@@ -1397,7 +1408,7 @@ const footerNavItems = [
 
 const footerUserItems = [
   { label: "Войти в аккаунт", href: "#top" },
-  { label: "Получить доступ", href: "#access" },
+  { label: "Получить доступ", href: "#access", opensAccessModal: true },
   { label: "Поддержка", href: "#top" },
   { label: "FAQ", href: "#faq" },
   { label: "Политика конфиденциальности", href: "#top" }
@@ -1504,7 +1515,7 @@ function FooterNavColumn({
   className = ""
 }: {
   title: string;
-  items: readonly { label: string; href: string }[];
+  items: readonly { label: string; href: string; opensAccessModal?: boolean }[];
   className?: string;
 }) {
   return (
@@ -1513,7 +1524,13 @@ function FooterNavColumn({
       <ul>
         {items.map((item) => (
           <li key={item.label}>
-            <a href={item.href}>{item.label}</a>
+            {item.opensAccessModal ? (
+              <button type="button" onClick={openAccessModal}>
+                {item.label}
+              </button>
+            ) : (
+              <a href={item.href}>{item.label}</a>
+            )}
           </li>
         ))}
       </ul>
