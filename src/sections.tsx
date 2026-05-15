@@ -602,7 +602,6 @@ export function ProgramModules() {
                       </span>
                       <Icon className="learning-flow-icon" />
                       <strong>{step.label}</strong>
-                      {index === learningFlowSteps.length - 1 ? <i /> : null}
                     </div>
                   );
                 })}
@@ -1010,7 +1009,9 @@ export function RealCases() {
             <SectionEyebrow>РЕАЛЬНЫЕ КЕЙСЫ</SectionEyebrow>
             <h2 className="section-title real-cases-title">Реальные кейсы</h2>
             <p className="section-subtitle real-cases-subtitle">
-              Ниже — примерный формат разбора, который используется в обучении. Реальные кейсы школы будут показывать полный путь: от выбора лота до результата.
+              Ниже — примерный формат разбора, который используется в обучении.
+              <br />
+              <span>Реальные кейсы школы будут показывать полный путь: от выбора лота до результата.</span>
             </p>
           </div>
         </Reveal>
@@ -1068,7 +1069,7 @@ export function RealCases() {
                   ))}
                 </dl>
 
-                <a className="lot-demo-link" href="#real-cases" aria-label="Подробнее о демонстрационном разборе лота">
+                <a className="lot-demo-link" href="https://migtorg.com" target="_blank" rel="noreferrer" aria-label="Перейти на сайт migtorg.com">
                   Подробнее <ArrowRight aria-hidden="true" />
                 </a>
               </div>
@@ -1083,7 +1084,7 @@ export function RealCases() {
                 </span>
                 <div>
                   <span className="case-analysis-badge">Пример разбора</span>
-                  <h3>Автомобиль: кроссовер 2021 года</h3>
+                  <h3>Автомобиль: кроссовер 2022 года</h3>
                   <p>
                     <span>Сценарий:</span> восстановление и перепродажа
                   </p>
