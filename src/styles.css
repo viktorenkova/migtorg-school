@@ -3367,6 +3367,24 @@ button:disabled {
   line-height: 1.48;
 }
 
+@media (min-width: 1200px) {
+  .curriculum-header,
+  .learning-flow-header,
+  .community-header {
+    max-width: none;
+  }
+
+  .curriculum-title,
+  .curriculum-subtitle,
+  .learning-flow-title,
+  .learning-flow-subtitle,
+  .community-title,
+  .community-header .section-subtitle {
+    max-width: none;
+    white-space: nowrap;
+  }
+}
+
 .community-audience-grid {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
