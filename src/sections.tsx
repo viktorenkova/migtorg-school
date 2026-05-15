@@ -226,7 +226,7 @@ export function MarketEconomics() {
             <article className="actuality-conclusion">
               <ShieldCheck aria-hidden="true" />
               <span />
-              <strong>Migtorg PRO помогает пройти этот путь не вслепую, а по понятной системе.</strong>
+              <strong>MIGTORG PRO помогает пройти этот путь не вслепую, а по понятной системе.</strong>
             </article>
           </div>
         </Reveal>
@@ -267,7 +267,7 @@ export function DealMechanics() {
         <div className="migtorg-pro-top">
           <Reveal>
             <div className="migtorg-pro-copy">
-              <SectionEyebrow>Что такое Migtorg PRO</SectionEyebrow>
+              <SectionEyebrow>Что такое MIGTORG PRO</SectionEyebrow>
               <h2 className="section-title migtorg-pro-title">
                 MIGTORG PRO — это <span>практическая школа</span> работы с автоаукционами
               </h2>
@@ -455,7 +455,7 @@ export function CaseStudy() {
                     <CheckCircle2 />
                   </span>
                   <h2 id="guide-modal-title">Гайд отправлен на вашу почту.</h2>
-                  <p>Также мы можем прислать вам доступ к бесплатной школе Migtorg PRO.</p>
+                  <p>Также мы можем прислать вам доступ к бесплатной школе MIGTORG PRO.</p>
                   <a href="#access" className="button button-outline guide-success-link" onClick={() => setIsModalOpen(false)}>
                     Получить доступ к школе <ArrowRight aria-hidden="true" />
                   </a>
@@ -669,7 +669,7 @@ export function LiveLotReview() {
         <Reveal>
           <div className="curriculum-header">
             <SectionEyebrow>ПРОГРАММА ОБУЧЕНИЯ</SectionEyebrow>
-            <h2 className="section-title curriculum-title">Программа обучения Migtorg PRO</h2>
+            <h2 className="section-title curriculum-title">Программа обучения MIGTORG PRO</h2>
             <p className="section-subtitle curriculum-subtitle">
               7 модулей — от понимания рынка до первой стратегии работы с аукционом.
             </p>
@@ -876,7 +876,7 @@ export function Community() {
         <Reveal>
           <div className="community-header">
             <SectionEyebrow>ДЛЯ КОГО ШКОЛА</SectionEyebrow>
-            <h2 className="section-title community-title">Кому подойдёт Migtorg PRO</h2>
+            <h2 className="section-title community-title">Кому подойдёт MIGTORG PRO</h2>
             <p className="section-subtitle">
               Школа помогает разным участникам рынка понять механику автоаукционов и использовать её под свои задачи.
             </p>
@@ -955,7 +955,7 @@ const realCaseChecklist = [
 const faqItems = [
   {
     question: "Школа действительно бесплатная?",
-    answer: "Да, базовое обучение Migtorg PRO доступно бесплатно. Цель школы — помочь новым участникам разобраться в рынке и начать осознанно работать с площадкой."
+    answer: "Да, базовое обучение MIGTORG PRO доступно бесплатно. Цель школы — помочь новым участникам разобраться в рынке и начать осознанно работать с площадкой."
   },
   {
     question: "Нужно ли уже быть перекупом?",
@@ -1256,7 +1256,7 @@ export function FinalCTA() {
                   без хаотичных ставок?
                 </h2>
                 <p>
-                  Получите доступ к бесплатному обучению Migtorg PRO: разборы лотов, механика торгов и
+                  Получите доступ к бесплатному обучению MIGTORG PRO: разборы лотов, механика торгов и
                   система принятия решений.
                 </p>
                 <div className="final-cta-chips" aria-label="Преимущества доступа">
@@ -1313,7 +1313,7 @@ export function FinalCTA() {
                 <SectionEyebrow>ДОСТУП К ШКОЛЕ</SectionEyebrow>
                 <h2 id="access-modal-title">Заявка на доступ</h2>
                 <p>
-                  Заполните короткую анкету — и мы откроем доступ к бесплатному обучению Migtorg PRO.
+                  Заполните короткую анкету — и мы откроем доступ к бесплатному обучению MIGTORG PRO.
                 </p>
               </div>
 
@@ -1455,7 +1455,7 @@ export function Footer() {
             </span>
             <h3>О проекте</h3>
             <p>
-              Migtorg PRO — школа автомобильных аукционов для новичков и профессионалов. Обучение,
+              MIGTORG PRO — школа автомобильных аукционов для новичков и профессионалов. Обучение,
               аналитика, кейсы и инструменты для системной работы на рынке.
             </p>
           </article>

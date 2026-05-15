@@ -3173,6 +3173,21 @@ button:disabled {
   transform: translate(-50%, -50%);
 }
 
+.learning-flow-grid > div:first-child .learning-step-card {
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 81, 72, 0.05), transparent 32%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.078), rgba(255, 255, 255, 0.018)),
+    rgba(7, 13, 23, 0.78);
+}
+
+.learning-flow-grid > div:first-child .learning-step-card::before {
+  opacity: 0.28;
+}
+
+.learning-flow-grid > div:first-child .learning-step-icon img {
+  filter: drop-shadow(0 0 5px rgba(255, 81, 72, 0.22));
+}
+
 .learning-step-card h3 {
   min-height: 62px;
   margin: 0;
