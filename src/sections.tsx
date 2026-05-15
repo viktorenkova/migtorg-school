@@ -217,7 +217,7 @@ export function MarketEconomics() {
           <div className="actuality-copy">
             <SectionEyebrow>Почему это актуально</SectionEyebrow>
             <h2 className="section-title actuality-title">
-              На аукционах выигрывает система,
+              На аукционах <span className="copy-accent-green">выигрывает</span> система,
               <br />
               а не удача
             </h2>
@@ -382,7 +382,7 @@ export function CaseStudy() {
           <Reveal className="guide-copy">
             <SectionEyebrow>БЕСПЛАТНЫЙ ГАЙД</SectionEyebrow>
             <h2 className="section-title guide-title">
-              Скачайте бесплатный гайд
+              Скачайте <span className="copy-accent-red">бесплатный</span> гайд
               <br />
               “7 ошибок новичков
               <br />
@@ -1261,7 +1261,7 @@ export function FinalCTA() {
                 <h2>
                   Хотите разобраться,
                   <br />
-                  как зарабатывать на автоаукционах
+                  как <span className="copy-accent-green">зарабатывать</span> на автоаукционах
                   <br />
                   без хаотичных ставок?
                 </h2>
