@@ -18,7 +18,7 @@ export default function App() {
   return (
     <>
       <Header />
-      <main>
+      <main className="site-main">
         <Hero />
         <MarketEconomics />
         <DealMechanics />
