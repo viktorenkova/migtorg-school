@@ -530,12 +530,7 @@ const learningSkillGroups = [
   {
     number: "01",
     title: "Поиск и оценка лота",
-    icon: (
-      <>
-        <CarFront className="learning-group-main-icon" />
-        <Search className="learning-group-accent-icon" />
-      </>
-    ),
+    icon: images.learningOutcomeLotIcon,
     skills: [
       "Понимать, как автомобили попадают на аукцион",
       "Отличать перспективные лоты от рискованных",
@@ -546,7 +541,7 @@ const learningSkillGroups = [
   {
     number: "02",
     title: "Торги и передача",
-    icon: <Gavel className="learning-group-single-icon" />,
+    icon: images.learningOutcomeAuctionIcon,
     skills: [
       "Считать максимальную ставку",
       "Пользоваться закрытыми и открытыми торгами",
@@ -557,12 +552,7 @@ const learningSkillGroups = [
   {
     number: "03",
     title: "Проверка и расчет",
-    icon: (
-      <>
-        <Calculator className="learning-group-main-icon learning-group-main-icon-calculator" />
-        <ShieldCheck className="learning-group-accent-icon learning-group-accent-icon-shield" />
-      </>
-    ),
+    icon: images.learningOutcomeChecklistIcon,
     skills: [
       "Организовать осмотр автомобиля",
       "Проверить юридические риски",
@@ -620,7 +610,9 @@ export function ProgramModules() {
                 <section key={group.number} className="learning-skill-group">
                   <div className="learning-group-visual" aria-hidden="true">
                     <span className="learning-group-number">{group.number}</span>
-                    <span className="learning-group-icon">{group.icon}</span>
+                    <span className="learning-group-icon">
+                      <img src={group.icon} alt="" loading="lazy" decoding="async" />
+                    </span>
                   </div>
                   <div className="learning-group-content">
                     <h4>{group.title}</h4>
