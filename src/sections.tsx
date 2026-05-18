@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowDown,
@@ -85,6 +85,27 @@ const guideItems = [
 const openAccessModal = () => {
   window.dispatchEvent(new Event("migtorg:open-access-modal"));
 };
+
+type SubmissionStatus = "idle" | "sending" | "success" | "error";
+
+const FORM_ERROR_MESSAGE = "Не удалось отправить заявку. Попробуйте ещё раз или напишите нам на почту.";
+
+async function submitNetlifyForm(formName: string, payload: Record<string, string>) {
+  const body = new URLSearchParams({
+    "form-name": formName,
+    ...payload
+  });
+
+  const response = await fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: body.toString()
+  });
+
+  if (!response.ok) {
+    throw new Error(`Netlify form submission failed: ${response.status}`);
+  }
+}
 
 export function Hero() {
   return (
@@ -346,7 +367,7 @@ export function DealMechanics() {
 
 export function CaseStudy() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [guideStatus, setGuideStatus] = useState<SubmissionStatus>("idle");
 
   useEffect(() => {
     if (!isModalOpen) {
@@ -356,7 +377,7 @@ export function CaseStudy() {
     const previousOverflow = document.body.style.overflow;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && guideStatus !== "sending") {
         setIsModalOpen(false);
       }
     };
@@ -368,11 +389,44 @@ export function CaseStudy() {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isModalOpen]);
+  }, [guideStatus, isModalOpen]);
 
   const openGuideModal = () => {
-    setIsSuccess(false);
+    setGuideStatus("idle");
     setIsModalOpen(true);
+  };
+
+  const closeGuideModal = () => {
+    if (guideStatus !== "sending") {
+      setIsModalOpen(false);
+    }
+  };
+
+  const handleGuideSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (guideStatus === "sending") {
+      return;
+    }
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setGuideStatus("sending");
+
+    try {
+      await submitNetlifyForm("guide-download", {
+        name: String(formData.get("name") ?? "").trim(),
+        phone: String(formData.get("phone") ?? "").trim(),
+        email: String(formData.get("email") ?? "").trim(),
+        source: "guide"
+      });
+
+      form.reset();
+      setGuideStatus("success");
+    } catch {
+      setGuideStatus("error");
+    }
   };
 
   return (
@@ -431,7 +485,7 @@ export function CaseStudy() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            onMouseDown={() => setIsModalOpen(false)}
+            onMouseDown={closeGuideModal}
           >
             <motion.div
               role="dialog"
@@ -448,12 +502,13 @@ export function CaseStudy() {
                 type="button"
                 className="guide-modal-close"
                 aria-label="Закрыть форму"
-                onClick={() => setIsModalOpen(false)}
+                disabled={guideStatus === "sending"}
+                onClick={closeGuideModal}
               >
                 <X aria-hidden="true" />
               </button>
 
-              {isSuccess ? (
+              {guideStatus === "success" ? (
                 <div className="guide-success">
                   <span className="guide-success-icon" aria-hidden="true">
                     <CheckCircle2 />
@@ -482,29 +537,38 @@ export function CaseStudy() {
                   </div>
 
                   <form
+                    name="guide-download"
+                    method="post"
+                    data-netlify="true"
+                    netlify-honeypot="bot-field"
                     className="guide-form"
-                    onSubmit={(event) => {
-                      event.preventDefault();
-                      setIsSuccess(true);
+                    onChange={() => {
+                      if (guideStatus === "error") {
+                        setGuideStatus("idle");
+                      }
                     }}
+                    onSubmit={handleGuideSubmit}
                   >
+                    <input type="hidden" name="form-name" value="guide-download" />
+                    <input type="hidden" name="bot-field" />
                     <label>
                       <span>Имя</span>
-                      <input type="text" name="name" placeholder="Ваше имя" autoComplete="name" required />
+                      <input type="text" name="name" placeholder="Ваше имя" autoComplete="name" disabled={guideStatus === "sending"} required />
                     </label>
                     <label>
                       <span>Телефон</span>
-                      <input type="tel" name="phone" placeholder="+7" autoComplete="tel" required />
+                      <input type="tel" name="phone" placeholder="+7" autoComplete="tel" disabled={guideStatus === "sending"} required />
                     </label>
                     <label>
                       <span>Email</span>
-                      <input type="email" name="email" placeholder="example@mail.ru" autoComplete="email" required />
+                      <input type="email" name="email" placeholder="example@mail.ru" autoComplete="email" disabled={guideStatus === "sending"} required />
                     </label>
 
-                    <GlowButton type="submit" className="guide-submit-button">
-                      Получить гайд
+                    <GlowButton type="submit" className="guide-submit-button" disabled={guideStatus === "sending"}>
+                      {guideStatus === "sending" ? "Отправляем..." : "Получить гайд"}
                     </GlowButton>
 
+                    {guideStatus === "error" ? <p className="form-status form-status-error">{FORM_ERROR_MESSAGE}</p> : null}
                     <p>Нажимая на кнопку, вы соглашаетесь с политикой обработки персональных данных.</p>
                   </form>
                 </>
@@ -1209,6 +1273,7 @@ export function FinalCTA() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [experience, setExperience] = useState("Новичок");
   const [auctionExperience, setAuctionExperience] = useState("Нет");
+  const [accessStatus, setAccessStatus] = useState<SubmissionStatus>("idle");
   const experienceOptions = ["Новичок", "Перекуп", "Автоподборщик", "СТО/ремонт", "Другое"];
 
   useEffect(() => {
@@ -1219,7 +1284,7 @@ export function FinalCTA() {
     const previousOverflow = document.body.style.overflow;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && accessStatus !== "sending") {
         setIsModalOpen(false);
       }
     };
@@ -1231,10 +1296,13 @@ export function FinalCTA() {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isModalOpen]);
+  }, [accessStatus, isModalOpen]);
 
   useEffect(() => {
-    const handleOpenAccessModal = () => setIsModalOpen(true);
+    const handleOpenAccessModal = () => {
+      setAccessStatus("idle");
+      setIsModalOpen(true);
+    };
 
     window.addEventListener("migtorg:open-access-modal", handleOpenAccessModal);
 
@@ -1242,6 +1310,47 @@ export function FinalCTA() {
       window.removeEventListener("migtorg:open-access-modal", handleOpenAccessModal);
     };
   }, []);
+
+  const openAccessForm = () => {
+    setAccessStatus("idle");
+    setIsModalOpen(true);
+  };
+
+  const closeAccessModal = () => {
+    if (accessStatus !== "sending") {
+      setIsModalOpen(false);
+    }
+  };
+
+  const handleAccessSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (accessStatus === "sending") {
+      return;
+    }
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setAccessStatus("sending");
+
+    try {
+      await submitNetlifyForm("school-access", {
+        name: String(formData.get("name") ?? "").trim(),
+        phone: String(formData.get("phone") ?? "").trim(),
+        email: String(formData.get("email") ?? "").trim(),
+        city: String(formData.get("city") ?? "").trim(),
+        experience,
+        auctionExperience,
+        source: "access"
+      });
+
+      form.reset();
+      setAccessStatus("success");
+    } catch {
+      setAccessStatus("error");
+    }
+  };
 
   return (
     <>
@@ -1273,7 +1382,7 @@ export function FinalCTA() {
               </div>
 
               <div className="final-cta-action">
-                <GlowButton type="button" className="access-cta-button" onClick={() => setIsModalOpen(true)}>
+                <GlowButton type="button" className="access-cta-button" onClick={openAccessForm}>
                   Получить доступ к школе <ArrowRight aria-hidden="true" />
                 </GlowButton>
               </div>
@@ -1290,7 +1399,7 @@ export function FinalCTA() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            onMouseDown={() => setIsModalOpen(false)}
+            onMouseDown={closeAccessModal}
           >
             <motion.div
               role="dialog"
@@ -1307,82 +1416,113 @@ export function FinalCTA() {
                 type="button"
                 className="access-modal-close"
                 aria-label="Закрыть форму"
-                onClick={() => setIsModalOpen(false)}
+                disabled={accessStatus === "sending"}
+                onClick={closeAccessModal}
               >
                 <X aria-hidden="true" />
               </button>
 
-              <div className="access-modal-header">
-                <SectionEyebrow>ДОСТУП К ШКОЛЕ</SectionEyebrow>
-                <h2 id="access-modal-title">Заявка на доступ</h2>
-                <p>
-                  Заполните короткую анкету — и мы откроем доступ к бесплатному обучению MIGTORG PRO.
-                </p>
-              </div>
-
-              <form className="access-form" onSubmit={(event) => event.preventDefault()}>
-                <div className="access-form-grid">
-                  <label>
-                    <span>Имя</span>
-                    <input type="text" name="name" placeholder="Ваше имя" autoComplete="name" required />
-                  </label>
-                  <label>
-                    <span>Телефон</span>
-                    <input type="tel" name="phone" placeholder="+7" autoComplete="tel" required />
-                  </label>
-                  <label>
-                    <span>Email</span>
-                    <input type="email" name="email" placeholder="example@mail.ru" autoComplete="email" required />
-                  </label>
-                  <label>
-                    <span>Город</span>
-                    <input type="text" name="city" placeholder="Ваш город" autoComplete="address-level2" required />
-                  </label>
+              {accessStatus === "success" ? (
+                <div className="access-success">
+                  <span className="guide-success-icon" aria-hidden="true">
+                    <CheckCircle2 />
+                  </span>
+                  <SectionEyebrow>ДОСТУП К ШКОЛЕ</SectionEyebrow>
+                  <h2 id="access-modal-title">Заявка отправлена.</h2>
+                  <p>Мы получили ваши данные и свяжемся с вами по указанным контактам.</p>
                 </div>
-
-                <fieldset className="access-choice-group">
-                  <legend>Опыт в авто:</legend>
-                  <div className="access-segmented">
-                    {experienceOptions.map((option) => (
-                      <button
-                        key={option}
-                        type="button"
-                        className={experience === option ? "is-selected" : ""}
-                        aria-pressed={experience === option}
-                        onClick={() => setExperience(option)}
-                      >
-                        {option}
-                      </button>
-                    ))}
+              ) : (
+                <>
+                  <div className="access-modal-header">
+                    <SectionEyebrow>ДОСТУП К ШКОЛЕ</SectionEyebrow>
+                    <h2 id="access-modal-title">Заявка на доступ</h2>
+                    <p>
+                      Заполните короткую анкету — и мы откроем доступ к бесплатному обучению MIGTORG PRO.
+                    </p>
                   </div>
-                </fieldset>
 
-                <fieldset className="access-choice-group">
-                  <legend>Есть ли опыт участия в автоаукционах?</legend>
-                  <div className="access-toggle">
-                    {["Да", "Нет"].map((option) => (
-                      <button
-                        key={option}
-                        type="button"
-                        className={`${auctionExperience === option ? "is-selected" : ""} ${option === "Да" ? "is-positive" : ""}`}
-                        aria-pressed={auctionExperience === option}
-                        onClick={() => setAuctionExperience(option)}
-                      >
-                        {option}
-                      </button>
-                    ))}
-                  </div>
-                </fieldset>
+                  <form
+                    name="school-access"
+                    method="post"
+                    data-netlify="true"
+                    netlify-honeypot="bot-field"
+                    className="access-form"
+                    onChange={() => {
+                      if (accessStatus === "error") {
+                        setAccessStatus("idle");
+                      }
+                    }}
+                    onSubmit={handleAccessSubmit}
+                  >
+                    <input type="hidden" name="form-name" value="school-access" />
+                    <input type="hidden" name="bot-field" />
+                    <div className="access-form-grid">
+                      <label>
+                        <span>Имя</span>
+                        <input type="text" name="name" placeholder="Ваше имя" autoComplete="name" disabled={accessStatus === "sending"} required />
+                      </label>
+                      <label>
+                        <span>Телефон</span>
+                        <input type="tel" name="phone" placeholder="+7" autoComplete="tel" disabled={accessStatus === "sending"} required />
+                      </label>
+                      <label>
+                        <span>Email</span>
+                        <input type="email" name="email" placeholder="example@mail.ru" autoComplete="email" disabled={accessStatus === "sending"} required />
+                      </label>
+                      <label>
+                        <span>Город</span>
+                        <input type="text" name="city" placeholder="Ваш город" autoComplete="address-level2" disabled={accessStatus === "sending"} required />
+                      </label>
+                    </div>
 
-                <GlowButton type="submit" className="access-submit-button">
-                  Получить доступ к школе
-                </GlowButton>
+                    <fieldset className="access-choice-group">
+                      <legend>Опыт в авто:</legend>
+                      <div className="access-segmented">
+                        {experienceOptions.map((option) => (
+                          <button
+                            key={option}
+                            type="button"
+                            className={experience === option ? "is-selected" : ""}
+                            aria-pressed={experience === option}
+                            disabled={accessStatus === "sending"}
+                            onClick={() => setExperience(option)}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    </fieldset>
 
-                <p>
-                  Нажимая на кнопку, вы соглашаетесь с политикой обработки персональных данных и получением
-                  информационных материалов от Migtorg.
-                </p>
-              </form>
+                    <fieldset className="access-choice-group">
+                      <legend>Есть ли опыт участия в автоаукционах?</legend>
+                      <div className="access-toggle">
+                        {["Да", "Нет"].map((option) => (
+                          <button
+                            key={option}
+                            type="button"
+                            className={`${auctionExperience === option ? "is-selected" : ""} ${option === "Да" ? "is-positive" : ""}`}
+                            aria-pressed={auctionExperience === option}
+                            disabled={accessStatus === "sending"}
+                            onClick={() => setAuctionExperience(option)}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    </fieldset>
+
+                    <GlowButton type="submit" className="access-submit-button" disabled={accessStatus === "sending"}>
+                      {accessStatus === "sending" ? "Отправляем..." : "Получить доступ к школе"}
+                    </GlowButton>
+
+                    {accessStatus === "error" ? <p className="form-status form-status-error">{FORM_ERROR_MESSAGE}</p> : null}
+                    <p>
+                      Нажимая на кнопку, вы соглашаетесь с политикой обработки персональных данных и получением
+                      информационных материалов от Migtorg.
+                    </p>
+                  </form>
+                </>
+              )}
             </motion.div>
           </motion.div>
         ) : null}

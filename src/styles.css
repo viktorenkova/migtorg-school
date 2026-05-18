@@ -1970,6 +1970,18 @@ button:disabled {
   line-height: 1.45;
 }
 
+.guide-form .form-status,
+.access-modal .access-form .form-status {
+  font-size: 13px;
+  font-weight: 760;
+  text-align: left;
+}
+
+.guide-form .form-status-error,
+.access-modal .access-form .form-status-error {
+  color: rgba(255, 107, 98, 0.9);
+}
+
 .guide-success {
   display: grid;
   justify-items: start;
@@ -4828,7 +4840,8 @@ button:disabled {
   padding-right: 44px;
 }
 
-.access-modal-header h2 {
+.access-modal-header h2,
+.access-success h2 {
   margin: 0;
   color: #fff;
   font-size: clamp(32px, 4vw, 44px);
@@ -4836,11 +4849,22 @@ button:disabled {
   line-height: 1.08;
 }
 
-.access-modal-header p {
+.access-modal-header p,
+.access-success p {
   margin: 16px 0 0;
   color: rgba(248, 250, 252, 0.72);
   font-size: 17px;
   line-height: 1.52;
+}
+
+.access-success {
+  display: grid;
+  justify-items: start;
+  padding: 16px 44px 8px 0;
+}
+
+.access-success .section-eyebrow {
+  margin-bottom: 18px;
 }
 
 .access-modal .access-form {
