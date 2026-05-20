@@ -33,12 +33,15 @@ import {
   X
 } from "lucide-react";
 import { images } from "./constants";
+import { useAuth } from "./auth";
+import { getModuleSlugByIndex } from "./course";
 import {
   accessBadges,
   heroBenefits,
   heroTrust,
   curriculumModules,
 } from "./data";
+import { CityInput, PhoneInput } from "./components/FormFields";
 import { GlowButton, IconBox, Logo, Reveal, SectionEyebrow } from "./components/ui";
 
 const benefitIcons = [ShieldCheck, BarChart3, Users];
@@ -83,7 +86,7 @@ const guideItems = [
 ];
 
 const openAccessModal = () => {
-  window.dispatchEvent(new Event("migtorg:open-access-modal"));
+  window.location.assign("/auth/register");
 };
 
 type SubmissionStatus = "idle" | "sending" | "success" | "error";
@@ -557,7 +560,7 @@ export function CaseStudy() {
                     </label>
                     <label>
                       <span>Телефон</span>
-                      <input type="tel" name="phone" placeholder="+7" autoComplete="tel" disabled={guideStatus === "sending"} required />
+                      <PhoneInput name="phone" autoComplete="tel" disabled={guideStatus === "sending"} required />
                     </label>
                     <label>
                       <span>Email</span>
@@ -711,6 +714,7 @@ const curriculumIcons = [ShieldCheck, Search, Wrench, Calculator, Gavel, FileTex
 
 export function LiveLotReview() {
   const [openModules, setOpenModules] = useState<string[]>([]);
+  const { user } = useAuth();
 
   const toggleModule = (moduleNumber: string) => {
     setOpenModules((current) => {
@@ -726,7 +730,7 @@ export function LiveLotReview() {
   };
 
   const openAccessModal = () => {
-    window.dispatchEvent(new Event("migtorg:open-access-modal"));
+    window.location.assign(user ? "/learn" : "/auth/register");
   };
 
   return (
@@ -758,6 +762,9 @@ export function LiveLotReview() {
               const Icon = curriculumIcons[index];
               const isOpen = openModules.includes(module.number);
               const contentId = `curriculum-module-${module.number}`;
+              const moduleSlug = getModuleSlugByIndex(index);
+              const lessonPath = `/learn/${moduleSlug}/lesson-1`;
+              const accessPath = user ? lessonPath : `/auth/register?next=${encodeURIComponent(lessonPath)}`;
 
               return (
                 <article key={module.number} className={`curriculum-item ${isOpen ? "is-open" : ""}`}>
@@ -829,6 +836,16 @@ export function LiveLotReview() {
                               <p>{module.result}</p>
                             </div>
                           </article>
+
+                          <div className="curriculum-lesson-access">
+                            <div>
+                              <LockKeyhole aria-hidden="true" />
+                              <span>{user ? "Урок доступен в личном кабинете" : "Доступ откроется после регистрации"}</span>
+                            </div>
+                            <GlowButton href={accessPath} className="curriculum-open-lesson-button">
+                              {user ? "Открыть урок" : "Зарегистрироваться и открыть урок"} <ArrowRight aria-hidden="true" />
+                            </GlowButton>
+                          </div>
                         </div>
                       </motion.div>
                     ) : null}
@@ -1054,7 +1071,7 @@ const faqItems = [
 
 export function RealCases() {
   const openAccessModal = () => {
-    window.dispatchEvent(new Event("migtorg:open-access-modal"));
+    window.location.assign("/auth/register");
   };
 
   return (
@@ -1187,7 +1204,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const openAccessModal = () => {
-    window.dispatchEvent(new Event("migtorg:open-access-modal"));
+    window.location.assign("/auth/register");
   };
 
   return (
@@ -1382,7 +1399,7 @@ export function FinalCTA() {
               </div>
 
               <div className="final-cta-action">
-                <GlowButton type="button" className="access-cta-button" onClick={openAccessForm}>
+                <GlowButton href="/auth/register" className="access-cta-button">
                   Получить доступ к школе <ArrowRight aria-hidden="true" />
                 </GlowButton>
               </div>
@@ -1463,7 +1480,7 @@ export function FinalCTA() {
                       </label>
                       <label>
                         <span>Телефон</span>
-                        <input type="tel" name="phone" placeholder="+7" autoComplete="tel" disabled={accessStatus === "sending"} required />
+                        <PhoneInput name="phone" autoComplete="tel" disabled={accessStatus === "sending"} required />
                       </label>
                       <label>
                         <span>Email</span>
@@ -1471,7 +1488,14 @@ export function FinalCTA() {
                       </label>
                       <label>
                         <span>Город</span>
-                        <input type="text" name="city" placeholder="Ваш город" autoComplete="address-level2" disabled={accessStatus === "sending"} required />
+                        <CityInput
+                          name="city"
+                          listId="access-city-options"
+                          placeholder="Ваш город"
+                          autoComplete="address-level2"
+                          disabled={accessStatus === "sending"}
+                          required
+                        />
                       </label>
                     </div>
 

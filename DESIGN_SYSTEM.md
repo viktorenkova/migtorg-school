@@ -364,6 +364,33 @@ Mobile:
 
 ## 10. Правила Секций
 
+### Logo
+
+Эталонный логотип для всех страниц проекта — общий компонент `Logo` из `src/components/ui.tsx`. Новые страницы должны использовать этот компонент без локального пересоздания разметки или альтернативного визуального стиля.
+
+Структура:
+
+```tsx
+<a className="logo" aria-label="MIG TORG PRO">
+  <span className="logo-mig">MIG</span>
+  <span className="logo-torg">
+    <span className="logo-torg-text">TORG</span>
+    <span className="logo-dot" />
+  </span>
+  <span className="logo-pro">PRO</span>
+</a>
+```
+
+Визуальные правила:
+
+- `MIG` — белый текст, weight `950`, размер `clamp(24px, 1.95vw, 31px)`.
+- `TORG` — красная стрелочная плашка: `linear-gradient(135deg, #ff6b62, #ff5148 58%, #d62e2b)`, `clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%)`, внутренний темный inset-слой `rgba(7, 12, 20, 0.94)`.
+- Белая точка внутри `TORG` — `4px`, справа `clamp(15px, 1.25vw, 20px)`, с мягким белым glow.
+- `PRO` — темная компактная плашка с border `rgba(255,255,255,0.2)`, radius `7px`, weight `950`, размер `clamp(13px, 1vw, 15px)`.
+- Gap между частями логотипа: `7px` desktop/tablet, `5px` mobile.
+- Mobile `≤ 767px`: `MIG`/`TORG` `21px`, `TORG` min-height `34px`, `PRO` min-height `28px`, `PRO` font-size `12px`.
+- Этот вид является единым для header, footer, auth и learning pages; контекстные классы могут менять только позиционирование контейнера, но не оформление частей логотипа.
+
 ### Header
 
 - Position: `fixed` or `sticky`.

@@ -1,4 +1,7 @@
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
+import { AuthPage } from "./pages/AuthPage";
+import { LearnDashboard, LessonPage, ModulePage, RequireAuth } from "./pages/LearnPages";
 import {
   CaseStudy,
   Community,
@@ -14,7 +17,7 @@ import {
   RealCases
 } from "./sections";
 
-export default function App() {
+function LandingPage() {
   return (
     <>
       <Header />
@@ -33,5 +36,40 @@ export default function App() {
       </main>
       <Footer />
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/auth/login" element={<AuthPage mode="login" />} />
+      <Route path="/auth/register" element={<AuthPage mode="register" />} />
+      <Route
+        path="/learn"
+        element={
+          <RequireAuth>
+            <LearnDashboard />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/learn/:moduleSlug"
+        element={
+          <RequireAuth>
+            <ModulePage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/learn/:moduleSlug/:lessonSlug"
+        element={
+          <RequireAuth>
+            <LessonPage />
+          </RequireAuth>
+        }
+      />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
