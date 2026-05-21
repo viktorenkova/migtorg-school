@@ -26,7 +26,6 @@ import {
   Search,
   ShieldCheck,
   Target,
-  TrendingUp,
   Users,
   Wallet,
   X
@@ -224,13 +223,13 @@ function MiniSparkline() {
 
 export function MarketEconomics() {
   const dealChecklist = [
-    { text: "Проверить, может ли лот быть передан", Icon: ShieldCheck },
-    { text: "Отличить перспективный автомобиль от бесполезного", Icon: Target, tag: "BID" },
-    { text: "Заранее посчитать ремонт, логистику и комиссию", Icon: Calculator },
-    { text: "Определить предельную ставку", Icon: Gavel, tag: "RISK" },
-    { text: "Осмотреть автомобиль до оплаты", Icon: Search, tag: "VIN" },
-    { text: "Понять, когда отказ от лота обоснован", Icon: LockKeyhole },
-    { text: "Иметь план перепродажи еще до участия в торгах", Icon: TrendingUp, tag: "ROI" }
+    "Отличить перспективный автомобиль от рискованного",
+    "Заранее посчитать ремонт, логистику и комиссию",
+    "Иметь план перепродажи еще до участия в торгах",
+    "Определить предельную ставку",
+    "Проверить документы на автомобиль до выкупа",
+    "Осмотреть автомобиль до оплаты",
+    "Понять, когда отказ от лота обоснован"
   ];
 
   return (
@@ -262,21 +261,18 @@ export function MarketEconomics() {
           <article className="actuality-check-card">
             <div className="actuality-card-header">
               <span className="actuality-target-icon" aria-hidden="true">
-                <Target />
+                <img src={images.actualityWarningIcon} alt="" />
               </span>
-              <h3>Что отличает сделку от ошибки</h3>
+              <h3>Как не превратить сделку в ошибку</h3>
             </div>
 
             <ul className="actuality-checklist">
-              {dealChecklist.map(({ text, Icon, tag }) => (
+              {dealChecklist.map((text) => (
                 <li key={text}>
                   <span className="actuality-checkmark" aria-hidden="true">
                     <CheckCircle2 />
                   </span>
-                  <Icon className="actuality-row-icon" aria-hidden="true" />
                   <span className="actuality-item-text">{text}</span>
-                  {tag ? <span className={`actuality-tag actuality-tag-${tag.toLowerCase()}`}>{tag}</span> : null}
-                  <ChevronDown className="actuality-chevron" aria-hidden="true" />
                 </li>
               ))}
             </ul>
@@ -343,10 +339,6 @@ export function DealMechanics() {
                     <li>
                       <CheckCircle2 aria-hidden="true" />
                       механику торгов
-                    </li>
-                    <li>
-                      <CheckCircle2 aria-hidden="true" />
-                      расчет ставки
                     </li>
                     <li>
                       <CheckCircle2 aria-hidden="true" />
