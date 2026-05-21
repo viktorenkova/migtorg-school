@@ -390,6 +390,7 @@ Mobile:
 - Gap между частями логотипа: `7px` desktop/tablet, `5px` mobile.
 - Mobile `≤ 767px`: `MIG`/`TORG` `21px`, `TORG` min-height `34px`, `PRO` min-height `28px`, `PRO` font-size `12px`.
 - Этот вид является единым для header, footer, auth и learning pages; контекстные классы могут менять только позиционирование контейнера, но не оформление частей логотипа.
+- На страницах обучения (`/learn`, страницы модулей и уроков) `LearnLayout` обязан использовать тот же `Logo` без замены на текстовый, SVG, bitmap или локально сверстанный вариант. Если нужен другой размер контейнера, меняется только обертка `.learn-header`, а классы `.logo`, `.logo-mig`, `.logo-torg`, `.logo-dot`, `.logo-pro` сохраняют эталонное оформление.
 
 ### Header
 

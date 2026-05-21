@@ -2769,7 +2769,7 @@ button:disabled {
   display: grid;
   width: 100%;
   min-height: 84px;
-  grid-template-columns: 62px 58px minmax(0, 1fr) auto 32px;
+  grid-template-columns: 62px 58px minmax(0, 1fr) 32px;
   align-items: center;
   gap: 18px;
   border: 0;
@@ -2823,18 +2823,12 @@ button:disabled {
   line-height: 1.18;
 }
 
-.curriculum-badges,
 .curriculum-materials {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.curriculum-badges {
-  justify-content: flex-end;
-}
-
-.curriculum-badges span,
 .curriculum-materials span {
   display: inline-flex;
   align-items: center;
@@ -2876,22 +2870,14 @@ button:disabled {
   padding: 26px 0 4px;
 }
 
-.curriculum-panel-heading {
-  margin-bottom: 24px;
-}
-
-.curriculum-panel-heading h3 {
-  margin: 0;
-  color: #fff;
-  font-size: clamp(24px, 2.25vw, 36px);
-  font-weight: 900;
-  line-height: 1.14;
-}
-
 .curriculum-block {
   display: grid;
   gap: 14px;
   margin-top: 24px;
+}
+
+.curriculum-panel-inner > .curriculum-block:first-child {
+  margin-top: 0;
 }
 
 .curriculum-block h4,
@@ -5581,17 +5567,6 @@ button:disabled {
     grid-template-columns: 56px 54px minmax(0, 1fr) 30px;
   }
 
-  .curriculum-badges {
-    grid-column: 3;
-    justify-content: flex-start;
-    margin-top: -8px;
-  }
-
-  .curriculum-chevron {
-    grid-column: 4;
-    grid-row: 1 / span 2;
-  }
-
   .migtorg-pro-container {
     width: min(100% - 56px, 1440px);
   }
@@ -6478,13 +6453,6 @@ button:disabled {
     line-height: 1.25;
   }
 
-  .curriculum-badges {
-    grid-column: 1 / -1;
-    margin-top: 0;
-    padding-left: 54px;
-  }
-
-  .curriculum-badges span,
   .curriculum-materials span {
     min-height: 31px;
     border-radius: 9px;
@@ -6502,14 +6470,6 @@ button:disabled {
   .curriculum-panel-inner {
     margin: 0 14px 16px;
     padding-top: 20px;
-  }
-
-  .curriculum-panel-heading {
-    margin-bottom: 20px;
-  }
-
-  .curriculum-panel-heading h3 {
-    font-size: 23px;
   }
 
   .curriculum-block {
@@ -7952,6 +7912,77 @@ button:disabled {
   backdrop-filter: blur(24px);
 }
 
+.learn-header .logo {
+  gap: 7px;
+}
+
+.learn-header .logo-mig {
+  color: #fff;
+  font-size: clamp(24px, 1.95vw, 31px);
+  font-weight: 950;
+}
+
+.learn-header .logo-torg {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  min-height: clamp(38px, 3vw, 46px);
+  border: 0;
+  padding: 0 clamp(27px, 2.1vw, 36px) 0 clamp(10px, 0.95vw, 13px);
+  color: #fff;
+  font-size: clamp(24px, 1.95vw, 31px);
+  font-weight: 950;
+  line-height: 1;
+  background: linear-gradient(135deg, #ff6b62, #ff5148 58%, #d62e2b);
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%);
+  filter: drop-shadow(0 0 18px rgba(255, 81, 72, 0.32));
+}
+
+.learn-header .logo-torg::before {
+  content: "";
+  position: absolute;
+  inset: 2px 3px 2px 2px;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 50%),
+    rgba(7, 12, 20, 0.94);
+  clip-path: inherit;
+  pointer-events: none;
+}
+
+.learn-header .logo-torg > span {
+  line-height: 1;
+}
+
+.learn-header .logo-dot {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: clamp(15px, 1.25vw, 20px);
+  width: 4px;
+  height: 4px;
+  border: 0;
+  border-radius: 999px;
+  padding: 0;
+  background: #fff;
+  transform: translateY(-50%);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.45);
+}
+
+.learn-header .logo-pro {
+  min-height: clamp(30px, 2.4vw, 36px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 7px;
+  padding: 0 clamp(9px, 0.85vw, 12px);
+  color: #fff;
+  font-size: clamp(13px, 1vw, 15px);
+  font-weight: 950;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent),
+    rgba(12, 18, 28, 0.9);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
 .learn-header nav,
 .learn-user {
   display: flex;
@@ -8473,6 +8504,33 @@ button:disabled {
     flex-wrap: wrap;
     border-radius: 18px;
     padding: 12px;
+  }
+
+  .learn-header .logo {
+    gap: 5px;
+  }
+
+  .learn-header .logo-mig,
+  .learn-header .logo-torg {
+    font-size: 21px;
+  }
+
+  .learn-header .logo-torg {
+    min-height: 34px;
+    padding-right: 27px;
+    padding-left: 8px;
+  }
+
+  .learn-header .logo-dot {
+    right: 14px;
+    width: 4px;
+    height: 4px;
+  }
+
+  .learn-header .logo-pro {
+    min-height: 28px;
+    padding-inline: 8px;
+    font-size: 12px;
   }
 
   .learn-header nav {

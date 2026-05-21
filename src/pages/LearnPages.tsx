@@ -41,7 +41,7 @@ function LearnLayout({ children }: PropsWithChildren) {
   return (
     <div className="learn-shell">
       <header className="learn-header">
-        <Logo />
+        <Logo href="/" />
         <nav>
           <Link to="/">Главная</Link>
           <Link to="/learn">Обучение</Link>

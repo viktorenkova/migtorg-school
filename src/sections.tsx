@@ -29,7 +29,6 @@ import {
   TrendingUp,
   Users,
   Wallet,
-  Wrench,
   X
 } from "lucide-react";
 import { images } from "./constants";
@@ -710,7 +709,7 @@ function LearningCarVisual() {
   );
 }
 
-const curriculumIcons = [ShieldCheck, Search, Wrench, Calculator, Gavel, FileText, ClipboardList] as const;
+const curriculumIcons = [ChartNoAxesCombined, Gauge, Target, Search, Calculator, Gavel, ClipboardList] as const;
 
 export function LiveLotReview() {
   const [openModules, setOpenModules] = useState<string[]>([]);
@@ -780,11 +779,6 @@ export function LiveLotReview() {
                       <Icon />
                     </span>
                     <span className="curriculum-trigger-title">{module.title}</span>
-                    <span className="curriculum-badges" aria-label="Материалы модуля">
-                      {module.badges.map((badge) => (
-                        <span key={badge}>{badge}</span>
-                      ))}
-                    </span>
                     <ChevronDown className="curriculum-chevron" aria-hidden="true" />
                   </button>
 
@@ -799,10 +793,6 @@ export function LiveLotReview() {
                         transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                       >
                         <div className="curriculum-panel-inner">
-                          <div className="curriculum-panel-heading">
-                            <h3>{module.title}</h3>
-                          </div>
-
                           <div className="curriculum-block">
                             <h4>Описание</h4>
                             <p>{module.description}</p>
