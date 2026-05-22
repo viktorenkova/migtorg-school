@@ -10,7 +10,7 @@ type AuthPageProps = {
   mode: "login" | "register";
 };
 
-const experienceOptions = ["Новичок", "Перекуп", "Автоподборщик", "СТО/ремонт", "Другое"];
+const experienceOptions = ["Новичок", "Автоброкер", "Автоподборщик", "СТО/ремонт", "Другое"];
 
 const PASSWORD_MIN_LENGTH = 15;
 const PASSWORD_MAX_LENGTH = 64;

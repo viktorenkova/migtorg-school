@@ -905,7 +905,7 @@ const schoolAudienceCards = [
   },
   {
     number: "02",
-    title: "Перекупам",
+    title: "Автоброкерам",
     text: "Если вы уже работаете с автомобилями и хотите добавить новый канал поиска лотов.",
     icon: images.audienceDealer,
     tone: "coral"
@@ -1022,7 +1022,7 @@ const faqItems = [
     answer: "Да, базовое обучение MIGTORG PRO доступно бесплатно. Цель школы — помочь новым участникам разобраться в рынке и начать осознанно работать с площадкой."
   },
   {
-    question: "Нужно ли уже быть перекупом?",
+    question: "Нужно ли уже быть автоброкером?",
     answer: "Нет. Школа рассчитана на новичков, но будет полезна и тем, кто уже работает с автомобилями."
   },
   {
@@ -1273,7 +1273,7 @@ export function FinalCTA() {
   const [experience, setExperience] = useState("Новичок");
   const [auctionExperience, setAuctionExperience] = useState("Нет");
   const [accessStatus, setAccessStatus] = useState<SubmissionStatus>("idle");
-  const experienceOptions = ["Новичок", "Перекуп", "Автоподборщик", "СТО/ремонт", "Другое"];
+  const experienceOptions = ["Новичок", "Автоброкер", "Автоподборщик", "СТО/ремонт", "Другое"];
 
   useEffect(() => {
     if (!isModalOpen) {
