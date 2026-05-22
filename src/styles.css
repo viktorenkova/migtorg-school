@@ -2082,7 +2082,7 @@ button:disabled {
 
 .learning-container {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: grid;
   width: min(100% - 96px, 1440px);
   grid-template-columns: minmax(0, 0.82fr) minmax(600px, 1.18fr);
@@ -2091,8 +2091,9 @@ button:disabled {
 }
 
 .learning-copy {
+  position: relative;
+  z-index: 2;
   min-width: 0;
-  padding-top: 16px;
 }
 
 .learning-copy .section-eyebrow {
@@ -2137,6 +2138,7 @@ button:disabled {
 
 .learning-flow-card {
   position: relative;
+  z-index: 2;
   overflow: hidden;
   max-width: 572px;
   margin-top: 44px;
@@ -2266,28 +2268,32 @@ button:disabled {
   text-align: center;
 }
 
-.learning-car-visual {
-  width: min(690px, 116%);
+.deal-car-bg {
+  position: absolute;
+  z-index: 0;
+  left: clamp(0px, 4vw, 64px);
+  bottom: -40px;
+  width: clamp(520px, 42vw, 620px);
   aspect-ratio: 1448 / 640;
-  margin: 24px auto 0 -38px;
   pointer-events: none;
   user-select: none;
-  opacity: 0.58;
+  opacity: 0.28;
   filter:
-    saturate(0.96)
-    contrast(1.02)
-    drop-shadow(0 0 24px rgba(255, 81, 72, 0.2));
+    saturate(0.82)
+    brightness(0.86)
+    contrast(0.96)
+    drop-shadow(0 0 14px rgba(255, 81, 72, 0.1));
   mask-image:
     linear-gradient(90deg, transparent 0%, #000 8%, #000 88%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 8%, #000 86%, transparent 100%);
+    linear-gradient(180deg, transparent 0%, #000 10%, #000 78%, transparent 100%);
   mask-composite: intersect;
   -webkit-mask-image:
     linear-gradient(90deg, transparent 0%, #000 8%, #000 88%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, #000 8%, #000 86%, transparent 100%);
+    linear-gradient(180deg, transparent 0%, #000 10%, #000 78%, transparent 100%);
   -webkit-mask-composite: source-in;
 }
 
-.learning-car-visual img {
+.deal-car-bg img {
   display: block;
   width: 100%;
   height: 100%;
@@ -2296,24 +2302,25 @@ button:disabled {
 }
 
 .learning-checklist-wrap {
+  position: relative;
+  z-index: 2;
   min-width: 0;
 }
 
 .learning-checklist-card {
   position: relative;
   overflow: hidden;
-  min-height: 810px;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  border-radius: 24px;
-  padding: clamp(34px, 3.2vw, 42px) clamp(34px, 3.4vw, 44px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  padding: clamp(30px, 3vw, 40px);
   background:
-    radial-gradient(ellipse at 100% 16%, rgba(255, 81, 72, 0.18), transparent 31%),
+    radial-gradient(ellipse at 100% 16%, rgba(255, 81, 72, 0.12), transparent 31%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.018)),
-    rgba(8, 14, 24, 0.74);
+    rgba(8, 14, 24, 0.72);
   box-shadow:
-    0 30px 110px rgba(0, 0, 0, 0.42),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(24px);
+    0 26px 80px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(22px);
 }
 
 .learning-checklist-card::before,
@@ -2336,9 +2343,9 @@ button:disabled {
   right: -18%;
   width: 360px;
   height: 560px;
-  background: radial-gradient(ellipse at center, rgba(255, 81, 72, 0.2), transparent 65%);
+  background: radial-gradient(ellipse at center, rgba(255, 81, 72, 0.12), transparent 65%);
   filter: blur(18px);
-  opacity: 0.52;
+  opacity: 0.4;
 }
 
 .learning-checklist-card > * {
@@ -2363,7 +2370,7 @@ button:disabled {
   display: grid;
   grid-template-columns: 124px minmax(0, 1fr);
   gap: 42px;
-  padding: 24px 0 34px;
+  padding: 20px 0 26px;
 }
 
 .learning-skill-group:first-child {
@@ -2377,10 +2384,10 @@ button:disabled {
 .learning-group-visual {
   display: grid;
   align-content: start;
-  min-height: 156px;
+  min-height: 138px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
-  padding: 17px 16px;
+  padding: 13px 16px;
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015)),
     rgba(10, 18, 30, 0.72);
@@ -2402,7 +2409,7 @@ button:disabled {
   display: block;
   width: 86px;
   height: 84px;
-  margin-top: 20px;
+  margin-top: 14px;
   color: var(--migtorg-red);
 }
 
@@ -5516,10 +5523,6 @@ button:disabled {
     max-width: 650px;
   }
 
-  .learning-car-visual {
-    margin-left: 0;
-  }
-
   .learning-checklist-card {
     min-height: 0;
   }
@@ -5684,6 +5687,16 @@ button:disabled {
 
   .menu-button {
     display: inline-flex;
+  }
+
+  .deal-car-bg {
+    opacity: 0.16;
+  }
+}
+
+@media (max-width: 768px) {
+  .deal-car-bg {
+    display: none;
   }
 }
 
@@ -6216,7 +6229,7 @@ button:disabled {
     font-size: 11px;
   }
 
-  .learning-car-visual {
+  .deal-car-bg {
     display: none;
   }
 

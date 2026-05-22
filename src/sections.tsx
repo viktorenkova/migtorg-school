@@ -592,8 +592,7 @@ const learningSkillGroups = [
     skills: [
       "Понимать, как автомобили попадают на аукцион",
       "Отличать перспективные лоты от рискованных",
-      "Читать карточку лота и видеть важные детали",
-      "Оценивать повреждения по фото"
+      "Читать карточку лота и видеть важные детали"
     ]
   },
   {
@@ -601,7 +600,6 @@ const learningSkillGroups = [
     title: "Торги и передача",
     icon: images.learningOutcomeAuctionIcon,
     skills: [
-      "Считать максимальную ставку",
       "Пользоваться закрытыми и открытыми торгами",
       "Понимать, когда лот могут передать",
       "Грамотно действовать после передачи"
@@ -614,7 +612,6 @@ const learningSkillGroups = [
     skills: [
       "Организовать осмотр автомобиля",
       "Проверить юридические риски",
-      "Рассчитать ремонт, логистику и прибыль",
       "Избежать типовых ошибок новичков"
     ]
   }
@@ -623,6 +620,7 @@ const learningSkillGroups = [
 export function ProgramModules() {
   return (
     <section id="program" className="page-section learning-section">
+      <LearningCarVisual />
       <div className="section-container learning-container">
         <Reveal className="learning-copy">
           <div>
@@ -655,8 +653,6 @@ export function ProgramModules() {
                 })}
               </div>
             </article>
-
-            <LearningCarVisual />
           </div>
         </Reveal>
 
@@ -695,7 +691,7 @@ export function ProgramModules() {
 
 function LearningCarVisual() {
   return (
-    <div className="learning-car-visual" aria-hidden="true">
+    <div className="deal-car-bg" aria-hidden="true">
       <img src={images.learningCar} alt="" loading="lazy" decoding="async" />
     </div>
   );
