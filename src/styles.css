@@ -7468,6 +7468,579 @@ button:disabled {
   display: none;
 }
 
+.mobile-expand-button {
+  display: none;
+}
+
+section[id] {
+  scroll-margin-top: 106px;
+}
+
+@media (max-width: 760px) {
+  section[id],
+  .learning-flow-section {
+    scroll-margin-top: 92px;
+  }
+
+  .mobile-expand-button {
+    display: inline-flex;
+    width: 100%;
+    min-height: 46px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 12px;
+    margin-top: 16px;
+    padding: 0 16px;
+    color: rgba(248, 250, 252, 0.9);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.1;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.018)),
+      rgba(9, 14, 23, 0.58);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .mobile-expand-button svg {
+    width: 17px;
+    height: 17px;
+    transition: transform 180ms ease;
+  }
+
+  .mobile-expand-button[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+  }
+
+  .page-section,
+  .actuality-section,
+  .migtorg-pro-section,
+  .guide-section,
+  .learning-section,
+  .curriculum-section,
+  .learning-flow-section,
+  .community-section,
+  .real-cases-section,
+  .faq-section,
+  .final-cta-section {
+    padding: 50px 0;
+  }
+
+  .section-title,
+  .actuality-title,
+  .migtorg-pro-title,
+  .guide-title,
+  .learning-title,
+  .curriculum-title,
+  .learning-flow-title,
+  .community-title,
+  .real-cases-title,
+  .faq-title {
+    font-size: clamp(34px, 9vw, 40px);
+  }
+
+  .site-header {
+    padding-inline: 8px;
+  }
+
+  .header-shell {
+    min-height: 58px;
+    gap: 7px;
+    border-radius: 18px;
+    padding: 7px 8px;
+  }
+
+  .site-header .logo-mig,
+  .site-header .logo-torg {
+    font-size: 19px;
+  }
+
+  .site-header .logo-torg {
+    min-height: 31px;
+    padding-left: 7px;
+    padding-right: 24px;
+  }
+
+  .site-header .logo-pro {
+    min-height: 25px;
+    padding-inline: 7px;
+    font-size: 11px;
+  }
+
+  .header-cta {
+    max-width: 78px;
+    min-height: 42px !important;
+    border-radius: 11px;
+    padding-inline: 9px;
+    font-size: 11px;
+  }
+
+  .menu-button {
+    width: 42px;
+    flex-basis: 42px;
+    min-height: 42px;
+    border-radius: 14px;
+  }
+
+  .mobile-menu {
+    top: 74px;
+    right: 8px;
+    left: 8px;
+    max-height: calc(100svh - 88px);
+    overflow-y: auto;
+  }
+
+  .hero-section .section-container {
+    padding-top: 88px;
+    padding-bottom: 46px;
+    gap: 0;
+  }
+
+  .hero-section .hero-title {
+    font-size: clamp(38px, 10vw, 44px);
+  }
+
+  .hero-lead {
+    margin-top: 22px;
+    font-size: 16px;
+    line-height: 1.48;
+  }
+
+  .hero-benefits {
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .hero-benefits > div {
+    gap: 12px;
+    font-size: 14px !important;
+  }
+
+  .hero-section .icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+  }
+
+  .hero-section .icon-box svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .hero-actions {
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .hero-actions .button {
+    min-height: 54px !important;
+    padding-inline: 16px !important;
+    font-size: 15px !important;
+  }
+
+  .hero-actions .hero-guide-button {
+    min-height: 46px !important;
+    font-size: 13px !important;
+    opacity: 0.82;
+  }
+
+  .hero-trust {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 9px;
+    margin-top: 16px;
+    font-size: 13px;
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .actuality-container,
+  .migtorg-pro-top,
+  .learning-container,
+  .faq-container {
+    gap: 24px;
+  }
+
+  .actuality-text,
+  .migtorg-pro-text,
+  .learning-subtitle,
+  .curriculum-subtitle,
+  .learning-flow-subtitle,
+  .community-header .section-subtitle,
+  .real-cases-subtitle,
+  .faq-subtitle {
+    margin-top: 16px;
+  }
+
+  .real-cases-subtitle span,
+  .faq-subtitle,
+  .community-audience-note {
+    display: none;
+  }
+
+  .actuality-conclusion,
+  .pro-definition-card,
+  .guide-card,
+  .learning-checklist-card,
+  .curriculum-cta,
+  .community-audience-note,
+  .faq-trust-card,
+  .faq-cta,
+  .final-cta-panel {
+    padding: 18px 16px;
+  }
+
+  .actuality-checklist:not(.is-expanded) li:nth-child(n + 5),
+  .guide-list:not(.is-expanded) li:nth-child(n + 4),
+  .learning-checklist-card:not(.is-expanded) .learning-group-content li:nth-child(n + 3),
+  .community-audience-grid:not(.is-expanded) > div:nth-child(n + 4),
+  .case-analysis-card:not(.is-expanded) .case-analysis-row:nth-child(n + 3),
+  .case-analysis-card:not(.is-expanded) .case-analysis-checklist li:nth-child(n + 4) {
+    display: none;
+  }
+
+  .actuality-checklist li {
+    min-height: 48px;
+    padding-block: 8px;
+  }
+
+  .migtorg-pro-title br,
+  .guide-title br,
+  .learning-title br,
+  .final-cta-copy h2 br {
+    display: none;
+  }
+
+  .pro-definition-header {
+    grid-template-columns: 46px 1fr;
+    gap: 12px;
+  }
+
+  .pro-shield-icon,
+  .pro-shield-icon svg {
+    width: 46px;
+    height: 46px;
+  }
+
+  .pro-definition-header h3 {
+    font-size: 21px;
+  }
+
+  .pro-definition-divider {
+    margin: 16px 0;
+  }
+
+  .pro-definition-lists {
+    gap: 16px;
+  }
+
+  .pro-definition-list + .pro-definition-list {
+    padding-top: 16px;
+  }
+
+  .final-cta-section {
+    padding: 42px 0;
+  }
+
+  .final-cta-panel {
+    gap: 20px;
+  }
+
+  .final-cta-copy h2 {
+    font-size: clamp(28px, 7.9vw, 34px);
+  }
+
+  .final-cta-copy p {
+    margin-top: 14px;
+  }
+
+  .final-cta-chips {
+    margin-top: 16px;
+  }
+
+  .guide-card-top {
+    margin-bottom: 18px;
+  }
+
+  .guide-list {
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .learning-flow-card {
+    display: none;
+  }
+
+  .learning-skill-group {
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 14px;
+    padding: 18px 0;
+  }
+
+  .learning-group-visual {
+    display: block;
+    width: 52px;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .learning-group-number {
+    display: block;
+    font-size: 22px;
+  }
+
+  .learning-group-icon {
+    display: none;
+  }
+
+  .learning-group-content h4 {
+    margin-bottom: 12px;
+    font-size: 19px;
+  }
+
+  .learning-group-content ul {
+    gap: 10px;
+  }
+
+  .curriculum-route {
+    display: none;
+  }
+
+  .curriculum-accordion {
+    margin-top: 24px;
+  }
+
+  .curriculum-trigger {
+    grid-template-columns: 38px minmax(0, 1fr) 26px;
+    gap: 10px;
+    padding: 14px 13px;
+  }
+
+  .curriculum-icon {
+    display: none;
+  }
+
+  .curriculum-chevron {
+    grid-column: 3;
+  }
+
+  .curriculum-panel-inner {
+    max-height: 30vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 2px;
+  }
+
+  .curriculum-checklist li:nth-child(n + 5) {
+    display: none;
+  }
+
+  .curriculum-materials span:nth-child(n + 4) {
+    display: none;
+  }
+
+  .curriculum-lesson-access {
+    grid-template-columns: 1fr;
+  }
+
+  .learning-flow-grid {
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .learning-flow-grid > div:not(:last-child)::before,
+  .learning-flow-grid > div:not(:last-child)::after {
+    display: none;
+  }
+
+  .learning-step-card {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    gap: 10px 14px;
+    padding: 16px;
+  }
+
+  .learning-step-top {
+    display: contents;
+    min-height: 0;
+  }
+
+  .learning-step-number {
+    grid-row: 1 / span 2;
+    font-size: 22px;
+  }
+
+  .learning-step-icon {
+    display: none;
+  }
+
+  .learning-step-card h3 {
+    font-size: 19px;
+  }
+
+  .learning-step-card p {
+    margin-top: 0;
+    font-size: 15px;
+  }
+
+  .learning-flow-note {
+    display: none;
+  }
+
+  .community-audience-card {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr);
+    gap: 8px 14px;
+    padding: 16px;
+  }
+
+  .community-audience-top {
+    display: contents;
+    min-height: 0;
+  }
+
+  .community-audience-number {
+    grid-row: 1 / span 2;
+    font-size: 22px;
+  }
+
+  .community-audience-icon {
+    display: none;
+  }
+
+  .community-audience-card h3 {
+    margin-top: 0;
+    font-size: 20px;
+  }
+
+  .community-audience-card p {
+    margin-top: 0;
+    font-size: 15px;
+  }
+
+  .community-more-button {
+    margin-top: 14px;
+  }
+
+  .lot-demo-media {
+    min-height: 188px;
+  }
+
+  .real-cases-layout > div:first-child {
+    display: none;
+  }
+
+  .lot-demo-body {
+    padding: 16px;
+  }
+
+  .lot-demo-meta,
+  .lot-demo-prices,
+  .lot-demo-tags span:nth-child(n + 4) {
+    display: none;
+  }
+
+  .lot-demo-body h3 {
+    font-size: 24px;
+  }
+
+  .case-analysis-card {
+    padding: 18px 16px;
+  }
+
+  .case-analysis-top {
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 12px;
+    padding-bottom: 16px;
+  }
+
+  .case-analysis-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .case-analysis-top h3 {
+    font-size: 21px;
+  }
+
+  .case-analysis-row {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px 0;
+  }
+
+  .case-analysis-row-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .case-more-button {
+    margin-top: 14px;
+  }
+
+  .faq-trust-card {
+    display: none;
+  }
+
+  .faq-container {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-trigger {
+    grid-template-columns: 34px minmax(0, 1fr) 34px;
+    padding: 14px 12px;
+  }
+
+  .faq-item:nth-child(n + 6) .faq-trigger {
+    min-height: 48px;
+  }
+
+  .faq-number {
+    font-size: 18px;
+  }
+
+  .faq-question {
+    font-size: 16px;
+  }
+
+  .faq-panel p {
+    margin: 0 12px 16px 58px;
+  }
+
+  .footer {
+    padding: 38px 0 30px;
+  }
+
+  .footer-top {
+    gap: 16px;
+    padding-bottom: 22px;
+  }
+
+  .footer-top p,
+  .footer-about p {
+    display: none;
+  }
+
+  .footer-grid {
+    gap: 12px;
+    padding: 22px 0;
+  }
+
+  .footer-card {
+    padding: 18px 16px;
+  }
+
+  .footer-column {
+    padding: 14px 2px 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

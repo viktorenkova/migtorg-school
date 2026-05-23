@@ -222,6 +222,7 @@ function MiniSparkline() {
 }
 
 export function MarketEconomics() {
+  const [isChecklistExpanded, setIsChecklistExpanded] = useState(false);
   const dealChecklist = [
     "Отличить перспективный автомобиль от рискованного",
     "Заранее посчитать ремонт, логистику и комиссию",
@@ -266,7 +267,7 @@ export function MarketEconomics() {
               <h3>Как не превратить сделку в ошибку</h3>
             </div>
 
-            <ul className="actuality-checklist">
+            <ul className={`actuality-checklist ${isChecklistExpanded ? "is-expanded" : ""}`}>
               {dealChecklist.map((text) => (
                 <li key={text}>
                   <span className="actuality-checkmark" aria-hidden="true">
@@ -276,6 +277,15 @@ export function MarketEconomics() {
                 </li>
               ))}
             </ul>
+            <button
+              type="button"
+              className="mobile-expand-button actuality-more-button"
+              aria-expanded={isChecklistExpanded}
+              onClick={() => setIsChecklistExpanded((value) => !value)}
+            >
+              {isChecklistExpanded ? "Свернуть список" : "Показать все пункты"}
+              <ChevronDown aria-hidden="true" />
+            </button>
           </article>
         </Reveal>
       </div>
@@ -362,6 +372,7 @@ export function DealMechanics() {
 export function CaseStudy() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [guideStatus, setGuideStatus] = useState<SubmissionStatus>("idle");
+  const [isGuideListExpanded, setIsGuideListExpanded] = useState(false);
 
   useEffect(() => {
     if (!isModalOpen) {
@@ -452,7 +463,7 @@ export function CaseStudy() {
                 <span>7 ошибок</span>
               </div>
               <h3>Что внутри гайда</h3>
-              <ul className="guide-list">
+              <ul className={`guide-list ${isGuideListExpanded ? "is-expanded" : ""}`}>
                 {guideItems.map((item) => (
                   <li key={item}>
                     <span className="guide-dot" aria-hidden="true" />
@@ -460,6 +471,15 @@ export function CaseStudy() {
                   </li>
                 ))}
               </ul>
+              <button
+                type="button"
+                className="mobile-expand-button guide-more-button"
+                aria-expanded={isGuideListExpanded}
+                onClick={() => setIsGuideListExpanded((value) => !value)}
+              >
+                {isGuideListExpanded ? "Свернуть ошибки" : "Показать все 7 ошибок"}
+                <ChevronDown aria-hidden="true" />
+              </button>
             </article>
           </Reveal>
 
@@ -618,6 +638,8 @@ const learningSkillGroups = [
 ] as const;
 
 export function ProgramModules() {
+  const [isSkillsExpanded, setIsSkillsExpanded] = useState(false);
+
   return (
     <section id="program" className="page-section learning-section">
       <LearningCarVisual />
@@ -657,7 +679,7 @@ export function ProgramModules() {
         </Reveal>
 
         <Reveal delay={0.08} className="learning-checklist-wrap">
-          <article className="learning-checklist-card">
+          <article className={`learning-checklist-card ${isSkillsExpanded ? "is-expanded" : ""}`}>
             <h3>После прохождения школы вы сможете:</h3>
             <div className="learning-skill-groups">
               {learningSkillGroups.map((group) => (
@@ -682,6 +704,15 @@ export function ProgramModules() {
                 </section>
               ))}
             </div>
+            <button
+              type="button"
+              className="mobile-expand-button learning-more-button"
+              aria-expanded={isSkillsExpanded}
+              onClick={() => setIsSkillsExpanded((value) => !value)}
+            >
+              {isSkillsExpanded ? "Свернуть навыки" : "Показать все навыки"}
+              <ChevronDown aria-hidden="true" />
+            </button>
           </article>
         </Reveal>
       </div>
@@ -702,6 +733,12 @@ const curriculumIcons = [ChartNoAxesCombined, Gauge, Target, Search, Calculator,
 export function LiveLotReview() {
   const [openModules, setOpenModules] = useState<string[]>([]);
   const { user } = useAuth();
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(max-width: 760px)").matches) {
+      setOpenModules(["01"]);
+    }
+  }, []);
 
   const toggleModule = (moduleNumber: string) => {
     setOpenModules((current) => {
@@ -930,6 +967,8 @@ const schoolAudienceCards = [
 ] as const;
 
 export function Community() {
+  const [isAudienceExpanded, setIsAudienceExpanded] = useState(false);
+
   return (
     <section id="community" className="page-section community-section">
       <div className="section-container community-container">
@@ -943,7 +982,7 @@ export function Community() {
           </div>
         </Reveal>
 
-        <div className="community-audience-grid">
+        <div className={`community-audience-grid ${isAudienceExpanded ? "is-expanded" : ""}`}>
           {schoolAudienceCards.map((card, index) => (
             <Reveal key={card.number} delay={index * 0.06}>
               <article className={`community-audience-card ${card.tone === "green" ? "community-audience-card-green" : ""}`}>
@@ -959,6 +998,16 @@ export function Community() {
             </Reveal>
           ))}
         </div>
+
+        <button
+          type="button"
+          className="mobile-expand-button community-more-button"
+          aria-expanded={isAudienceExpanded}
+          onClick={() => setIsAudienceExpanded((value) => !value)}
+        >
+          {isAudienceExpanded ? "Свернуть аудитории" : "Показать еще аудитории"}
+          <ChevronDown aria-hidden="true" />
+        </button>
 
         <Reveal delay={0.24}>
           <article className="community-audience-note">
@@ -1048,6 +1097,8 @@ const faqItems = [
 ] as const;
 
 export function RealCases() {
+  const [isCaseExpanded, setIsCaseExpanded] = useState(false);
+
   const openAccessModal = () => {
     window.location.assign("/auth/register");
   };
@@ -1128,7 +1179,7 @@ export function RealCases() {
           </Reveal>
 
           <Reveal delay={0.14}>
-            <article className="case-analysis-card">
+            <article className={`case-analysis-card ${isCaseExpanded ? "is-expanded" : ""}`}>
               <div className="case-analysis-top">
                 <span className="case-analysis-icon" aria-hidden="true">
                   <FileText />
@@ -1164,6 +1215,16 @@ export function RealCases() {
                   </li>
                 ))}
               </ul>
+
+              <button
+                type="button"
+                className="mobile-expand-button case-more-button"
+                aria-expanded={isCaseExpanded}
+                onClick={() => setIsCaseExpanded((value) => !value)}
+              >
+                {isCaseExpanded ? "Свернуть детали" : "Показать детали разбора"}
+                <ChevronDown aria-hidden="true" />
+              </button>
 
               <GlowButton type="button" className="real-cases-cta" onClick={openAccessModal}>
                 Хочу научиться так разбирать лоты

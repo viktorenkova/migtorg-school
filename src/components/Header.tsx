@@ -66,6 +66,8 @@ export function Header() {
             className="menu-button"
             type="button"
             aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
             onClick={() => setIsOpen((value) => !value)}
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -74,7 +76,7 @@ export function Header() {
       </div>
 
       {isOpen ? (
-        <div className="mobile-menu">
+        <div className="mobile-menu" id="mobile-menu">
           {navItems.map((item) => (
             <a
               key={item.href}
