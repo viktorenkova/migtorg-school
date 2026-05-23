@@ -7777,34 +7777,56 @@ section[id] {
   }
 
   .learning-skill-group {
-    grid-template-columns: 52px minmax(0, 1fr);
-    gap: 14px;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px 14px;
+    align-items: start;
     padding: 18px 0;
   }
 
   .learning-group-visual {
-    display: block;
-    width: 52px;
+    display: contents;
+    width: auto;
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
     padding: 0;
     background: transparent;
     box-shadow: none;
   }
 
   .learning-group-number {
-    display: block;
-    font-size: 22px;
+    display: inline-flex;
+    grid-column: 1;
+    grid-row: 1;
+    width: 42px;
+    min-height: 32px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 81, 72, 0.24);
+    border-radius: 11px;
+    color: #ff5a52;
+    font-size: 19px;
+    background: rgba(255, 81, 72, 0.07);
   }
 
   .learning-group-icon {
     display: none;
   }
 
+  .learning-group-content {
+    display: contents;
+  }
+
   .learning-group-content h4 {
-    margin-bottom: 12px;
+    grid-column: 2;
+    grid-row: 1;
+    margin-bottom: 0;
     font-size: 19px;
   }
 
   .learning-group-content ul {
+    grid-column: 2;
+    grid-row: 2;
     gap: 10px;
   }
 
@@ -8034,6 +8056,34 @@ section[id] {
 
   .footer-card {
     padding: 18px 16px;
+  }
+
+  .footer-about {
+    display: flex;
+    min-height: 0;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+  }
+
+  .footer-about .footer-card-icon {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+    margin-bottom: 0;
+  }
+
+  .footer-about .footer-card-icon svg {
+    width: 42px;
+    height: 42px;
+  }
+
+  .footer-about h3 {
+    min-width: 0;
+    margin: 0;
+    font-size: clamp(22px, 7.2vw, 28px);
+    line-height: 1.05;
+    white-space: nowrap;
   }
 
   .footer-column {

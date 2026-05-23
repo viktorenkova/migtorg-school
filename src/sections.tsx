@@ -734,12 +734,6 @@ export function LiveLotReview() {
   const [openModules, setOpenModules] = useState<string[]>([]);
   const { user } = useAuth();
 
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.matchMedia("(max-width: 760px)").matches) {
-      setOpenModules(["01"]);
-    }
-  }, []);
-
   const toggleModule = (moduleNumber: string) => {
     setOpenModules((current) => {
       if (current.includes(moduleNumber)) {
