@@ -4,7 +4,7 @@ export const heroBenefits = [
   "Внутренняя механика рынка"
 ];
 
-export const heroTrust = ["Без карты", "Бесплатный доступ", "Реальные разборы"];
+export const heroTrust = ["Бесплатный доступ", "Реальные разборы"];
 
 export const heroMetrics = [
   {
@@ -311,7 +311,7 @@ export const curriculumModules = [
   }
 ] as const;
 
-export const accessBadges = ["Бесплатный доступ", "Без карты", "Реальные разборы"];
+export const accessBadges = ["Бесплатный доступ", "Реальные разборы"];
 
 export const footerNavigation = ["Экономика", "Механика", "Гайд", "Программа", "Доступ к школе"];
 
