@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
 import { AuthPage } from "./pages/AuthPage";
+import { PasswordRecoveryPage } from "./pages/PasswordRecoveryPage";
 import { LearnDashboard, LessonPage, ModulePage, RequireAuth } from "./pages/LearnPages";
 import {
   CaseStudy,
@@ -45,6 +46,8 @@ export default function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/auth/login" element={<AuthPage mode="login" />} />
       <Route path="/auth/register" element={<AuthPage mode="register" />} />
+      <Route path="/auth/forgot-password" element={<PasswordRecoveryPage mode="request" />} />
+      <Route path="/auth/reset-password" element={<PasswordRecoveryPage mode="reset" />} />
       <Route
         path="/learn"
         element={

@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { ArrowRight, Eye, EyeOff, LockKeyhole, Mail, Phone, UserRound } from "lucide-react";
 import { useAuth } from "../auth";
+import { EMAIL_PATTERN, PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH } from "../authValidation";
 import { ApiError } from "../api";
 import { CityInput, PhoneInput } from "../components/FormFields";
 import { GlowButton, Logo, SectionEyebrow } from "../components/ui";
@@ -12,9 +13,6 @@ type AuthPageProps = {
 
 const experienceOptions = ["Новичок", "Автоброкер", "Автоподборщик", "СТО/ремонт", "Другое"];
 
-const PASSWORD_MIN_LENGTH = 15;
-const PASSWORD_MAX_LENGTH = 64;
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_PATTERN = /^\+7\d{10}$/;
 const CITY_PATTERN = /^[\p{L}\s-]{2,}$/u;
 
@@ -274,6 +272,12 @@ export function AuthPage({ mode }: AuthPageProps) {
               </small>
             ) : null}
           </label>
+
+          {!isRegister ? (
+            <Link className="auth-forgot-link" to={`/auth/forgot-password?next=${encodeURIComponent(next)}`}>
+              Забыли пароль?
+            </Link>
+          ) : null}
 
           {isRegister ? (
             <>
