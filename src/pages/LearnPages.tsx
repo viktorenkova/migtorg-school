@@ -8,8 +8,7 @@ import {
   FileText,
   LockKeyhole,
   LogOut,
-  PlayCircle,
-  ShieldCheck
+  PlayCircle
 } from "lucide-react";
 import { api, type Curriculum, type CurriculumLesson, type CurriculumModule, type LessonDetails } from "../api";
 import { useAuth } from "../auth";
@@ -88,6 +87,21 @@ function getFirstAction(module: CurriculumModule) {
   return firstAvailable ?? module.lessons[0] ?? null;
 }
 
+function pluralize(count: number, one: string, few: string, many: string) {
+  const mod100 = count % 100;
+  const mod10 = count % 10;
+
+  if (mod100 >= 11 && mod100 <= 14) {
+    return many;
+  }
+
+  if (mod10 === 1) {
+    return one;
+  }
+
+  return mod10 >= 2 && mod10 <= 4 ? few : many;
+}
+
 function StatusBadge({ status }: { status: "locked" | "available" | "completed" }) {
   const label = status === "completed" ? "Завершено" : status === "available" ? "Доступно" : "Закрыто";
 
@@ -105,8 +119,9 @@ export function LearnDashboard() {
     return <LearnLayout><div className="learn-error">{error}</div></LearnLayout>;
   }
 
-  const nextModule = curriculum.modules.find((module) => module.status === "available") ?? curriculum.modules[0];
-  const nextLesson = nextModule ? getFirstAction(nextModule) : null;
+  const nextStep = curriculum.modules
+    .flatMap((module) => module.lessons.map((lesson) => ({ module, lesson })))
+    .find(({ lesson }) => lesson.status === "available");
 
   return (
     <LearnLayout>
@@ -116,8 +131,8 @@ export function LearnDashboard() {
             <SectionEyebrow>ЛИЧНЫЙ КАБИНЕТ</SectionEyebrow>
             <h1>Программа обучения MIGTORG PRO</h1>
             <p>Проходите уроки по порядку: каждый завершенный урок открывает следующий шаг в программе.</p>
-            {nextModule && nextLesson ? (
-              <GlowButton href={`/learn/${nextModule.slug}/${nextLesson.slug}`} className="learn-hero-cta">
+            {nextStep ? (
+              <GlowButton href={`/learn/${nextStep.module.slug}/${nextStep.lesson.slug}`} className="learn-hero-cta">
                 Продолжить обучение <ArrowRight aria-hidden="true" />
               </GlowButton>
             ) : null}
@@ -145,15 +160,15 @@ export function LearnDashboard() {
                 <h2>{module.title}</h2>
                 <p>{module.description}</p>
                 <div className="learn-module-meta">
-                  <span><PlayCircle aria-hidden="true" /> {module.lessons.length} урок</span>
-                  <span><FileText aria-hidden="true" /> {module.lessons.reduce((sum, lesson) => sum + lesson.materialsCount, 0)} материалов</span>
+                  <span><PlayCircle aria-hidden="true" /> {module.lessons.length} {pluralize(module.lessons.length, "урок", "урока", "уроков")}</span>
+                  <span><FileText aria-hidden="true" /> {module.materials.length} {pluralize(module.materials.length, "материал", "материала", "материалов")}</span>
                 </div>
                 {isLocked || !action ? (
                   <button className="learn-locked-button" type="button" disabled>
                     <LockKeyhole aria-hidden="true" /> Откроется позже
                   </button>
                 ) : (
-                  <Link className="learn-card-link" to={`/learn/${module.slug}/${action.slug}`}>
+                  <Link className="learn-card-link" to={`/learn/${module.slug}`}>
                     Открыть модуль <ArrowRight aria-hidden="true" />
                   </Link>
                 )}
@@ -169,6 +184,7 @@ export function LearnDashboard() {
 export function ModulePage() {
   const { moduleSlug } = useParams();
   const { curriculum, error, isLoading } = useCurriculum();
+  const [materialError, setMaterialError] = useState("");
 
   const module = useMemo(
     () => curriculum?.modules.find((item) => item.slug === moduleSlug) ?? null,
@@ -183,6 +199,19 @@ export function ModulePage() {
     return <LearnLayout><div className="learn-error">{error || "Модуль не найден."}</div></LearnLayout>;
   }
 
+  const materialsAvailable = module.status !== "locked";
+
+  const handleDownload = async (materialId: string) => {
+    setMaterialError("");
+
+    try {
+      const response = await api.downloadMaterial(materialId);
+      window.open(response.url, "_blank", "noopener,noreferrer");
+    } catch {
+      setMaterialError("Хранилище материалов еще не настроено или ссылка недоступна.");
+    }
+  };
+
   return (
     <LearnLayout>
       <main className="learn-main">
@@ -193,17 +222,35 @@ export function ModulePage() {
             <h1>{module.title}</h1>
             <p>{module.description}</p>
           </div>
-          <article>
-            <ShieldCheck aria-hidden="true" />
-            <h2>Результат модуля</h2>
-            <p>{module.result}</p>
-          </article>
         </section>
 
-        <section className="learn-lesson-list">
-          {module.lessons.map((lesson) => (
-            <LessonRow key={lesson.id} module={module} lesson={lesson} />
-          ))}
+        <section className="learn-module-section" aria-label="Уроки модуля">
+          <h2>Уроки модуля</h2>
+          <div className="learn-lesson-list">
+            {module.lessons.map((lesson) => (
+              <LessonRow key={lesson.id} module={module} lesson={lesson} />
+            ))}
+          </div>
+        </section>
+
+        <section className="module-materials">
+          <h2>Материалы модуля</h2>
+          <p>Рабочие файлы и памятки, которые помогают закрепить содержание уроков.</p>
+          {materialError ? <p className="learn-error-inline">{materialError}</p> : null}
+          <div>
+            {module.materials.map((material) => (
+              <button
+                key={material.id}
+                type="button"
+                disabled={!materialsAvailable}
+                onClick={() => void handleDownload(material.id)}
+              >
+                <Download aria-hidden="true" />
+                <span>{material.title}</span>
+                <small>{material.type}</small>
+              </button>
+            ))}
+          </div>
         </section>
       </main>
     </LearnLayout>
@@ -219,12 +266,15 @@ function LessonRow({ module, lesson }: { module: CurriculumModule; lesson: Curri
         {lesson.status === "completed" ? <CheckCircle2 /> : isLocked ? <LockKeyhole /> : <PlayCircle />}
       </span>
       <div>
-        <StatusBadge status={lesson.status} />
+        <div className="learn-lesson-meta">
+          <span>УРОК {lesson.number}</span>
+          <StatusBadge status={lesson.status} />
+        </div>
         <h2>{lesson.title}</h2>
         <p>{lesson.description}</p>
       </div>
       {isLocked ? (
-        <button type="button" disabled>Закрыто</button>
+        <button type="button" disabled>Откроется позже</button>
       ) : (
         <Link to={`/learn/${module.slug}/${lesson.slug}`}>Открыть урок</Link>
       )}
@@ -240,7 +290,6 @@ export function LessonPage() {
   const [lesson, setLesson] = useState<LessonDetails | null>(null);
   const [lessonError, setLessonError] = useState("");
   const [isCompleting, setIsCompleting] = useState(false);
-  const [materialError, setMaterialError] = useState("");
 
   const curriculumLesson = useMemo(() => {
     const module = curriculum?.modules.find((item) => item.slug === moduleSlug);
@@ -276,17 +325,6 @@ export function LessonPage() {
     }
   };
 
-  const handleDownload = async (materialId: string) => {
-    setMaterialError("");
-
-    try {
-      const response = await api.downloadMaterial(materialId);
-      window.open(response.url, "_blank", "noopener,noreferrer");
-    } catch {
-      setMaterialError("Хранилище материалов еще не настроено или ссылка недоступна.");
-    }
-  };
-
   if (isLoading) {
     return <LearnLayout><div className="learn-loading">Открываем урок...</div></LearnLayout>;
   }
@@ -312,7 +350,7 @@ export function LessonPage() {
           </article>
 
           <aside className="lesson-side">
-            <SectionEyebrow>МОДУЛЬ {lesson.module.number}</SectionEyebrow>
+            <SectionEyebrow>МОДУЛЬ {lesson.module.number} / УРОК {lesson.number}</SectionEyebrow>
             <h1>{lesson.title}</h1>
             <p>{lesson.description}</p>
             <div className="lesson-actions">
@@ -321,20 +359,6 @@ export function LessonPage() {
               </GlowButton>
             </div>
           </aside>
-        </section>
-
-        <section className="lesson-materials">
-          <h2>Материалы урока</h2>
-          {materialError ? <p className="learn-error-inline">{materialError}</p> : null}
-          <div>
-            {lesson.materials.map((material) => (
-              <button key={material.id} type="button" onClick={() => void handleDownload(material.id)}>
-                <Download aria-hidden="true" />
-                <span>{material.title}</span>
-                <small>{material.type}</small>
-              </button>
-            ))}
-          </div>
         </section>
       </main>
     </LearnLayout>

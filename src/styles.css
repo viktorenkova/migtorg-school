@@ -8617,11 +8617,10 @@ section[id] {
 
 .learn-progress-card,
 .learn-module-card,
-.learn-module-detail article,
 .learn-lesson-row,
 .lesson-video-card,
 .lesson-side,
-.lesson-materials {
+.module-materials {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
   background:
@@ -8725,8 +8724,7 @@ section[id] {
 
 .learn-module-card h2,
 .learn-lesson-row h2,
-.lesson-materials h2,
-.learn-module-detail article h2 {
+.module-materials h2 {
   margin: 20px 0 0;
   color: #fff;
   font-size: 24px;
@@ -8735,8 +8733,7 @@ section[id] {
 }
 
 .learn-module-card p,
-.learn-lesson-row p,
-.learn-module-detail article p {
+.learn-lesson-row p {
   margin: 14px 0 0;
   color: rgba(248, 250, 252, 0.68);
   line-height: 1.5;
@@ -8814,26 +8811,29 @@ section[id] {
 }
 
 .learn-module-detail {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 420px;
-  gap: 34px;
-  align-items: start;
+  max-width: 1120px;
 }
 
-.learn-module-detail article {
-  padding: 28px;
+.learn-module-detail p {
+  max-width: 1080px;
 }
 
-.learn-module-detail article > svg {
-  width: 46px;
-  height: 46px;
-  color: var(--migtorg-green);
+.learn-module-section {
+  margin-top: 42px;
+}
+
+.learn-module-section > h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1.16;
 }
 
 .learn-lesson-list {
   display: grid;
   gap: 16px;
-  margin-top: 34px;
+  margin-top: 22px;
 }
 
 .learn-lesson-row {
@@ -8864,6 +8864,19 @@ section[id] {
 .learn-lesson-icon svg {
   width: 28px;
   height: 28px;
+}
+
+.learn-lesson-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.learn-lesson-meta > span:first-child {
+  color: var(--migtorg-red);
+  font-size: 12px;
+  font-weight: 900;
 }
 
 .lesson-layout {
@@ -8920,23 +8933,29 @@ section[id] {
   min-height: 62px;
 }
 
-.lesson-materials {
-  margin-top: 28px;
+.module-materials {
+  margin-top: 34px;
   padding: 26px;
 }
 
-.lesson-materials h2 {
+.module-materials h2 {
   margin-top: 0;
 }
 
-.lesson-materials > div {
+.module-materials > p {
+  margin: 12px 0 0;
+  color: rgba(248, 250, 252, 0.68);
+  line-height: 1.5;
+}
+
+.module-materials > div {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
   margin-top: 18px;
 }
 
-.lesson-materials button {
+.module-materials button {
   display: grid;
   grid-template-columns: 24px minmax(0, 1fr) auto;
   gap: 12px;
@@ -8950,22 +8969,27 @@ section[id] {
   text-align: left;
 }
 
-.lesson-materials button svg {
+.module-materials button svg {
   width: 20px;
   height: 20px;
   color: var(--migtorg-red);
 }
 
-.lesson-materials button span {
+.module-materials button span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.lesson-materials button small {
+.module-materials button small {
   color: rgba(248, 250, 252, 0.52);
   font-weight: 900;
   text-transform: uppercase;
+}
+
+.module-materials button:disabled {
+  opacity: 0.48;
+  cursor: not-allowed;
 }
 
 .learn-loading,
@@ -8984,7 +9008,6 @@ section[id] {
 @media (max-width: 1100px) {
   .auth-card,
   .learn-hero,
-  .learn-module-detail,
   .lesson-layout {
     grid-template-columns: 1fr;
   }
@@ -9085,7 +9108,9 @@ section[id] {
   }
 
   .learn-header {
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 12px 10px;
     border-radius: 18px;
     padding: 12px;
   }
@@ -9118,9 +9143,25 @@ section[id] {
   }
 
   .learn-header nav {
-    order: 3;
+    grid-column: 1 / -1;
+    grid-row: 2;
     width: 100%;
     justify-content: space-between;
+  }
+
+  .learn-user {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    gap: 8px;
+  }
+
+  .learn-user span {
+    display: none;
+  }
+
+  .learn-user button {
+    flex: 0 0 42px;
   }
 
   .learn-main {
@@ -9129,7 +9170,7 @@ section[id] {
   }
 
   .learn-module-grid,
-  .lesson-materials > div {
+  .module-materials > div {
     grid-template-columns: 1fr;
   }
 
@@ -9150,7 +9191,7 @@ section[id] {
   }
 
   .lesson-side,
-  .lesson-materials {
+  .module-materials {
     padding: 20px 18px;
   }
 

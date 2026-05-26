@@ -34,11 +34,17 @@ export type LessonStatus = "locked" | "available" | "completed";
 export type CurriculumLesson = {
   id: string;
   slug: string;
+  number: string;
   title: string;
   description: string;
   duration: number | null;
   status: LessonStatus;
-  materialsCount: number;
+};
+
+export type CurriculumMaterial = {
+  id: string;
+  title: string;
+  type: string;
 };
 
 export type CurriculumModule = {
@@ -51,6 +57,7 @@ export type CurriculumModule = {
   result: string;
   status: LessonStatus;
   lessons: CurriculumLesson[];
+  materials: CurriculumMaterial[];
 };
 
 export type Curriculum = {
@@ -65,6 +72,7 @@ export type Curriculum = {
 export type LessonDetails = {
   id: string;
   slug: string;
+  number: string;
   title: string;
   description: string;
   duration: number | null;
@@ -76,11 +84,6 @@ export type LessonDetails = {
     number: string;
     title: string;
   };
-  materials: {
-    id: string;
-    title: string;
-    type: string;
-  }[];
 };
 
 export type AuthPayload = {
@@ -97,7 +100,7 @@ async function request<T>(path: string, options: RequestInit = {}) {
   const response = await fetch(`${API_BASE}${path}`, {
     credentials: "include",
     headers: {
-      "Content-Type": "application/json",
+      ...(options.body ? { "Content-Type": "application/json" } : {}),
       ...options.headers
     },
     ...options

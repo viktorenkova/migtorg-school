@@ -1,11 +1,11 @@
 export const moduleRouteSlugs = [
   "market-basics",
+  "platform-overview",
+  "partner-specialization",
   "lot-selection",
-  "damage-evaluation",
-  "max-bid-economics",
-  "auction-bidding",
-  "lot-transfer",
-  "inspection-and-legal-check"
+  "bid-economics",
+  "auction-analytics",
+  "deal-completion"
 ] as const;
 
 export function getModuleSlugByIndex(index: number) {

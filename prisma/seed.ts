@@ -1,18 +1,9 @@
 import { PrismaClient } from "@prisma/client";
-import { curriculumModules } from "../src/data.js";
+import { moduleRouteSlugs } from "../src/course.js";
+import { learningCurriculumModules } from "../src/learningCurriculum.js";
 import { COURSE_SLUG } from "../server/curriculum.js";
 
 const prisma = new PrismaClient();
-
-const moduleSlugs = [
-  "market-basics",
-  "lot-selection",
-  "damage-evaluation",
-  "max-bid-economics",
-  "auction-bidding",
-  "lot-transfer",
-  "inspection-and-legal-check"
-];
 
 function materialType(title: string) {
   const lower = title.toLowerCase();
@@ -40,6 +31,10 @@ function slugPart(value: string, index: number) {
     .slice(0, 48) || `material-${index + 1}`;
 }
 
+function materialExtension(title: string) {
+  return materialType(title) === "video" ? "mp4" : "pdf";
+}
+
 async function main() {
   const course = await prisma.course.upsert({
     where: { slug: COURSE_SLUG },
@@ -56,9 +51,9 @@ async function main() {
 
   await prisma.module.deleteMany({ where: { courseId: course.id } });
 
-  for (const [index, module] of curriculumModules.entries()) {
-    const moduleSlug = moduleSlugs[index] ?? `module-${index + 1}`;
-    const createdModule = await prisma.module.create({
+  for (const [index, module] of learningCurriculumModules.entries()) {
+    const moduleSlug = moduleRouteSlugs[index] ?? `module-${index + 1}`;
+    await prisma.module.create({
       data: {
         courseId: course.id,
         position: index + 1,
@@ -68,28 +63,24 @@ async function main() {
         description: module.description,
         result: module.result,
         lessons: {
-          create: {
-            position: 1,
-            slug: "lesson-1",
-            title: module.title,
-            description: module.description,
-            duration: 18 + index * 3,
-            videoObjectKey: `videos/${moduleSlug}/lesson-1.mp4`
-          }
+          create: module.lessons.map((lesson, lessonIndex) => ({
+            position: lessonIndex + 1,
+            slug: `lesson-${lessonIndex + 1}`,
+            title: lesson.title,
+            description: lesson.description,
+            duration: null,
+            videoObjectKey: `videos/${moduleSlug}/lesson-${lessonIndex + 1}.mp4`
+          }))
+        },
+        materials: {
+          create: module.materials.map((material, materialIndex) => ({
+            position: materialIndex + 1,
+            title: material,
+            type: materialType(material),
+            objectKey: `materials/${moduleSlug}/${slugPart(material, materialIndex)}.${materialExtension(material)}`
+          }))
         }
-      },
-      include: { lessons: true }
-    });
-
-    const lesson = createdModule.lessons[0];
-
-    await prisma.material.createMany({
-      data: module.materials.map((material, materialIndex) => ({
-        lessonId: lesson.id,
-        title: material,
-        type: materialType(material),
-        objectKey: `materials/${moduleSlug}/${slugPart(material, materialIndex)}.pdf`
-      }))
+      }
     });
   }
 }

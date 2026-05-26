@@ -50,6 +50,7 @@ model Module {
   updatedAt   DateTime @updatedAt
   course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   lessons     Lesson[]
+  materials   Material[]
 
   @@unique([courseId, position])
 }
@@ -66,7 +67,6 @@ model Lesson {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   module         Module           @relation(fields: [moduleId], references: [id], onDelete: Cascade)
-  materials      Material[]
   progress       LessonProgress[]
 
   @@unique([moduleId, position])
@@ -75,12 +75,15 @@ model Lesson {
 
 model Material {
   id        String   @id @default(cuid())
-  lessonId  String
+  moduleId  String
+  position  Int
   title     String
   type      String
   objectKey String
   createdAt DateTime @default(now())
-  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  module    Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  @@unique([moduleId, position])
 }
 
 model Enrollment {

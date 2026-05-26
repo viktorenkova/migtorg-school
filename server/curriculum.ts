@@ -5,7 +5,7 @@ export const COURSE_SLUG = "migtorg-pro-free-school";
 
 export type LessonStatus = "locked" | "available" | "completed";
 
-type LessonWithMaterials = Awaited<ReturnType<typeof getCourseLessons>>[number];
+type CourseLesson = Awaited<ReturnType<typeof getCourseLessons>>[number];
 
 async function getCourseLessons(prisma: PrismaClient) {
   const course = await prisma.course.findUnique({
@@ -15,8 +15,7 @@ async function getCourseLessons(prisma: PrismaClient) {
         orderBy: { position: "asc" },
         include: {
           lessons: {
-            orderBy: { position: "asc" },
-            include: { materials: true }
+            orderBy: { position: "asc" }
           }
         }
       }
@@ -95,9 +94,9 @@ export async function getCurriculum(prisma: PrismaClient, userId: string) {
         orderBy: { position: "asc" },
         include: {
           lessons: {
-            orderBy: { position: "asc" },
-            include: { materials: true }
-          }
+            orderBy: { position: "asc" }
+          },
+          materials: { orderBy: { position: "asc" } }
         }
       }
     }
@@ -120,11 +119,11 @@ export async function getCurriculum(prisma: PrismaClient, userId: string) {
       const lessons = module.lessons.map((lesson) => ({
         id: lesson.id,
         slug: lesson.slug,
+        number: `${module.position}.${lesson.position}`,
         title: lesson.title,
         description: lesson.description,
         duration: lesson.duration,
-        status: statuses.get(lesson.id) ?? "locked",
-        materialsCount: lesson.materials.length
+        status: statuses.get(lesson.id) ?? "locked"
       }));
       const moduleStatus = lessons.every((lesson) => lesson.status === "completed")
         ? "completed"
@@ -141,7 +140,12 @@ export async function getCurriculum(prisma: PrismaClient, userId: string) {
         description: module.description,
         result: module.result,
         status: moduleStatus,
-        lessons
+        lessons,
+        materials: module.materials.map((material) => ({
+          id: material.id,
+          title: material.title,
+          type: material.type
+        }))
       };
     })
   };
@@ -154,6 +158,14 @@ export async function canAccessLesson(prisma: PrismaClient, userId: string, less
   return status === "available" || status === "completed";
 }
 
+export async function canAccessModule(prisma: PrismaClient, userId: string, moduleId: string) {
+  const { lessons, statuses } = await getLessonAccessMap(prisma, userId);
+
+  return lessons.some(
+    (lesson) => lesson.module.id === moduleId && (statuses.get(lesson.id) === "available" || statuses.get(lesson.id) === "completed")
+  );
+}
+
 export async function getLessonPayload(prisma: PrismaClient, userId: string, lessonId: string) {
   const allowed = await canAccessLesson(prisma, userId, lessonId);
 
@@ -164,8 +176,7 @@ export async function getLessonPayload(prisma: PrismaClient, userId: string, les
   const lesson = await prisma.lesson.findUnique({
     where: { id: lessonId },
     include: {
-      module: true,
-      materials: true
+      module: true
     }
   });
 
@@ -178,6 +189,7 @@ export async function getLessonPayload(prisma: PrismaClient, userId: string, les
   return {
     id: lesson.id,
     slug: lesson.slug,
+    number: `${lesson.module.position}.${lesson.position}`,
     title: lesson.title,
     description: lesson.description,
     duration: lesson.duration,
@@ -188,16 +200,11 @@ export async function getLessonPayload(prisma: PrismaClient, userId: string, les
       slug: lesson.module.slug,
       number: String(lesson.module.position).padStart(2, "0"),
       title: lesson.module.title
-    },
-    materials: lesson.materials.map((material) => ({
-      id: material.id,
-      title: material.title,
-      type: material.type
-    }))
+    }
   };
 }
 
-export function getNextLesson(lessons: LessonWithMaterials[], lessonId: string) {
+export function getNextLesson(lessons: CourseLesson[], lessonId: string) {
   const index = lessons.findIndex((lesson) => lesson.id === lessonId);
 
   return index >= 0 ? lessons[index + 1] ?? null : null;

@@ -7,6 +7,7 @@ import { z, ZodError } from "zod";
 import { clearSessionCookie, requireUser, setSessionCookie } from "./auth.js";
 import {
   canAccessLesson,
+  canAccessModule,
   COURSE_SLUG,
   ensureEnrollment,
   getCurriculum,
@@ -264,10 +265,9 @@ export function buildApp() {
     const { materialId } = z.object({ materialId: z.string().min(1) }).parse(request.params);
     const material = await prisma.material.findUnique({
       where: { id: materialId },
-      include: { lesson: true }
     });
 
-    if (!material || !(await canAccessLesson(prisma, user.id, material.lessonId))) {
+    if (!material || !(await canAccessModule(prisma, user.id, material.moduleId))) {
       reply.code(403).send({ error: "material_locked" });
       return;
     }
